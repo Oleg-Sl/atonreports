@@ -105,7 +105,7 @@ TIME_ZONE = 'Asia/Novosibirsk'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'atonreport/static/'
+STATIC_URL = 'aton/static/'
 STATIC_ROOT = '/home/devuser/projects/atonreports/aton/static'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
