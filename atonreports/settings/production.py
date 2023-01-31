@@ -106,8 +106,8 @@ TIME_ZONE = 'Asia/Novosibirsk'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'aton/static/'
-STATIC_ROOT = '/home/oleg/PycharmProjects/aton/aton/atonreports/aton/static/'
+STATIC_URL = 'atonreport/static/'
+STATIC_ROOT = '/home/devuser/projects/atonreports/aton/static'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
