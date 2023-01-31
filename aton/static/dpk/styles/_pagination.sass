@@ -1,0 +1,73 @@
+// Высота кнопки "Получить"
+$height-button-go-over-page: 27px
+
+// Цвет кнопки 
+$color-button: #6c7ae0
+// Цвет кнопки при наведении
+$color-button-hover: #6470c7
+
+    
+.settings-param-requests
+    display: grid
+    grid-template-columns: 1fr 1fr
+    margin: 0 20px 0 20px
+
+    @media (max-width: 768px)
+        grid-template-columns: 1fr
+
+    .page-size-requests
+        display: flex
+        align-items: center
+        margin: 15px 0 15px 0
+        p
+            display: inline-block
+            margin: 0 15px 0 0
+        div
+            width: 100px
+    
+    .number-page-requests
+        display: flex
+        margin: 5px 0 5px 0
+        align-items: center
+        p
+            display: inline-block
+            margin: 0 15px 0 0
+        div
+            width: 75px
+            margin-right: 15px
+
+            input
+                width: 75px
+                height: 24px
+                padding: 1px
+                font-size: 14px
+
+        button
+            display: inline-block
+            padding: 1px 10px 1px 10px
+            height: $height-button-go-over-page
+            background-color: $color-button
+            border-color: $color-button
+        
+        // button
+        //     background-color: #6c7ae0
+        //     border-color: #6c7ae0
+    
+    .my-paginator-table
+        margin: 5px 0 5px 0
+        ul
+            margin: 0
+            @media (max-width: 768px)
+                justify-content: left  !important
+            li 
+                a
+                    color: $color-button
+                    height: 27px
+                    padding-top: 0px
+                    padding: 0 8px 0 8px
+                    
+            .active a
+                background-color: $color-button
+                border-color: $color-button
+                color: #ffffff
+

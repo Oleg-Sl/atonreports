@@ -1,0 +1,687 @@
+// Ширина экрана, меньше которой поля фильтра выстраиваются в один столбец
+$display-width-filter-fields-rearranged: 768px
+
+// Высоты всех элементов фильтра
+$height-filter-container-element: 20px
+// Высота кнопки "Получить"
+$height-filter-button-get-data: 27px
+
+$background-color-window: #ffffff           // фон окна
+$background-color-window-cart: #f6faff      // фон карточки компании
+
+// Цвет выбранных элементов, находящихся в фильтре
+$background-color-element-input: #e7f1ff
+// Параметры border выбранных элементов, находящихся в фильтре
+$border-element-input: 1px solid #dddddd
+
+$height-selected-item: 20px
+
+// Высота кнопки "Получить"
+$height-button-go-over-page: 27px
+
+// Цвет кнопки 
+$color-button: #6c7ae0
+// Цвет кнопки при наведении
+$color-button-hover: #6470c7
+
+
+.my-class-accordion-button
+    padding: 5px 20px 5px 20px
+
+.my-class-accordion-body
+    padding: 5px 15px 5px 15px
+
+    
+.filtration-unit
+    display: grid
+    grid-template-columns: 1fr 1fr
+
+    .filter
+        display: flex
+        flex-direction: column
+        margin: 0 10px 0 10px
+        
+        .filter-label
+            display: inline-block
+            height: 25px
+            width: 100%
+            overflow: hidden
+            font: "Helvetica Neue",Arial,Helvetica,sans-serif
+        
+        .filter-container
+            display: grid
+            grid-template-columns: 1fr 25px
+            column-gap: 10px
+            width: 100%
+
+            .filter-field
+                display: flex
+                flex-wrap: wrap
+                gap: 2px
+                padding: 4px
+                width: 100%
+                height: fit-content
+                max-height: 150px
+                overflow-y: auto
+                
+                background-color: #fff
+                border: 1px solid #ced4da
+                border-radius: .25rem
+                cursor: default
+                position: relative
+        
+                span
+                    flex-grow: 1
+                    flex-shrink: 0
+                    flex-basis: 0px
+                    display: inline-block
+                    padding: 0 0 0 5px
+                    min-width: 40px
+            
+                    .filter-input
+                        width: 100%
+                        height: 20px
+                        border: 0
+                        font-size: 14px
+                        float: left
+                
+                    .filter-input:focus-visible
+                        border: 0
+                        outline: 0
+
+                .filter-item
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
+                    width: fit-content
+                    padding: 0 5px
+                    border-radius: 2px
+                    background: $background-color-element-input
+                    border: $border-element-input
+                    height: $height-selected-item
+
+                    .filter-item-name
+                        display: inline-block
+                        vertical-align: middle
+                        text-align: center
+                        max-width: 160px
+                        overflow: hidden
+                        margin-right: 10px
+                        color: #212529
+                        font-size: 14px
+                        text-overflow: ellipsis     // окончание строки точками ...
+                        white-space: nowrap         // отменить перенос строки
+
+                    .filter-item-delete
+                        display: flex
+                        button
+                            height: calc( $height-selected-item - 4px - 4px)
+
+            .filter-clear
+                i
+                    color: #9d9e9e
+
+                i:hover
+                    color: #353535
+                    
+        .filter-window-data, .filter-window
+            // position: relative
+            position: absolute
+            top: 14px
+            width: calc( 100% - 25px - 10px )
+            background: $background-color-window
+            border: 1px solid #00000020
+            border-radius: .25rem
+            z-index: 1000
+
+            &:before
+                content: ""
+                display: inline-block
+                position: absolute
+                left: 40px
+                top: -10px
+                width: 20px
+                height: 20px
+                transform: rotate(45deg)
+                background: $background-color-window
+                border-left: 1px solid #e9e7e7
+                border-top: 1px solid #e9e7e7
+            
+            .filter-window-data-close, .filter-window-close
+                position: absolute
+                right: 16px
+                top: 2px
+                z-index: 99999
+    
+            .filter-window-data-content
+                display: grid
+                grid-template-columns: 1fr 1fr
+                grid-gap: 5px
+                grid-auto-rows: max-content
+                align-items: start
+                max-height: 350px
+                min-height: 150px
+                padding: 10px
+                overflow: auto
+
+                // @media (max-width: 1200px)
+                //         grid-template-columns: 1fr 1fr
+                @media (max-width: 768px)
+                        grid-template-columns: 1fr
+
+                .filter-window-cart
+                    display: grid
+                    grid-template-columns: 1fr
+                    padding: 0 5px 0 5px
+                    height: 50px
+                    background-color: $background-color-window-cart
+                    border: 1px solid #dddddd52
+                    border-radius: 4px
+                    cursor: pointer
+                    z-index: 1001
+            
+                    .filter-window-cart-name
+                        text-overflow: ellipsis     // если контент не помещается в блок - завершение "..."
+                        white-space: nowrap         // не переносить на следующую строку
+                        overflow: hidden
+                        height: 20px
+                        max-width: 100%
+                        font: bold 13px/17px "Helvetica Neue",Helvetica,Arial,sans-serif
+                        color: #0b66c3
+
+                    .filter-window-cart-inn
+                        overflow: hidden
+                        height: 15px
+                        max-width: 100%
+                        font: 12px/normal Arial,Helvetica,sans-serif
+                        color: #b2b2b2
+
+                    .filter-window-cart-id-bx
+                        overflow: hidden
+                        height: 15px
+                        max-width: 100%
+                        font: 12px/normal Arial,Helvetica,sans-serif
+                        color: #b2b2b2
+
+            .filter-window-data-content-one-col, .filter-window-content-one-col
+                grid-template-columns: 1fr !important
+                max-height: 350px
+                min-height: 150px
+                overflow: auto
+                padding: 0
+                
+                ul
+                    padding: 0
+
+                    li
+                        padding: 2px 10px 2px 10px
+                        background: none
+                        border: none
+                        border-bottom: 1px solid #e9e7e7
+                        cursor: default
+
+                    li:hover
+                        background: #f6f6f6
+
+
+.filter-range
+    margin: 0 10px 0 10px
+    
+    .filter-field
+        display: grid
+        grid-template-columns: 1fr 15px 1fr
+        margin-right: 35px
+        span
+            flex-grow: 1
+            flex-shrink: 0
+            flex-basis: 0px
+            display: inline-block
+            padding: 0 0 0 5px
+            min-width: 40px
+        
+            .filter-field-input
+                width: 100%
+                height: $height-selected-item
+                border: 0
+                font-size: 14px
+                float: left
+            
+            .filter-field-input:focus-visible
+                border: 0
+                outline: 0
+        
+        .filter-field-min, .filter-field-max
+            display: flex
+            flex-wrap: wrap 
+            height: fit-content
+            padding: 2px
+            background-color: #fff
+            background-clip: padding-box
+            border: 1px solid #ced4da
+            border-radius: .25rem
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out
+            cursor: pointer
+            
+        .filter-field-separator
+            width: 100%
+            text-align: center
+            line-height: $height-selected-item
+        
+// Компаний на странице, допустимая ДПК, кнопка получить
+.filter-countpage-dlk-buttonget
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    margin: 0 10px 0 10px
+
+    .page-size-requests
+        display: flex
+        flex-direction: column
+        width: 170px
+        
+        label
+            display: inline-block
+            height: 25px
+            width: 100%
+            overflow: hidden
+            font: "Helvetica Neue",Arial,Helvetica,sans-serif
+            opacity: .7
+
+        div
+            display: flex
+            flex-wrap: wrap
+            height: fit-content
+            padding: 0px 20px 0 2px
+            cursor: pointer
+            position: relative
+
+            input
+                width: 100%
+                height: 24px
+                padding: 1px
+                text-align:right
+                font-size: 14px
+
+    .filter-date-start
+        display: flex
+        flex-direction: column
+        width: 150px
+        
+        label
+            display: inline-block
+            height: 25px
+            width: 100%
+            overflow: hidden
+            font: "Helvetica Neue",Arial,Helvetica,sans-serif
+            opacity: .7
+
+        div
+            display: flex
+            flex-wrap: wrap
+            height: fit-content
+            padding: 0px 0px 0 2px
+            cursor: pointer
+            position: relative
+
+            input
+                width: 100%
+                height: 24px
+                padding: 1px
+                font-size: 14px
+    
+    .filter-button-get-data
+        display: flex
+        flex-direction: column
+        width: fit-content
+        margin-right: 20px
+        
+        label
+            display: inline-block
+            height: 22px
+            width: fit-content
+            overflow: hidden
+            font: "Helvetica Neue",Arial,Helvetica,sans-serif
+            opacity: .7
+
+        div
+            display: flex
+            flex-wrap: wrap
+            height: fit-content
+            padding: 0px 0px 0 2px
+            // cursor: pointer
+            position: relative
+
+            // кнопка получить фильтрованые данные
+            button
+                display: inline-block
+                padding: 1px 10px 1px 10px
+                height: $height-filter-button-get-data
+                background-color: $color-button
+                border-color: $color-button
+
+                &:hover
+                    background-color: $color-button-hover
+                    border-color: $color-button-hover
+
+
+
+
+.window-user-search
+    position: absolute
+    top: 100px
+    left: 500px
+    height: 400px
+    width: 800px
+    border: 1px solid #e1d6d6 
+    background: #ffffff
+    z-index: 101
+
+    .window-searchcontact-container
+        position: relative
+        height: 100%
+        width: 100%
+        background: #ffffff
+        z-index: 101
+
+        .filter-window-data-close
+            position: absolute
+            right: 4px
+            top: 0px
+            z-index: 99999
+
+    .window-searchcontact-container .btn-search-responsible, .window-searchcontact-container .btn-search-department, .window-searchcontact-container .btn-search-invite
+        position: absolute
+        left: -37px
+        top: 25px
+        height: 40px
+        width: 120px
+        background-color: #2fc6f6
+        border-radius: 20px 0 0 20px
+        transition: left 750ms
+        z-index: -99
+        opacity: .99
+        display: grid
+        grid-template-columns: 40px 1fr
+        cursor: pointer
+
+        &:hover
+            left: -120px
+
+        .btn-search-logo
+            margin: 0 auto
+
+        .btn-search-logo i
+            line-height: 40px
+            color: #ffffff
+        
+        .btn-search-desc
+            line-height: 40px
+            color: #ffffff
+            text-transform: uppercase
+            font-size: 14px
+            font-weight: 500
+
+    // .window-searchcontact-container .btn-search-inactive, .window-searchcontact-container .btn-search-department
+    .window-searchcontact-container .btn-search-inactive
+        background:#e4ebed
+        .btn-search-logo i, .btn-search-desc
+            color: #707782
+
+    .window-searchcontact-container .btn-search-department
+        top: 70px
+    
+    .window-searchcontact-container .btn-search-invite
+        top: 115px
+
+    // 
+    .window-searchcontact-container .container-data
+        height: 100%
+        width: 100%
+        background: #ffffff
+        display: flex
+        flex-direction: column
+
+    // поле с выбранным пользователем и поиском
+    .window-searchcontact-container .container-data .container-data-block
+        border-bottom: 1px solid #525c691a
+
+        .container-data-head
+            margin: 15px
+            padding-bottom: 15px
+            border-bottom: 1px solid #525c691a
+            background: #fff
+            border: 1px solid #c6cdd3
+            border-radius: 2px
+            padding: 2px 3px
+            overflow: hidden
+
+        .container-data-head .container-data-head-selector
+            display: flex
+            justify-content: space-between
+            height: 100%
+            width: 100%
+            min-height: 33px
+            overflow-x: hidden
+        
+        .user-item
+            display: grid
+            grid-template-columns: 1fr 25px
+            column-gap: 5px
+            max-width: 200px  
+            background-color: #bcedfc
+            color: #1066bb !important
+            margin: 2px
+
+        .user-item .user-item-content
+            display: grid
+            grid-template-columns: 30px 1fr
+            cursor: pointer
+
+        .user-item .user-item-content .user-item-avatar
+            background-image: url("./photo/default-user.svg")
+            background-repeat: no-repeat
+            background-size: cover
+            height: 21px
+            width: 21px
+            margin: auto
+            border-radius: 50%
+        
+        .user-item .user-item-content .user-item-title
+            margin: auto 0
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+            font: bold 13px/29px "Helvetica Neue",Arial,Helvetica,sans-serif
+
+        .user-item .user-item-remove
+            margin: auto
+            > div
+                width: fit-content
+                height: fit-content
+            button
+                font-size: 10px
+
+        .user-item-guest 
+            background-color: #ffec91
+            .user-item-content .user-item-title
+                color: #a26b00
+            .user-item-content .user-item-avatar
+                background-image: url("./photo/email-user.svg")
+        
+        span
+            flex-grow: 1
+            flex-shrink: 0
+            flex-basis: 0px
+            display: inline-block
+            // padding: 0 0 0 5px
+            min-width: 40px
+
+        input
+                border: 0
+                outline: 0
+                background: #fff
+                color: #555
+                font-size: 13px
+                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
+                display: inline-block
+                vertical-align: middle
+                position: relative
+                margin: 2px
+                height: 29px
+                box-shadow: none
+
+    // поле поиска пользователей
+    .container-data-user
+        display: flex
+        flex-direction: column
+
+    // поиск по отделам
+    .container-data-depart, .container-data-user
+        padding: 15px 15px 0 15px
+        height: 100%
+        overflow: auto
+        overflow-y: scroll
+        .ui-selector-item
+            display: grid
+            grid-template-columns: 28px 1fr 45px
+            min-height: 44px
+            cursor: pointer
+            align-items: center
+        .ui-selector-item:hover
+        .ui-selector-item .ui-selector-item-avatar
+            display: flex
+            justify-content: center
+            align-content: center
+            width: 28px
+            height: 28px
+            border-radius: 50%
+            background-size: contain
+            background-repeat: no-repeat
+            background-position: center
+            overflow: hidden
+            background: #55d0e0
+            i   
+                display: inline-block
+                color: #ffffff
+        .ui-selector-item-titles
+            display: flex
+            flex-direction: column
+            flex: 1
+            position: relative
+            margin-left: 10px
+        .ui-selector-item-titles .ui-selector-item-supertitle
+            font-size: 9px
+            font-family: "OpenSans-Bold","Helvetica Neue",Helvetica,Arial,sans-serif
+            text-transform: uppercase
+            color: #b1b6bb
+            white-space: nowrap
+            text-overflow: ellipsis
+            overflow: hidden
+        .ui-selector-item-titles .ui-selector-item-title-box
+            display: flex
+            overflow: hidden
+            .ui-selector-item-title-box-title
+                font-size: 14px
+                color: #535c69
+                white-space: nowrap
+                text-overflow: ellipsis
+                overflow: hidden
+            .ui-selector-item-title-box-status
+                display: flex
+                overflow: hidden
+                span
+                    display: none
+                    font-size: 9px
+                    background-color: rgba(47,198,246,0.17)
+                    padding: 4px 8px
+                    margin-left: 7px
+                    border-radius: 10px
+                    color: #23a2ca
+                    overflow: hidden
+                    text-overflow: ellipsis
+                    color: rgb(35, 162, 202)
+                    background-color: rgb(220, 246, 254)
+            .ui-selector-item-title-box-workposition
+                overflow: hidden
+                white-space: nowrap
+                text-overflow: ellipsis
+                font-size: 13px
+                color: #535c6980
+                margin-left: 7px
+        .ui-selector-item-user-link
+            position: absolute
+            top: 0
+            right: 0
+            color: #9b9b9b
+            border-bottom: 1px dashed rgba(155,155,155,0.4)
+            font-size: 13px
+            white-space: nowrap
+        .ui-selector-item-indicator
+            display: flex
+            justify-content: center
+            align-items: center
+            transition: transform 0.200s
+            > div
+                height: fit-content
+        .ui-selector-item-children
+            overflow: hidden
+            height: 0
+            margin-left: 16px
+            padding-left: 16px
+            border-left: 1px solid #ebecee
+        .ui-selector-item-box-open > .ui-selector-item > .ui-selector-item-indicator
+            transform: rotate(180deg)
+        .ui-selector-item-children-heightnull
+            transform: scaleY(1)
+            opacity: 1
+        .ui-selector-item-box .ui-selector-item-guest
+            .ui-selector-item-title-box-status span
+                background-color: #ffec91
+                color: #a26b00
+        .ui-selector-item:hover
+            background: #f7f8f8
+        &::-webkit-scrollbar
+            width: 5px
+            background-color: #ffffff
+        &::-webkit-scrollbar-thumb
+            border-radius: 5px
+            background-color: #9a9b9b
+        &::-webkit-scrollbar-track
+            border-radius: 5px
+            background-color: #f9f9fd
+
+    // форма приглашения пользователя
+    .window-searchcontact-container .container-data .container-data-invite
+        width: 100%
+        .container-data-invite-header
+            font-family: "OpenSans-Regular","Helvetica Neue",Helvetica,Arial,sans-serif
+            font-size: 18px
+            color: #333
+            letter-spacing: 0
+            margin: 5px 15px
+        .container-data-invite-form
+            margin: 5px 15px
+            div
+                width: 100%
+                margin-bottom: 10px
+            div > label
+                margin-bottom: 2px
+        .container-data-invite-btn
+            height: 45px
+            box-shadow: 0 -2px 4px 0 #c6c9cb
+    
+
+    // аватар пользователя
+    .ui-selector-item-useravatar
+        background-image: url("./photo/default-user.svg")
+        background-repeat: no-repeat
+        background-size: cover
+        width: 28px
+        height: 28px
+        margin: auto
+        border-radius: 50%
+
+
+
+
+

@@ -1,0 +1,340 @@
+// Высоты строк
+$height-row-header-company-data: 65px                   // высота заголовка таблицы
+$height-row-header-company-direction-data: 40px         // высота строки с данными направления заголовка таблицы
+$height-row-header-company-direction: $height-row-header-company-data - $height-row-header-company-direction-data   // высота строки с названием направления заголовка таблицы
+$height-row-tbody: 40px                                 // высота строк с данными (тело таблицы)
+
+// Шрифты в строках
+$font-header-data: normal 16px/20px Arial,"Helvetica Neue",Helvetica,sans-serif             // шрифт описания в заголовке таблицы
+$font-header-direction-data: normal 13px/17px Arial,"Helvetica Neue",Helvetica,sans-serif   // шрифт описания полей направлений в заголовке таблицы
+$font-tbody: normal 14px/17px Arial,"Helvetica Neue",Helvetica,sans-serif                   // шрифт в теле таблицы
+$font-color-header-data: #ffffff                                                          // цвет шрифта в заголовке таблицы
+$font-color-tbody: #616060                                                                // цвет шрифта в теле таблицы
+
+// Цвет строк
+$background-header: #6c7ae0                         // цвет фона заголовка таблицы #0d6efd 
+$background-tbody-even: #f8f6ff                     // цвет четных строк таблицы
+$background-tbody-odd: #ffffff                      // цвет нечетных строк таблицы
+$background-cell-exceeding-max-date-communication: #ff9f9fc2 
+
+
+.my-table table tbody tr .cell-background-red
+    background-color: #e76767 !important
+
+@keyframes wipe-enter 
+    0%
+        transform: scale(0, .025)
+  
+    50% 
+        transform: scale(1, .025)
+  
+.container-date-communication
+    padding: 0
+
+// .my-table
+//     display: none
+
+table
+    transition: opacity 1.5s ease, transform 1.5s ease
+    overflow-x: auto
+    width: 100%
+    flex: 1
+    display: grid
+    // grid-template-columns: minmax(150px, auto) minmax(100px, auto) minmax(150px, auto) minmax(60px, auto) minmax(90px, auto) minmax(90px, auto) minmax(85px, auto) minmax(150px, auto) minmax(150px, auto)
+
+    // заголовоки: компания, ответственный, ИНН, сумма оплат компании, сумма успешных сделок компании
+    .header-th-data
+        height: $height-row-header-company-data
+        font: $font-header-data
+
+    // заголовоки: названия направления
+    .header-th-direction
+        height: $height-row-header-company-direction
+        font: $font-header-data
+
+    // заголовоки: данные направлений
+    .header-th-direction-data
+        height: $height-row-header-company-direction-data
+        font: $font-header-direction-data
+
+    .resize-handle 
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        background: black
+        opacity: 0
+        width: 5px
+        cursor: col-resize
+
+    .resize-handle:hover,
+    .header--being-resized .resize-handle 
+        opacity: 0.5
+    
+    th:hover .resize-handle 
+        opacity: 0.3
+
+    .sort-company-top, .sort-inn-top, .sort-responsible-top, .sort-opportunity-work-top, .sort-opportunity-sucсess-top, .sort-dpk-top
+        position: absolute
+        margin-bottom: 5px
+        top: 15%
+        right: 5px
+        cursor: pointer
+        z-index: 105
+        i
+            font-size: 20px
+
+    .sort-company-bottom, .sort-inn-bottom, .sort-responsible-bottom, .sort-opportunity-work-bottom, .sort-opportunity-sucсess-bottom, .sort-dpk-bottom
+        position: absolute
+        margin-top: 5px
+        right: 5px
+        bottom: 15%
+        cursor: pointer
+        z-index: 105
+        i
+            font-size: 20px
+
+     
+    thead
+        display: contents
+
+        tr
+            display: contents
+
+            th
+                display: flex
+                justify-content: center
+                align-items: center
+                position: relative
+                overflow: hidden
+                text-overflow: ellipsis
+                // white-space: nowrap
+                background-color: $background-header !important
+                text-align: center
+                vertical-align: middle !important
+                color: $font-color-header-data
+                z-index: 100
+                border: 1px solid #dee2e6 !important
+                overflow: hidden
+                text-overflow: ellipsis     // если контент не помещается в блок - завершение "..."
+                // text-overflow: ellipsis
+                // white-space: nowrap
+                // overflow: hidden
+
+                &.header-active-deal
+                    background: #e5e8ff !important
+
+                &.col-company
+                    z-index: 110
+            
+            .header-th-direction
+                // text-overflow: ellipsis
+                
+                // overflow: hidden
+                // text-overflow: ellipsis     // если контент не помещается в блок - завершение "..."
+                div
+                    text-overflow: ellipsis
+                    white-space: nowrap
+                    overflow: hidden
+                    max-width: 100%
+
+            // первая строка заголовка таблицы
+            &:nth-child(1)
+                th
+                    &:nth-child(1)
+                        z-index: 110
+                        grid-row: 1/3
+                        padding-right: 25px
+                    &:nth-child(2)
+                        grid-row: 1/3
+                        padding-right: 25px
+                    &:nth-child(3)
+                        grid-row: 1/3
+                        padding-right: 25px
+                    &:nth-child(4)
+                        grid-row: 1/3
+                        padding-right: 25px
+                    &:nth-child(5)
+                        grid-row: 1/3
+                        padding-right: 25px
+                    // &:nth-child(6)              // NEW
+                    //     grid-row: 1/3           // NEW
+                    //     padding-right: 25px     // NEW
+                    // &:nth-child(6)
+                    //     grid-row: 1/3
+                    //     padding-right: 25px
+
+                    // &:nth-child(4)
+                    //     grid-column: 4/8
+                    //     grid-row: 1/2
+                    // &:nth-child(5)
+                    //     grid-column: 8/12
+                    //     grid-row: 1/2
+                    // &:nth-child(6)
+                    //     grid-column: 12/16
+                    //     grid-row: 1/2
+                    // &:nth-child(7)
+                    //     grid-column: 16/20
+                    //     grid-row: 1/2
+
+                    // &:nth-last-child(1)
+                    //     grid-row:1/3
+                    //     padding-right: 25px
+                    // &:nth-last-child(2)
+                    //     grid-row:1/3
+                    //     padding-right: 25px
+            
+            // вторая строка заголовка таблицы
+            // &:nth-child(2)
+            //     th
+            //         &:nth-child(1)
+            //             background-color: red !important
+            //             grid-row: 2/3
+            //             grid-column: 4/5
+
+    tbody
+        display: contents
+
+        tr
+            display: contents
+            
+            &:nth-child(even) td
+                background: $background-tbody-even !important
+
+            td
+                display: flex
+                justify-content: right
+                align-items: center
+
+                background: $background-tbody-odd !important
+                padding: 15px
+                overflow: hidden
+                text-overflow: ellipsis     // если контент не помещается в блок - завершение "..."
+                // white-space: nowrap         // не переносить на следующую строку
+                z-index: 10
+                height: $height-row-tbody
+                font: $font-tbody
+                color: $font-color-tbody
+                border: 1px solid #dee2e6
+
+                &:nth-child(1)
+                    position: relative
+                    // background: #ffffff
+                    // background-color: #6c7ae0 !important
+                    z-index: 90
+                .col-href
+                    color: #0d6efd
+                    text-decoration: underline
+                    line-height: $height-row-tbody / 2
+                    cursor: pointer
+                    &:hover
+                        color: #0a58ca
+                    
+                p
+                    margin: 0
+                    height: inherit
+                a
+                    display: inline-block
+                    height: inherit
+                    line-height: $height-row-tbody / 2
+                
+                &.attention-exceeding-max-date-communication
+                    background-color: $background-cell-exceeding-max-date-communication !important 
+
+                &.directory-column-border-left
+                    border-left-width: 2px
+                    border-left-color: #9b9595
+
+                &.directory-column-border-right
+                    border-right-width: 2px
+                    border-right-color: #9b9595
+                
+                &.dpk-more-six-months
+                    background-color: #32ff0945 !important
+
+                &.count-active-deal
+                    display: flex
+                    align-content: center
+                    justify-content: center
+                    height: 30px
+                    background: #fff1f1
+                    font: normal 14px/17px Arial, "Helvetica Neue", Helvetica, sans-serif
+
+                    &.directory-column-border-left-border-left
+                        border-left-width: 2px
+                        border-left-color: #9b9595
+
+            .col-company, .col-responsible
+                justify-content: left
+
+            
+            // .col-company, .col-responsible
+            //     white-space: none   !important
+
+
+.td-id-list
+    width: 100%
+    height: $height-row-tbody
+    overflow-x: hidden
+    overflow-y: auto
+
+    &::-webkit-scrollbar-track 
+        // background-color: #f9f9fd
+    &::-webkit-scrollbar
+        margin-left: 10px
+        width: 7px
+        // background-color: #f9f9fd
+    &::-webkit-scrollbar-thumb 
+        background-color: #cecece
+
+    ul
+        margin: 0
+
+.spinner-load-statistic-data
+    margin-top: 50px
+
+.prompt-full-company-data
+    display: none
+    position: absolute
+    padding: 3px
+    z-index: 1000
+    background: #fffffa
+    border: 1px solid #f3f3f3
+    border-radius: .25rem
+    border-color: #e7e7e7
+    height: fit-content
+
+    .prompt-data-company-name
+        font-size: 16px
+        // height: 18px
+        font-weight: 600
+
+    .prompt-data-company-inn
+        height: 18px
+        b, span
+            color: #828082
+            font-size: 14px
+            line-height: 16px
+            
+    .prompt-data-company-id-bx
+        height: 18px
+        b, span
+            color: #828082
+            font-size: 14px
+            line-height: 16px
+
+.prompt-full-responsible-data
+    display: none
+    position: absolute
+    padding: 3px
+    z-index: 1000
+    background: #fffffa
+    border: 1px solid #f3f3f3
+    border-radius: .25rem
+    border-color: #e7e7e7
+    
+    .prompt-data-responsible-photo img
+        height: 100px
+
+    .prompt-data-responsible-content
+        margin-left: 10px

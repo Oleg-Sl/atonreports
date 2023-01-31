@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        {% load static %}
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'dpk/styles/index.css' %}">
+
+        <title>ДПК</title>
+		<script>
+			function about(e) {
+				e.PreventDefault;
+			}
+		</script>
+    </head>
+    <body>
+		<div class="container-fluid container-main">
+			<!-- ФИЛЬТР -->
+			<div class="accordion" id="accordionPanelsStayOpenExample">
+				<div class="accordion-item my-filters">
+					<h2 class="accordion-header" id="panelsStayOpen-headingOne">
+						<button class="accordion-button my-class-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+							Фильтр
+						</button>
+					</h2>
+					<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+						<div class="accordion-body my-class-accordion-body">
+							<div class="filtration-unit">
+								<!-- Фильтр "Компании" -->
+								<div class="filter filter-company" id="filterCompany">
+									<label for="" class="filter-label">Компании</label>
+									<div class="filter-container">
+										<div class="filter-field">
+											<span><input type="text" class="filter-input"></span>
+											<!-- <div class="filter-delete-element-input">
+												<i class="bi bi-x-circle-fill"></i>
+											</div> -->
+										</div>
+										<div class="filter-clear">
+											<i class="bi bi-x-circle-fill" title="Очистить"></i>
+										</div>
+									</div>
+									<div class="d-none filter-window-data">
+										<div class="filter-window-data-close">
+											<button type="button" class="btn-close" aria-label="Close"></button>
+										</div>
+										<div class="text-center d-none spinner-load" style="padding-top: 15px;">
+											<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+												<span class="visually-hidden">Загрузка...</span>
+											</div>
+											<div>Загрузка данных</div>
+										</div>
+										<div class="filter-window-data-content">
+											<!-- Карточки компаний -->
+										</div>
+									</div>
+								</div>
+								<!-- Фильтр "Сотрудники" -->
+								<div class="filter filter-responsible" id="filterResponsible">
+									<label for="" class="filter-label">Сотрудники</label>
+									<div class="filter-container">
+										<div class="filter-field">
+											<span><input type="text" class="filter-input" autocomplete="on" placeholder="поиск" ></span>
+										</div>
+										<div class="filter-clear">
+											<i class="bi bi-x-circle-fill" title="Очистить"></i>
+										</div>
+									</div>
+									<div class="d-none window-user-search">
+										<div class="window-searchcontact-container">
+											<div class="filter-window-data-close">
+												<button type="button" class="btn-close" aria-label="Close"></button>
+											</div>
+											<!-- Блоки с данными -->
+											<div class="container-data">
+												<!-- Отфильтрованный список пользователей -->
+												<div class="container-data-user"> </div>
+												<!-- Список сотрудников по подразделениям -->
+												<div class="container-data-depart d-none"> </div>
+											</div>
+											<!-- Кнопка "ПОИСК" -->
+											<div class="btn-search-responsible">
+												<div class="btn-search-logo"><i class="bi bi-search"></i></div>
+												<div class="btn-search-desc">Поиск</div>
+											</div>
+											<!-- Кнопка "ОТДЕЛЫ" -->
+											<div class="btn-search-department btn-search-inactive">
+												<div class="btn-search-logo"><i class="bi bi-people-fill"></i></div>
+												<div class="btn-search-desc">Отделы</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Фильтр "Направления сделок" -->
+								<div class="filter filter-direction" id="filterDirection">
+									<label for="" class="filter-label">Направления сделок</label>
+									<div class="filter-container">
+										<div class="filter-field">
+											<span><input type="text" class="filter-input" readonly></span>
+											<!-- <div class="filter-delete-element-input">
+												<i class="bi bi-x-circle-fill"></i>
+											</div> -->
+										</div>
+										<div class="filter-clear">
+											<i class="bi bi-x-circle-fill" title="Очистить"></i>
+										</div>
+									</div>
+									<div class="d-none filter-window-data">
+										<div class="filter-window-data-close">
+											<button type="button" class="btn-close" aria-label="Close"></button>
+										</div>
+										<div class="text-center d-none spinner-load" style="padding-top: 15px;">
+											<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+												<span class="visually-hidden">Загрузка...</span>
+											</div>
+											<div>Загрузка данных</div>
+										</div>
+										<div class="filter-window-data-content filter-window-data-content-one-col">
+											<!-- Карточки -->
+										</div>
+									</div>
+								</div>
+								<!-- Фильтр "Отрасль" -->
+								<div class="filter filter-sector"  id="filterSector">
+									<label for="" class="filter-label">Отрасль</label>
+									<div class="filter-container">
+									  	<div class="filter-field">
+											<span><input type="text" class="filter-input"></span>
+									  	</div>
+									  	<div class="filter-clear">
+											<i class="bi bi-x-circle-fill" title="Очистить"></i>
+										</div>
+									</div>
+									<div class="filter-window">
+										<div class="filter-window-close">
+											<button type="button" class="btn-close" aria-label="Close"></button>
+										</div>
+										<div class="text-center d-none spinner-load" style="padding-top: 15px;">
+											<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+												<span class="visually-hidden">Загрузка...</span>
+											</div>
+											<div>Загрузка данных</div>
+										</div>
+										<div class="filter-window-content-one-col">
+											<!-- Список -->
+										</div>
+									</div>
+								</div>
+								<!-- Фильтр "Регион" -->
+								<div class="filter filter-region"  id="filterRegion">
+									<label for="" class="filter-label">Регион</label>
+									<div class="filter-container">
+									  	<div class="filter-field">
+											<span><input type="text" class="filter-input"></span>
+									  	</div>
+									  	<div class="filter-clear">
+											<i class="bi bi-x-circle-fill" title="Очистить"></i>
+										</div>
+									</div>
+									<div class="filter-window">
+										<div class="filter-window-close">
+											<button type="button" class="btn-close" aria-label="Close"></button>
+										</div>
+										<div class="text-center d-none spinner-load" style="padding-top: 15px;">
+											<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+												<span class="visually-hidden">Загрузка...</span>
+											</div>
+											<div>Загрузка данных</div>
+										</div>
+										<div class="filter-window-content-one-col">
+											<!-- Список -->
+										</div>
+									</div>
+								</div>
+								<!-- Фильтр "Источник" -->
+								<div class="filter filter-source"  id="filterSource">
+									<label for="" class="filter-label">Источник</label>
+									<div class="filter-container">
+									  	<div class="filter-field">
+											<span><input type="text" class="filter-input"></span>
+									  	</div>
+									  	<div class="filter-clear">
+											<i class="bi bi-x-circle-fill" title="Очистить"></i>
+										</div>
+									</div>
+									<div class="filter-window">
+										<div class="filter-window-close">
+											<button type="button" class="btn-close" aria-label="Close"></button>
+										</div>
+										<div class="text-center d-none spinner-load" style="padding-top: 15px;">
+											<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+												<span class="visually-hidden">Загрузка...</span>
+											</div>
+											<div>Загрузка данных</div>
+										</div>
+										<div class="filter-window-content-one-col">
+											<!-- Список -->
+										</div>
+									</div>
+								</div>
+								<!-- Фильтр "Реквизиты - регион" -->
+								<div class="filter filter-requisite-region" id="filterRequisiteRegion">
+									<label for="" class="filter-label">Реквизиты - регион</label>
+									<div class="filter-container">
+										<div class="filter-field">
+											<span><input type="text" class="filter-input"></span>
+										</div>
+										<div class="filter-clear">
+											<i class="bi bi-x-circle-fill" title="Очистить"></i>
+										</div>
+									</div>
+									<div class="filter-window">
+										<div class="filter-window-close">
+											<button type="button" class="btn-close" aria-label="Close"></button>
+										</div>
+										<div class="text-center d-none spinner-load" style="padding-top: 15px;">
+											<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+												<span class="visually-hidden">Загрузка...</span>
+											</div>
+											<div>Загрузка данных</div>
+										</div>
+										<div class="filter-window-content-one-col">
+											<!-- Список -->
+										</div>
+									</div>
+								</div>
+								<!-- Фильтр "Реквищиты - город" -->
+								<div class="filter filter-requisite-city" id="filterRequisiteCity">
+									<label for="" class="filter-label">Реквизиты - город</label>
+									<div class="filter-container">
+										<div class="filter-field">
+											<span><input type="text" class="filter-input"></span>
+										</div>
+										<div class="filter-clear">
+											<i class="bi bi-x-circle-fill" title="Очистить"></i>
+										</div>
+									</div>
+									<div class="filter-window">
+										<div class="filter-window-close">
+											<button type="button" class="btn-close" aria-label="Close"></button>
+										</div>
+										<div class="text-center d-none spinner-load" style="padding-top: 15px;">
+											<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+												<span class="visually-hidden">Загрузка...</span>
+											</div>
+											<div>Загрузка данных</div>
+										</div>
+										<div class="filter-window-content-one-col">
+											<!-- Список -->
+										</div>
+									</div>
+								</div>
+
+								<!-- Фильтр "Период создания компании" -->
+								 <div class="filter-range" id="filterDateCreatedCompany">
+									<label for="" class="filter-label">Период создания компании</label>
+									<div class="filter-field">
+									  	<div class="filter-field-min">
+											<span>
+												<input type="date" name="trip-start" value="" min="" max="" class="form-control filter-field-input filter-field-min-input">
+									  		</span>
+										</div>
+									  	<div class="filter-field-separator"> – </div>
+									  	<div class="filter-field-max">
+											<span>
+												<input type="date" name="trip-end" value="" min="" max="" class="form-control filter-field-input filter-field-max-input">
+									  		</span>
+										</div>
+									</div>
+								 </div>
+
+								<!-- Фильтр "Годовой оборот компании" -->
+								<div class="filter-range" id="filterRevenue">
+									<label for="" class="filter-label">Годовой оборот компании</label>
+									<div class="filter-field">
+										<div class="filter-field-min">
+											<span><input type="number" min="0" class="filter-field-input filter-field-min-input"></span>
+										</div>
+										<div class="filter-field-separator"> – </div>
+										<div class="filter-field-max">
+											<span><input type="number" min="0" class="filter-field-input filter-field-max-input"></span>
+										</div>
+									</div>
+								</div>
+								<!-- Фильтр "Количество сотрудников в компании" -->
+								<div class="filter-range" id="filterEmployees">
+									<label for="" class="filter-label">Количество сотрудников в компании</label>
+									<div class="filter-field">
+										<div class="filter-field-min">
+											<span><input type="number" min="0" class="filter-field-input filter-field-min-input"></span>
+										</div>
+										<div class="filter-field-separator"> – </div>
+										<div class="filter-field-max">
+											<span><input type="number" min="0" class="filter-field-input filter-field-max-input"></span>
+										</div>
+									</div>
+								</div>
+
+								<!-- Кол-во компаний на странице, допустимая ДПК, кнопка получить -->
+								<div class="filter-countpage-dlk-buttonget">
+									<div class="page-size-requests">
+										<label>Компаний на странице</label>
+										<div><input type="number" class="form-control"  min="5" max="250" value="50" class="page-size-requests-input" id="selectedPageSize"></div>
+									</div>
+									<div class="filter-date-start">
+										<label>Длительность звонка для учета в ДПК</label>
+										<div><input type="number" class="form-control"  min="0" max="1000" value="0" class="" id="minDurationForCalcDpk"></div>
+									</div>
+									<div class="filter-button-get-data">
+										<label for=""></label>
+										<div>
+											<button type="button" class="btn btn-primary" id="buttonGetStatistic">Получить</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ПАРАМЕТРЫ ЗАПРОСА -->
+			<div class="settings-param-requests">
+				<div class="number-page-requests">
+					<p>Страница</p>
+					<div><input type="number" class="form-control"  min="1" max="" value="1" class="number-page-requests-input" id="selectedPageNumber"></div>
+					<button type="button" class="btn btn-primary" id="buttonGoToPage">Перейти</button>
+				</div>
+				<!-- ПАГИНАЦИЯ -->
+				<div class="table-nav my-paginator-table">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-end paginator-content">
+							<!-- Место для вывода элементов пагинатора -->
+						</ul>
+					</nav>
+				</div>
+			</div>
+
+			<!-- ТАБЛИЦА -->
+			<div class="table-responsive-md my-table">
+				<table class="d-none table table-sm" id="tableStatisticData">
+					<thead class="align-middle table-light">
+					<tr class="text-center">
+						<th scope="col" rowspan="2" class="col-company header-th-data" data-type="text-long" data-position="1">
+						Компания
+						<span class="resize-handle"></span>
+						<span class="sort-company-top"><i class="bi bi-caret-up-fill"></i></span>
+						<span class="sort-company-bottom"><i class="bi bi-caret-down-fill"></i></span>
+						</th>
+						<th scope="col" rowspan="2" class="header-th-data" data-type="numeric-long" data-position="2">ИНН <span class="resize-handle"></span></th>
+						<th scope="col" rowspan="2" class="header-th-data" data-type="text-long"  data-position="3">Менеджер <span class="resize-handle"></span></th>
+
+						<th scope="col" colspan="4" class="header-th-direction">СОУТ <span class="resize-handle"></span></th>
+						<th scope="col" colspan="4" class="header-th-direction">ПК <span class="resize-handle"></span></th>
+						<th scope="col" colspan="4" class="header-th-direction">Обучение <span class="resize-handle"></span></th>
+						<th scope="col" colspan="4" class="header-th-direction">Экология <span class="resize-handle"></span></th>
+
+						<th scope="col" rowspan="2" class="header-th-data" data-type="numeric-medium" data-position="100">
+						Общая сумма в работе
+						<span class="resize-handle"></span>
+						<span class="sort-opportunity-work-top"><i class="bi bi-caret-up-fill"></i></span>
+						<span class="sort-opportunity-work-bottom"><i class="bi bi-caret-down-fill"></i></span>
+						</th>
+						<th scope="col" rowspan="2" class="header-th-data" data-type="numeric-medium" data-position="101">
+						Общая сумма успешных
+						<span class="resize-handle"></span>
+						<span class="sort-opportunity-sucсess-top"><i class="bi bi-caret-up-fill"></i></span>
+						<span class="sort-opportunity-sucсess-bottom"><i class="bi bi-caret-down-fill"></i></span>
+						</th>
+					</tr>
+					<tr class="text-center">
+						<th scope="col" class="header-th-direction-data" data-type="numeric-short" data-position="4">id сделок <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-medium" data-position="5">Сумма в работе <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-medium" data-position="6">Сумма успешных <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="text-short" data-position="7">ДПК <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-short" data-position="8">id сделок <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-medium" data-position="9">Сумма в работе <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-medium" data-position="10">Сумма успешных <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="text-short" data-position="11">ДПК <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-short" data-position="12">id сделок <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-medium" data-position="13">Сумма в работе <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-medium" data-position="14">Сумма успешных <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="text-short" data-position="15">ДПК <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-short" data-position="16">id сделок <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-medium" data-position="17">Сумма в работе <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="numeric-medium" data-position="18">Сумма успешных <span class="resize-handle"></span></th>
+						<th scope="col" class="header-th-direction-data" data-type="text-short" data-position="19">ДПК <span class="resize-handle"></span></th>
+
+						<!-- <th scope="col" rowspan="2">Общая сумма в работе</th> -->
+						<!-- <th scope="col" rowspan="2">Общая сумма успешных</th> -->
+					</tr>
+					</thead>
+					<tbody class="my-tbody">
+					<tr>
+						<td class="col-company"><p>Company</p></td>
+						<td>INN</td>
+						<td class="col-responsible">Mark</td>
+						<td class="td-id-list">
+						<ul class="list-unstyled">
+							<li>id 1</li>
+							<li>id 2</li>
+							<li>id 3</li>
+						</ul>
+						</td>
+						<td>Summa work</td>
+						<td>Summa ok</td>
+						<td>11.11.2021</td>
+						<td class="td-id-list">
+						<ul class="list-unstyled">
+							<li>id 1</li>
+							<li>id 2</li>
+							<li>id 3</li>
+						</ul>
+						</td>
+						<td>Summa work</td>
+						<td>Summa ok</td>
+						<td>11.11.2021</td>
+						<td class="td-id-list">
+						<ul class="list-unstyled">
+							<li>id 1</li>
+							<li>id 2</li>
+							<li>id 3</li>
+						</ul>
+						</td>
+						<td>Summa work</td>
+						<td>Summa ok</td>
+						<td>11.11.2021</td>
+						<td class="td-id-list">
+						<ul class="list-unstyled">
+							<li>id 1</li>
+							<li>id 2</li>
+							<li>id 3</li>
+						</ul>
+						</td>
+						<td>Summa work</td>
+						<td>Summa ok</td>
+						<td>11.11.2021</td>
+						<td>All summa work</td>
+						<td>All summa ok</td>
+					</tr>
+
+					</tbody>
+				</table>
+				</div>
+
+			<!-- Спиннер загрузки данных -->
+			<div class="text-center spinner-load-statistic-data" id="loaderTableStatistic">
+				<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+					<span class="visually-hidden">Загрузка...</span>
+				</div>
+				<div>Загрузка данных</div>
+			</div>
+		</div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+        <!-- Bitrix JS -->
+<!--        <script src="//api.bitrix24.com/api/v1/"></script>-->
+
+        <!-- JS -->
+<!--        <script src="{% static 'scripts/index.js' %}"></script>-->
+        <script type="module" src="{% static 'dpk/scripts/index.js' %}"></script>
+    </body>
+</html>
