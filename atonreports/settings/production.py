@@ -19,6 +19,7 @@ def get_secret(setting, secrets=secrets):
         raise ImproperlyConfigured("Set the {} setting".format(setting))
 
 
+SECRET_KEY = get_secret("SECRET_KEY")
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
