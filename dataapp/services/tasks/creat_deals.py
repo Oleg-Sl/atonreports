@@ -44,7 +44,7 @@ def add_deals_to_db(bx24, method, filter_field={}, total=0, count=0, id_start=0)
             # pprint.pprint(data_list)
             for data in data_list:
                 deals.create_or_update_deal(data, True)
-
+            print(id_start)
             print(f"Сделки: {min(count, total)} из {total}") #, end="\r")
             add_deals_to_db(bx24, method, filter_field, total, count, id_start)
 
