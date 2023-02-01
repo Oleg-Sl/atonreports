@@ -11,9 +11,11 @@ path_secret_file = os.path.join(settings.BASE_DIR, 'bitrix24', 'secrets_bx24.jso
 
 
 def save_secrets(data):
+    print("FILE: ", path_secret_file)
     """ Запись токенов доступа к BX24 в файл """
     with open(path_secret_file, 'w') as secrets_file:
         json.dump(data, secrets_file)
+        print("SUCCESS WRITING!!!")
 
 
 def update_secrets(auth_token, expires_in, refresh_token):

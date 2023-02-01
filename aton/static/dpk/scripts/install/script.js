@@ -16,66 +16,66 @@ async function callMethod(method, params = {}) {
         BX24.callMethod(method, params, callback);
     });
 }
-
-async function addHandler() {
-    await callMethod(
-        'event.bind',
-        {
-			"event": "ONCRMCOMPANYADD",
-			"handler": URL__CREATE_UPDATE_COMPANY,
-		},
-		console.log('Обработчик ONCRMCOMPANYADD установлен')
-    )
-    await callMethod(
-        'event.bind',
-        {
-			"event": "ONCRMCOMPANYUPDATE",
-			"handler": URL__CREATE_UPDATE_COMPANY,
-		},
-		console.log('Обработчик ONCRMCOMPANYUPDATE установлен')
-    )
-    await callMethod(
-        'event.bind',
-        {
-			"event": "ONCRMCOMPANYDELETE",
-			"handler": URL__CREATE_UPDATE_COMPANY,
-		},
-		console.log('Обработчик ONCRMCOMPANYDELETE установлен')
-    )
-    await callMethod(
-        'event.bind',
-        {
-			"event": "ONCRMDEALADD",
-			"handler": URL__CREATE_UPDATE_DEAL,
-		},
-		console.log('Обработчик ONCRMDEALADD установлен')
-    )
-    await callMethod(
-        'event.bind',
-        {
-			"event": "ONCRMDEALUPDATE",
-			"handler": URL__CREATE_UPDATE_DEAL,
-		},
-		console.log('Обработчик ONCRMDEALUPDATE установлен')
-    )
-    await callMethod(
-        'event.bind',
-        {
-			"event": "ONCRMDEALDELETE",
-			"handler": URL__CREATE_UPDATE_DEAL,
-		},
-		console.log('Обработчик ONCRMDEALDELETE установлен')
-    )
-    await callMethod(
-        'event.bind',
-        {
-			"event": "ONVOXIMPLANTCALLEND",
-			"handler": URL__CREATE_UPDATE_CALLS,
-		},
-		console.log('Обработчик ONVOXIMPLANTCALLEND установлен')
-    )
-
-}
+//
+//async function addHandler() {
+//    await callMethod(
+//        'event.bind',
+//        {
+//			"event": "ONCRMCOMPANYADD",
+//			"handler": URL__CREATE_UPDATE_COMPANY,
+//		},
+//		console.log('Обработчик ONCRMCOMPANYADD установлен')
+//    )
+//    await callMethod(
+//        'event.bind',
+//        {
+//			"event": "ONCRMCOMPANYUPDATE",
+//			"handler": URL__CREATE_UPDATE_COMPANY,
+//		},
+//		console.log('Обработчик ONCRMCOMPANYUPDATE установлен')
+//    )
+//    await callMethod(
+//        'event.bind',
+//        {
+//			"event": "ONCRMCOMPANYDELETE",
+//			"handler": URL__CREATE_UPDATE_COMPANY,
+//		},
+//		console.log('Обработчик ONCRMCOMPANYDELETE установлен')
+//    )
+//    await callMethod(
+//        'event.bind',
+//        {
+//			"event": "ONCRMDEALADD",
+//			"handler": URL__CREATE_UPDATE_DEAL,
+//		},
+//		console.log('Обработчик ONCRMDEALADD установлен')
+//    )
+//    await callMethod(
+//        'event.bind',
+//        {
+//			"event": "ONCRMDEALUPDATE",
+//			"handler": URL__CREATE_UPDATE_DEAL,
+//		},
+//		console.log('Обработчик ONCRMDEALUPDATE установлен')
+//    )
+//    await callMethod(
+//        'event.bind',
+//        {
+//			"event": "ONCRMDEALDELETE",
+//			"handler": URL__CREATE_UPDATE_DEAL,
+//		},
+//		console.log('Обработчик ONCRMDEALDELETE установлен')
+//    )
+//    await callMethod(
+//        'event.bind',
+//        {
+//			"event": "ONVOXIMPLANTCALLEND",
+//			"handler": URL__CREATE_UPDATE_CALLS,
+//		},
+//		console.log('Обработчик ONVOXIMPLANTCALLEND установлен')
+//    )
+//
+//}
 
 async function removeHandler() {
     await callMethod(
@@ -140,7 +140,7 @@ async function removeHandler() {
 
 BX24.init(async function(){
     await removeHandler();
-    await addHandler();
+//    await addHandler();
 
     BX24.installFinish();
 });
