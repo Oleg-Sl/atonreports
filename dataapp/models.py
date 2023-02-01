@@ -137,7 +137,7 @@ class Company(models.Model):
 
 class Deal(models.Model):
     ID = models.PositiveIntegerField(verbose_name='id сделки в BX24', unique=True)
-    TITLE = models.CharField(verbose_name='Название сделки', max_length=350, blank=True, null=True, db_index=True)
+    TITLE = models.CharField(verbose_name='Название сделки', max_length=350, blank=True, null=True)
     DATE_CREATE = models.DateTimeField(verbose_name='Дата создания сделки', blank=True, null=True)
     DATE_MODIFY = models.DateTimeField(verbose_name='Дата последнего изменения', blank=True, null=True)
     CLOSEDATE = models.DateTimeField(verbose_name='Дата завершения сделки', blank=True, null=True)
@@ -147,10 +147,10 @@ class Deal(models.Model):
     opportunity = models.DecimalField(verbose_name='Сумма сделки', max_digits=15, decimal_places=2, default=0, blank=True, null=True)
     balance_on_payments = models.DecimalField(verbose_name='Остаток по оплатам', max_digits=15, decimal_places=2, default=0, blank=True, null=True)
     amount_paid = models.DecimalField(verbose_name='Всего оплат на сумму', max_digits=15, decimal_places=2, default=0, blank=True, null=True)
-    active = models.BooleanField(verbose_name='Сделка активна (не удалена)', default=True, db_index=True)
+    active = models.BooleanField(verbose_name='Сделка активна (не удалена)', default=True)
 
     company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE, related_name='deal', blank=True, null=True)
-    direction = models.ForeignKey(Direction, verbose_name='Направление', on_delete=models.CASCADE, related_name='deal', blank=True, null=True, db_index=True)
+    direction = models.ForeignKey(Direction, verbose_name='Направление', on_delete=models.CASCADE, related_name='deal', blank=True, null=True)
     stage = models.ForeignKey(Stage, verbose_name='Стадия', on_delete=models.CASCADE, related_name='deal', blank=True, null=True)
 
     objects = DealManager()
