@@ -227,19 +227,19 @@ export default class Request {
     constructor() {
         // this.api = `${DOMAIN}api/v3/`;
         this.api = DOMAIN;
-        this.auth = new Auth(DOMAIN);
+        // this.auth = new Auth(DOMAIN);
     }
 
     async init() {
         // инициализация объекта - авторизация и аутентификация
-        await this.auth.init();
+        // await this.auth.init();
     }
 
     // присоединение параметров и выполнение GET запроса
     async GET(method, params={}) {
-        let token = await this.auth.getAccessToken();
+        // let token = await this.auth.getAccessToken();
         let options = {
-            headers: {Authorization: `Bearer ${token}`}
+            // headers: {Authorization: `Bearer ${token}`}
         };
         let url = this.api + method + "/";
         let urlGet = new URL(url);
@@ -275,9 +275,9 @@ export default class Request {
         }
 
         while (true) {
-            let token = await this.auth.getAccessToken();
+            // let token = await this.auth.getAccessToken();
             let options = {
-                headers: {Authorization: `Bearer ${token}`}
+                // headers: {Authorization: `Bearer ${token}`}
             };
             let response = await fetch(urlGet, options);
             if (response.ok) {
@@ -302,7 +302,7 @@ export default class Request {
     }
 
     async POST(method, data, params={}) {
-        let token = await this.auth.getAccessToken();
+        // let token = await this.auth.getAccessToken();
         let url = this.api + method + "/";
         let urlPost = new URL(url);
         for (let key in params) {
@@ -312,7 +312,7 @@ export default class Request {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${token}`
+                // 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(data)
         });
@@ -335,7 +335,7 @@ export default class Request {
     }
 
     async PUT(method, data, params={}) {
-        let token = await this.auth.getAccessToken();
+        // let token = await this.auth.getAccessToken();
         let url = this.api + method + "/";
         let urlPost = new URL(url);
         for (let key in params) {
@@ -345,7 +345,7 @@ export default class Request {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authorization': `Bearer ${token}`
+                // 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(data)
         });
