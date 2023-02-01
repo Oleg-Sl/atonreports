@@ -21,7 +21,7 @@ def get_data(bx24, ids):
 def create_or_update_deal(data, active):
     direction = data["CATEGORY_ID"]
     if direction in [43, "43"]:
-        direction = data.get("UF_CRM_1610523951", None)
+        direction = data["UF_CRM_1610523951"]
 
     deal = {
         "ID": data.get("ID"),
