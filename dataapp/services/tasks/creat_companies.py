@@ -1,5 +1,7 @@
+import sys
 import pprint
 
+sys.setrecursionlimit(2000)
 
 from bitrix24.request import Bitrix24
 from .. import companies
