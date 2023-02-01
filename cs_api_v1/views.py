@@ -69,7 +69,7 @@ class InstallApiView(views.APIView):
             "expires_in": request.data.get("AUTH_EXPIRES", 3600),
             "refresh_token": request.data.get("REFRESH_ID", ""),
             # используется для проверки достоверности событий Битрикс24
-            "application_token": request.data.get("APP_SID", ""),
+            "application_token": request.query_params.get("APP_SID", ""),
             'client_endpoint': f'https://{request.query_params.get("DOMAIN", "bits24.bitrix24.ru")}/rest/',
         }
         print("data = ", data)
