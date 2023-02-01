@@ -18,13 +18,13 @@
         <title>Document</title>
     </head>
     <body>
-        <div class="">
+<div class="">
             <div class="header">
                 <div class="header-menu">
                     <nav>
                         <div class="nav header-menu-nav">
-                            <button class="nav-link active" id="nav-month-tab" data-bs-toggle="tab" data-bs-target="#nav-month" type="button" role="tab" aria-controls="nav-month" aria-selected="true">Нормирование</button>
-                            <button class="nav-link" id="nav-days-tab" data-bs-toggle="tab" data-bs-target="#nav-days" type="button" role="tab" aria-controls="nav-days" aria-selected="false">План/Факт</button>
+                            <button class="nav-link"        id="nav-month-tab" data-bs-toggle="tab" data-bs-target="#nav-month" type="button" role="tab" aria-controls="nav-month" aria-selected="true">Нормирование</button>
+                            <button class="nav-link active" id="nav-days-tab" data-bs-toggle="tab" data-bs-target="#nav-days" type="button" role="tab" aria-controls="nav-days" aria-selected="false">План/Факт</button>
                         </div>
                     </nav>
                 </div>
@@ -43,7 +43,7 @@
 
             <div class="tab-content" id="nav-tabContent">
                 <!-- Блок "НОРМИРОВАНИЕ" -->
-                <div class="tab-pane fade show active month" id="nav-month" role="tabpanel" aria-labelledby="nav-month-tab">
+                <div class="tab-pane fade month" id="nav-month" role="tabpanel" aria-labelledby="nav-month-tab">
                     <!-- Фильтр -->
                     <div id="tableByMonthFilter">
                         <div class="input-group input-group-sm mb-3 table-by-month-container-filter-year">
@@ -61,10 +61,17 @@
                     <table class="table-bordered" id="tableStatisticMonth">
                         <!-- Здесь вывод таблицы -->
                     </table>
+
+                    <!-- Спиннер загрузки данных таблицы -->
+                    <div id="tableByMonthSpinner">
+                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Загрузка...</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Блок "ПЛАН/ФАКТ" -->
-                <div class="tab-pane fade days" id="nav-days" role="tabpanel" aria-labelledby="nav-days-tab">
+                <div class="tab-pane fade show active days" id="nav-days" role="tabpanel" aria-labelledby="nav-days-tab">
                     <!-- Фильтр -->
                     <div id="tableByDayFilter">
                         <div class="input-group input-group-sm mb-3">
@@ -99,6 +106,13 @@
                     <table class="table-bordered" id="tableStatisticDay">
                         <!-- Здесь вывод таблицы -->
                     </table>
+
+                    <!-- Спиннер загрузки данных таблицы -->
+                    <div id="tableByDaySpinner">
+                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Загрузка...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -132,6 +146,20 @@
                                     <ul>
                                         <li>-&nbsp; <i>"Запрещен"</i> &ndash; запрещен доступ к настройкам приложения;</li>
                                         <li>-&nbsp; <i>"Разрешен"</i> &ndash; разрешен доступ к настройкам приложения.</li>
+                                    </ul>
+                                </div>
+                                <div class="permission-note-item">
+                                    <p>[3] &ndash; доступ к изменению статуса дня:</p>
+                                    <ul>
+                                        <li>-&nbsp; <i>"Запрещен"</i> &ndash; запрещен доступ к изменению статуса дня по двойному клику по маркеру;</li>
+                                        <li>-&nbsp; <i>"Разрешен"</i> &ndash; разрешен доступ к изменению статуса дня по двойному клику по маркеру.</li>
+                                    </ul>
+                                </div>
+                                <div class="permission-note-item">
+                                    <p>[4] &ndash; доступ к верификации сообщений:</p>
+                                    <ul>
+                                        <li>-&nbsp; <i>"Запрещен"</i> &ndash; запрещен доступ к верификации сообщений по двойному клику по галочке сообщения (установка-снятие выделения галочки);</li>
+                                        <li>-&nbsp; <i>"Разрешен"</i> &ndash; разрешен доступ к верификации сообщений по двойному клику по галочке сообщения (установка-снятие выделения галочки).</li>
                                     </ul>
                                 </div>
                             </div>
@@ -271,7 +299,10 @@
         <div class="window-info d-none" id="windowInfoData">
             <div class="window-info-nav">
                 <div class="window-info-nav-link-comment window-info-nav-link active"><div>Комментарии</div></div>
-                <div class="window-info-nav-link-calls window-info-nav-link "><div>Звонки</div></div>
+                <div class="window-info-nav-link-calls window-info-nav-link ">
+                    <div>Звонки</div>
+                    <div class="count-calls"></div>
+                </div>
             </div>
             <div class="window-info-content">
                 <div class="pane pane-comment active">
@@ -294,6 +325,11 @@
                     <div class="pane-container">
                         <div class="calls-list">
                             <!--  -->
+                        </div>
+                        <div class="d-flex justify-content-center calls-list-spinner">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Загрузка...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
