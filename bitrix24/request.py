@@ -34,8 +34,8 @@ class Bitrix24:
                 self.oauth_url,
                 params={'grant_type': 'refresh_token', 'client_id': self.client_id, 'client_secret': self.client_secret,
                         'refresh_token': self.refresh_token})
+            print("refresh_token: ", r.text)
             result = json.loads(r.text)
-
             # Renew access tokens
             self.auth_token = result['access_token']
             self.refresh_token = result['refresh_token']
