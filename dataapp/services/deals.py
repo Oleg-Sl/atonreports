@@ -38,8 +38,11 @@ def create_or_update_deal(data, active):
         "stage": Stage.objects.filter(STATUS_ID=data.get("STAGE_ID")).first(),
         "active": active,
     }
-
-    deal_obj = Deal.objects.update_or_create(ID=data.get("ID"), defaults=deal)
+    try:
+        deal_obj = Deal.objects.update_or_create(ID=data.get("ID"), defaults=deal)
+    except Exception as err:
+        print("ID DEAL = ", data.get("ID"))
+        print(err)
     return deal_obj
 
 
