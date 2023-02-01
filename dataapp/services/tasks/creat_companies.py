@@ -16,9 +16,12 @@ def create_or_update_companies(begin_date=None, end_date=None):
         filter_field[">DATE_CREATE"] = begin_date
     if begin_date:
         filter_field["<DATE_CREATE"] = end_date
-
+    print("Пол-ние кол-ва ком-ий")
     total = get_total(bx24, "crm.company.list", filter_field)
+    print("Всего компаний: ", total)
     add_companies_to_db(bx24, "crm.company.list", filter_field, [], total)
+    print("Получены все компании")
+
 
     total = get_total(bx24, "crm.requisite.list", {"ENTITY_TYPE_ID": 4, })
     add_requisites_to_db(bx24, "crm.requisite.list", {"ENTITY_TYPE_ID": 4, }, ["ID", "RQ_INN", "ENTITY_ID", ], total)
