@@ -26,8 +26,9 @@ def get_events(bx24, event_name, limit):
 
 def editing_money_in_number(numb):
     """ Преобразует денежное значение из BX24 в число """
-    numb = numb.split("|")[0] or "0"
+
     if numb:
+        numb = numb.split("|")[0] or "0"
         return f"{float(numb):.2f}"
     else:
         return None
