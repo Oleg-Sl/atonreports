@@ -27,6 +27,7 @@ from collections import Counter
 # from . import service, bitrix24
 from . import filter_queryset
 from .services import common
+from bitrix24 import tokens
 
 from dataapp.models import (
     User,
@@ -62,20 +63,17 @@ class InstallApiView(views.APIView):
 
     @xframe_options_exempt
     def post(self, request):
-        # data = {
-        #     "domain": request.query_params.get("DOMAIN", "bits24.bitrix24.ru"),
-        #     "auth_token": request.data.get("AUTH_ID", ""),
-        #     "expires_in": request.data.get("AUTH_EXPIRES", 3600),
-        #     "refresh_token": request.data.get("REFRESH_ID", ""),
-        #     "application_token": request.data.get("APP_SID", ""),
-        #     # используется для проверки достоверности событий Битрикс24
-        #     'client_endpoint': f'https://{request.query_params.get("DOMAIN", "bits24.bitrix24.ru")}/rest/',
-        # }
-        # service.write_app_data_to_file(data)
-        return render(request, 'calls-statistic/install.html', context={
-            # "domain": settings.DOMEN,
-            # "url_path": settings.URL_PATH,
-        })
+        data = {
+            "domain": request.query_params.get("DOMAIN", "bits24.bitrix24.ru"),
+            "auth_token": request.data.get("AUTH_ID", ""),
+            "expires_in": request.data.get("AUTH_EXPIRES", 3600),
+            "refresh_token": request.data.get("REFRESH_ID", ""),
+            # используется для проверки достоверности событий Битрикс24
+            "application_token": request.data.get("APP_SID", ""),
+            'client_endpoint': f'https://{request.query_params.get("DOMAIN", "bits24.bitrix24.ru")}/rest/',
+        }
+        tokens.save_secrets(data)
+        return render(request, 'calls-statistic/install.html')
 
 
 # Обработчик установленного приложения
@@ -84,10 +82,7 @@ class IndexApiView(views.APIView):
 
     @xframe_options_exempt
     def post(self, request):
-        return render(request, 'calls-statistic/index.html', context={
-            # "domain": settings.DOMEN,
-            # "url_path": settings.URL_PATH,
-        })
+        return render(request, 'calls-statistic/index.html')
 
 
 # # Обработчик удаления приложения
