@@ -59,7 +59,7 @@ CASH_TIMMEOUT = 60 * 60 * 4
 
 # Обработчик установки приложения
 class InstallApiView(views.APIView):
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
 
     @xframe_options_exempt
     def post(self, request):
@@ -72,14 +72,14 @@ class InstallApiView(views.APIView):
             "application_token": request.query_params.get("APP_SID", ""),
             'client_endpoint': f'https://{request.query_params.get("DOMAIN", "bits24.bitrix24.ru")}/rest/',
         }
-        print("data = ", data)
+        # print("data = ", data)
         tokens.save_secrets(data)
         return render(request, 'calls-statistic/install.html')
 
 
 # Обработчик установленного приложения
 class IndexApiView(views.APIView):
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
 
     @xframe_options_exempt
     def post(self, request):
@@ -139,7 +139,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     ordering = ["date_comment_add"]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = filter_queryset.CommentFilter
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
@@ -168,7 +168,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 # Добавление и изменение производственного календаря - NEW
 class ProductionCalendarViewSet(views.APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, requests):
         year = requests.query_params.get("year", datetime.datetime.now().year)
@@ -232,7 +232,7 @@ class ProductionCalendarViewSet(views.APIView):
 
 # Добавление и изменение плана по звонкам - NEW
 class CallsPlanViewSet(views.APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get(self, requests):
         year = requests.query_params.get("year", datetime.datetime.now().year)
@@ -357,7 +357,7 @@ class CallsPlanCompletedViewSet(views.APIView):
 
 # получение данных сгруппированных по месяцам одного года
 class RationActiveByMonthApiView(views.APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def post(self, request):
         departs = request.data.get("depart", "1")
@@ -452,7 +452,7 @@ class RationActiveByMonthApiView(views.APIView):
 
 # получение данных сгруппированных по дням одного месяца
 class RationActiveByDayApiView(views.APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def post(self, request):
         departs = request.data.get("depart", "1")
