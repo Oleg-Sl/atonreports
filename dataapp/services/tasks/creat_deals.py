@@ -32,7 +32,7 @@ def get_total(bx24, method, filter_field={}):
 def add_deals_to_db(bx24, method, filter_field={}, total=0, count=0, id_start=0):
         filter_field[">ID"] = id_start
         params = {
-            "select": ["*", "UF_*"],
+            "select": ["CATEGORY_ID", "UF_CRM_1610523951", "TITLE", "ID", "DATE_CREATE", "DATE_MODIFY", "CLOSEDATE", "CLOSED", "OPPORTUNITY", "UF_CRM_1575629957086", "UF_CRM_1575375338", "COMPANY_ID", "STAGE_ID"],
             "filter": filter_field,
             "order": {"ID": "ASC"},
             "start": -1
