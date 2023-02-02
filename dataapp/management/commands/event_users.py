@@ -18,5 +18,6 @@ class Command(BaseCommand):
         bx24 = Bitrix24()
         # Получение ID сделок в которых сработало событие в Битрикс24
         users = utils.get_events(bx24, "ONUSERADD", LIMIT_EVENTS)
+        print(users)
         add_users(users)
 

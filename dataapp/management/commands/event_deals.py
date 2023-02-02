@@ -38,6 +38,8 @@ class Command(BaseCommand):
             if isinstance(deals_data, dict):
                 # Сохранение данных
                 for deal_id, deal_data in deals_data.items():
+                    print(deal_id)
+                    print(deal_data)
                     deals.create_or_update_deal(deal_data, active)
         else:
             [deals.change_deal_active(deals_id_, active) for deals_id_ in deals_ids]

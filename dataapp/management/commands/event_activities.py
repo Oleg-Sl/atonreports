@@ -42,6 +42,8 @@ class Command(BaseCommand):
                 companies_data = activities.get_companies_for_activities(self.bx24, activities_data)
                 # Сохранение данных
                 for activity_id, activity_data in activities_data.items():
+                    print(activity_id)
+                    print(activity_data)
                     activity_obj = activities.create_or_update_activity(activity_data, companies_data.get(activity_id, {}), active)
                     # print(activity_obj)
         else:

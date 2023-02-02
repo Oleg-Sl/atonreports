@@ -45,6 +45,8 @@ class Command(BaseCommand):
 
             # Сохранение данных
             for company_id, company_data in companies_data.items():
+                print(company_id)
+                print(company_data)
                 company_obj = companies.create_or_update_company(
                     company_data,
                     companies_requisites_data.get(company_id),

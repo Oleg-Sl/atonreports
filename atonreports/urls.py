@@ -11,3 +11,4 @@ urlpatterns = [
     path('reports/auth/', include('djoser.urls')),
     path('reports/auth/', include('djoser.urls.jwt')),
 ]
+

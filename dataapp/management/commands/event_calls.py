@@ -35,6 +35,7 @@ class Command(BaseCommand):
         # Сохранение данных
         for call_data_ in events_call_data_[:5]:
             # pprint.pprint(call_data_)
+            print(call_data_)
             if isinstance(call_data_, dict):
                 print(calls.create_or_update_call(call_data_))
 

@@ -382,7 +382,7 @@ async function start() {
 }
 
 $(document).ready(function() {
-    BX24.ready(async function() {
+    BX24.ready(function() {
         setTimeout(start, 500);
     })
 })
