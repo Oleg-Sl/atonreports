@@ -227,7 +227,7 @@ export default class Request {
     constructor() {
         // this.api = `${DOMAIN}api/v3/`;
         this.api = DOMAIN;
-        // this.auth = new Auth(DOMAIN);
+        this.auth = new Auth(DOMAIN);
     }
 
     async init() {
