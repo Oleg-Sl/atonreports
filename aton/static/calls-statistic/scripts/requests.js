@@ -243,7 +243,7 @@ export default class Request {
         };
         let url = this.api + method + "/";
         let urlGet = new URL(url);
-        for (let key in params) {api/v1/
+        for (let key in params) {
             urlGet.searchParams.set(key, params[key]);
         }
 
