@@ -29,7 +29,7 @@ def get_total(bx24, method, filter_field={}):
 def add_activities_to_db(bx24, method, filter_field={}, total=0, count=0, id_start=0):
         filter_field[">ID"] = id_start
         params = {
-            "select": ["COMPLETED", "DIRECTION", "TYPE_ID", "STATUS", "OWNER_TYPE_ID", "OWNER_ID", "CREATED", "END_TIME", "RESPONSIBLE_ID"],
+            "select": ["ID", "COMPLETED", "DIRECTION", "TYPE_ID", "STATUS", "OWNER_TYPE_ID", "OWNER_ID", "CREATED", "END_TIME", "RESPONSIBLE_ID"],
             "filter": filter_field,
             "order": {"ID": "ASC"},
             "start": -1
@@ -42,7 +42,8 @@ def add_activities_to_db(bx24, method, filter_field={}, total=0, count=0, id_sta
             for data in data_list:
                 activities.create_or_update_activity(data, companies_obj)
 
-            print(f"{min(count, total)} из {total}", end="\r")
+            print(id_start)
+            print(f"{min(count, total)} из {total}")#, end="\r")
             add_activities_to_db(bx24, method, filter_field, total, count, id_start)
 
 
