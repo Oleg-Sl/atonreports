@@ -100,11 +100,11 @@ class Company(models.Model):
     REVENUE = models.DecimalField(verbose_name='Годовой оборот', max_digits=15, decimal_places=2, default=0, blank=True, null=True, db_index=True)
     INDUSTRY = models.CharField(verbose_name='Сфера деятельности', max_length=25, blank=True, null=True, db_index=True)
 
-    sector = models.CharField(verbose_name='Отрасль', max_length=100, blank=True, null=True, db_index=True)
-    region = models.CharField(verbose_name='Регион', max_length=100, blank=True, null=True, db_index=True)
-    source = models.CharField(verbose_name='Источник компании', max_length=100, blank=True, null=True, db_index=True)
+    sector = models.CharField(verbose_name='Отрасль', max_length=150, blank=True, null=True, db_index=True)
+    region = models.CharField(verbose_name='Регион', max_length=150, blank=True, null=True, db_index=True)
+    source = models.CharField(verbose_name='Источник компании', max_length=150, blank=True, null=True, db_index=True)
     number_employees = models.IntegerField(verbose_name='Количество сотрудников', blank=True, null=True, db_index=True)
-    district = models.CharField(verbose_name='Район области', max_length=100, blank=True, null=True)
+    district = models.CharField(verbose_name='Район области', max_length=150, blank=True, null=True)
     main_activity = models.CharField(verbose_name='Основной вид деятельности', max_length=500, blank=True, null=True)
     other_activities = models.CharField(verbose_name='Другие виды деятельности', max_length=2000, blank=True, null=True)
     profit = models.DecimalField(verbose_name='Чистая прибыль', max_digits=15, decimal_places=2, default=0, blank=True, null=True)
@@ -147,11 +147,11 @@ class Deal(models.Model):
     opportunity = models.DecimalField(verbose_name='Сумма сделки', max_digits=15, decimal_places=2, default=0, blank=True, null=True)
     balance_on_payments = models.DecimalField(verbose_name='Остаток по оплатам', max_digits=15, decimal_places=2, default=0, blank=True, null=True)
     amount_paid = models.DecimalField(verbose_name='Всего оплат на сумму', max_digits=15, decimal_places=2, default=0, blank=True, null=True)
-    active = models.BooleanField(verbose_name='Сделка активна (не удалена)', default=True)
+    active = models.BooleanField(verbose_name='Сделка активна (не удалена)', default=True, db_index=True)
 
-    company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE, related_name='deal', blank=True, null=True)
-    direction = models.ForeignKey(Direction, verbose_name='Направление', on_delete=models.CASCADE, related_name='deal', blank=True, null=True)
-    stage = models.ForeignKey(Stage, verbose_name='Стадия', on_delete=models.CASCADE, related_name='deal', blank=True, null=True)
+    company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE, related_name='deal', blank=True, null=True, db_index=True)
+    direction = models.ForeignKey(Direction, verbose_name='Направление', on_delete=models.CASCADE, related_name='deal', blank=True, null=True, db_index=True)
+    stage = models.ForeignKey(Stage, verbose_name='Стадия', on_delete=models.CASCADE, related_name='deal', blank=True, null=True, db_index=True)
 
     objects = DealManager()
 
