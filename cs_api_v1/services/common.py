@@ -82,8 +82,8 @@ def get_calls_by_month(departments, year, duration):
             # phone__CALL_DURATION__gte=duration,
             DURATION__gte=duration,
             active=True
-        # ).distinct(
-        #     'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+        ).distinct(
+            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
             "RESPONSIBLE_ID", 'CALL_START_DATE__month'
@@ -113,8 +113,8 @@ def get_calls_by_month(departments, year, duration):
             # phone__CALL_DURATION__gte=duration,
             DURATION__gte=duration,
             active=True
-        # ).distinct(
-        #     'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+        ).distinct(
+            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
             "RESPONSIBLE_ID", 'CALL_START_DATE__month'
@@ -180,8 +180,8 @@ def get_calls_by_day(departments, year, month, duration):
             # phone__CALL_DURATION__gte=duration,
             DURATION__gte=duration,
             active=True
-        # ).distinct(
-        #     'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+        ).distinct(
+            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
             "RESPONSIBLE_ID", 'CALL_START_DATE__day'
@@ -213,8 +213,8 @@ def get_calls_by_day(departments, year, month, duration):
             # phone__CALL_DURATION__gte=duration,
             DURATION__gte=duration,
             active=True
-        # ).distinct(
-        #     'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+        ).distinct(
+            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
             "RESPONSIBLE_ID", 'CALL_START_DATE__day'
