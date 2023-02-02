@@ -89,7 +89,9 @@ export default class SelectDataByStatistic {
 
     // получение сохраненного списка подразделений из хранилища Битрикс
     async getSavedDepartments() {
+        console.log("getSavedDepartments");
         let storageDepartment = await BX24.appOption.get(this.keyStorageDepartment);
+        console.log("storageDepartment = ", storageDepartment);
         if (storageDepartment) {
             this.saveDepartments = storageDepartment.split(",");
         } else {
