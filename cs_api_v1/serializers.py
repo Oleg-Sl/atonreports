@@ -43,7 +43,7 @@ class CallsSerializer(serializers.ModelSerializer):
 
 class UsersUpdateSerializer(serializers.ModelSerializer):
     ID = serializers.IntegerField(read_only=True)
-    UF_DEPARTMENTUF_DEPARTMENT = serializers.IntegerField(read_only=True)
+    UF_DEPARTMENT = serializers.IntegerField(read_only=True)
     URL = serializers.URLField(read_only=True)
 
     class Meta:
