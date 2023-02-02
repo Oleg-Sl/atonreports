@@ -21,9 +21,9 @@ def get_data_activities(bx24, ids):
 
 
 def create_or_update_activity(activity_data, companies_data, active=True):
-    print("*"*99)
-    print(activity_data)
-    print(companies_data)
+    # print("*"*99)
+    # print(activity_data)
+    # print(companies_data)
     data = {
         "COMPLETED": activity_data.get("COMPLETED", None),
         "DIRECTION": activity_data.get("DIRECTION", None),
