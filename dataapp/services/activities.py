@@ -48,7 +48,7 @@ def create_or_update_activity(activity_data, companies_data, active=True):
     try:
         activity_obj_ = Activity.objects.filter(ID=activity_data.get("ID", None)).first()
         if activity_obj_:
-            Activity.objects.filter(ID=activity_data.get("ID", None)).update(data)
+            Activity.objects.filter(ID=activity_data.get("ID", None)).update(**data)
         else:
             Activity.objects.create(ID=activity_data.get("ID", None), **data)
         # obj_, created = Activity.objects.update_or_create(
