@@ -38,6 +38,7 @@ def create_or_update_deal(data, active):
         "stage": Stage.objects.filter(STATUS_ID=data.get("STAGE_ID")).first(),
         "active": active,
     }
+
     deal_obj = None
     try:
         deal_obj = Deal.objects.update_or_create(ID=data.get("ID"), defaults=deal)
@@ -63,4 +64,3 @@ def change_deal_active(deal_id, active):
 # return
 # deal_obj = Deal.objects.update_or_create(deal)
 # print("deal = ", deal_obj)
-

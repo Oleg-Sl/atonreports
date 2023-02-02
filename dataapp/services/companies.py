@@ -83,7 +83,6 @@ def create_or_update_company(company_data, inn=None, address={}, active=True):
     data["active"] = active
 
     company_obj = Company.objects.update_or_create(ID=company_data.get("ID"), defaults=data)
-
     return company_obj
 
 

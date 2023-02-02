@@ -29,6 +29,7 @@ def get_total(bx24, method, filter_field={}):
 def add_activities_to_db(bx24, method, filter_field={}, total=0, count=0, id_start=0):
         filter_field[">ID"] = id_start
         params = {
+            "select": ["COMPLETED", "DIRECTION", "TYPE_ID", "STATUS", "OWNER_TYPE_ID", "OWNER_ID", "CREATED", "END_TIME", "RESPONSIBLE_ID"],
             "filter": filter_field,
             "order": {"ID": "ASC"},
             "start": -1

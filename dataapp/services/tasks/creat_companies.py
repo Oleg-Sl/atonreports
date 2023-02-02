@@ -17,8 +17,11 @@ def create_or_update_companies(begin_date=None, end_date=None):
     if begin_date:
         filter_field["<DATE_CREATE"] = end_date
 
+    select_companies = ["ID", "ASSIGNED_BY_ID", "TITLE", "DATE_CREATE", "ADDRESS", "REVENUE", "INDUSTRY",
+                        "UF_CRM_1640828035", "UF_CRM_1639121988","UF_CRM_1639121612", "UF_CRM_1639121303",
+                        "UF_CRM_1639121341", "UF_CRM_1617767435", "UF_CRM_1639121225", "UF_CRM_1639121262"]
     total = get_total(bx24, "crm.company.list", filter_field)
-    add_companies_to_db(bx24, "crm.company.list", filter_field, [], total)
+    add_companies_to_db(bx24, "crm.company.list", filter_field, select_companies, total)
 
     total = get_total(bx24, "crm.requisite.list", {"ENTITY_TYPE_ID": 4, })
     add_requisites_to_db(bx24, "crm.requisite.list", {"ENTITY_TYPE_ID": 4, }, ["ID", "RQ_INN", "ENTITY_ID", ], total)

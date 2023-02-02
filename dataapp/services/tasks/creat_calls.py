@@ -28,6 +28,7 @@ def get_total(bx24, method, filter_field={}):
 def add_calls_to_db(bx24, method, filter_field={}, total=0, count=0, id_start=0):
         filter_field[">ID"] = id_start
         params = {
+            "SELECT": ["CALL_ID", "CALL_TYPE", "PHONE_NUMBER", "CALL_DURATION", "CALL_START_DATE", "CRM_ACTIVITY_ID", "PORTAL_USER_ID"],
             "FILTER": filter_field,
             "SORT": "ID",
             "ORDER": "ASC",
