@@ -225,8 +225,8 @@ class Auth {
 
 export default class Request {
     constructor() {
-        // this.api = `${DOMAIN}api/v3/`;
-        this.api = DOMAIN;
+        this.api = `${DOMAIN}calls-statistic/api/v1/`;
+        // this.api = DOMAIN;
         this.auth = new Auth(DOMAIN);
     }
 
@@ -243,7 +243,7 @@ export default class Request {
         };
         let url = this.api + method + "/";
         let urlGet = new URL(url);
-        for (let key in params) {
+        for (let key in params) {api/v1/
             urlGet.searchParams.set(key, params[key]);
         }
 
