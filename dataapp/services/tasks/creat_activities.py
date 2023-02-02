@@ -17,7 +17,7 @@ def creat_and_update_activities(begin_date=None, end_date=None):
     if begin_date:
         filter_field["<CREATED"] = end_date
 
-    # filter_field[">CREATED"] = "2022-01-01"
+    filter_field[">CREATED"] = "2022-01-01"
     filter_field["TYPE_ID"] = "3"
 
         # "filter": {
