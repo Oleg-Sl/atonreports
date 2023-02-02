@@ -1,4 +1,7 @@
+import sys
 import pprint
+
+sys.setrecursionlimit(8000)
 
 from bitrix24.request import Bitrix24
 from .. import activities
@@ -17,13 +20,14 @@ def creat_and_update_activities(begin_date=None, end_date=None):
     filter_field[">CREATED"] = "2022-01-01"
     filter_field["TYPE_ID"] = "2"
 
+
         # "filter": {
         #     "TYPE_ID": "2",
         #     ">CREATED": "2022-01-01"
         # },
 
     total = get_total(bx24, "crm.activity.list", filter_field)
-    add_activities_to_db(bx24, "crm.activity.list", filter_field, total)
+    add_activities_to_db(bx24, "crm.activity.list", filter_field, total, 0, 2740845)
 
 
 def get_total(bx24, method, filter_field={}):

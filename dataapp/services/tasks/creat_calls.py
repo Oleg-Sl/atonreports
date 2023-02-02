@@ -13,6 +13,8 @@ def create_or_update_calls(begin_date=None, end_date=None):
     if begin_date:
         filter_field["<CALL_START_DATE"] = end_date
 
+    filter_field[">CALL_START_DATE"] = "2022-01-01"
+
     total = get_total(bx24, "voximplant.statistic.get", filter_field)
     add_calls_to_db(bx24, "voximplant.statistic.get", filter_field, total)
 
