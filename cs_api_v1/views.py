@@ -84,7 +84,7 @@ class IndexApiView(views.APIView):
     @xframe_options_exempt
     def post(self, request):
         return render(request, 'calls-statistic/index.html', context={
-            "DOMAIN": "https://otchet.atonlab.ru/reports/calls-statistic/api/v1/"
+            "DOMAIN": "https://otchet.atonlab.ru/reports/"
         })
 
 
