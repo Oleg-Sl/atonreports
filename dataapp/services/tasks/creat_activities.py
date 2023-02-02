@@ -19,7 +19,7 @@ def creat_and_update_activities(begin_date=None, end_date=None):
 
     filter_field[">CREATED"] = "2022-01-01"
     filter_field["TYPE_ID"] = "2"
-
+    filter_field[">ID"] = 3604629
 
         # "filter": {
         #     "TYPE_ID": "2",
