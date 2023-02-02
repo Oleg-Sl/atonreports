@@ -136,7 +136,7 @@ class Company(models.Model):
 
 
 class Deal(models.Model):
-    ID = models.PositiveIntegerField(verbose_name='id сделки в BX24', unique=True)
+    ID = models.PositiveIntegerField(primary_key=True, verbose_name='id сделки в BX24', unique=True)
     TITLE = models.CharField(verbose_name='Название сделки', max_length=350, blank=True, null=True)
     DATE_CREATE = models.DateTimeField(verbose_name='Дата создания сделки', blank=True, null=True)
     DATE_MODIFY = models.DateTimeField(verbose_name='Дата последнего изменения', blank=True, null=True)
