@@ -378,9 +378,7 @@ $(document).ready(function() {
     BX24.ready(function() {
         console.log('Start');
         let appAddData = new App();
-        setTimeout(appAddData.init, 100);
-        // appAddData.init();
-
+        appAddData.init();
     })
 })
 
