@@ -46,10 +46,15 @@ def create_or_update_activity(activity_data, companies_data, active=True):
 
     obj_ = None
     try:
-        obj_, created = Activity.objects.update_or_create(
-            ID=activity_data.get("ID", None),
-            defaults=data
-        )
+        activity_obj_ = Activity.objects.filter(ID=activity_data.get("ID", None)).first()
+        if activity_obj_:
+            Activity.objects.filter(ID=activity_data.get("ID", None)).update(data)
+        else:
+            Activity.objects.create(ID=activity_data.get("ID", None), **data)
+        # obj_, created = Activity.objects.update_or_create(
+        #     ID=activity_data.get("ID", None),
+        #     defaults=data
+        # )
     except Exception as err:
         print("ID ACTIVITY = ", activity_data.get("ID"))
         print(err)
