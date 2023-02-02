@@ -51,10 +51,12 @@ def add_activities_to_db(bx24, method, filter_field={}, total=0, count=0, id_sta
             id_start = data_list[-1].get("ID") or data_list[-1].get("ID")
             companies_obj = get_companies_for_activities(bx24, data_list)
             for data in data_list:
-                activities.create_or_update_activity(data, companies_obj)
+                activity_id_ = data.get("ID")
+                activities.create_or_update_activity(data, companies_obj.get(activity_id_))
 
             print(id_start)
-            print(f"{min(count, total)} из {total}")#, end="\r")
+            print(f"{count} из {total}")#, end="\r")
+            # print(f"{min(count, total)} из {total}")#, end="\r")
             add_activities_to_db(bx24, method, filter_field, total, count, id_start)
 
 
