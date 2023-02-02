@@ -121,8 +121,8 @@ class CallsViewSet(viewsets.ModelViewSet):
         TYPE_ID=2,      # только звонки
         DIRECTION=2,    # только исходящие
         active=True
-    ).distinct(
-        'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+    # ).distinct(
+    #     'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
     ).order_by(
         'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID', 'CALL_START_DATE'
     )
