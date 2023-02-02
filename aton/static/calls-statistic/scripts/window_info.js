@@ -310,7 +310,7 @@ export default class WindowInfo {
             //            CREATED_before: dataEnd,
             CALL_START_DATE_after: dateStart,
             CALL_START_DATE_before: dataEnd,
-            CALL_DURATION: duration
+            DURATION: duration
         }
 
         let response = await this.requests.GET_LONG("calls", params);
