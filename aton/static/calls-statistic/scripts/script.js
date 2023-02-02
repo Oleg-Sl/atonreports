@@ -375,8 +375,9 @@ class App {
 
 
 $(document).ready(function() {
-    BX24.ready(function() {
-        console.log('Start');
+    BX24.ready(async function() {
+        let status = await BX24.isReady;
+        console.log('Start = ', status);
         let appAddData = new App();
         appAddData.init();
     })
