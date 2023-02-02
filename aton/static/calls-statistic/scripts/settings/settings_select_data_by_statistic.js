@@ -91,6 +91,7 @@ export default class SelectDataByStatistic {
     async getSavedDepartments() {
         console.log("getSavedDepartments");
         let storageDepartment = await BX24.appOption.get(this.keyStorageDepartment);
+        console.log("this.keyStorageDepartment = ", this.keyStorageDepartment);
         console.log("storageDepartment = ", storageDepartment);
         if (storageDepartment) {
             this.saveDepartments = storageDepartment.split(",");
