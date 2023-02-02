@@ -27,7 +27,7 @@ def creat_and_update_activities(begin_date=None, end_date=None):
         # },
 
     total = get_total(bx24, "crm.activity.list", filter_field)
-    add_activities_to_db(bx24, "crm.activity.list", filter_field, total, 0, 2740845)
+    add_activities_to_db(bx24, "crm.activity.list", filter_field, total, 0, 3604629)
 
 
 def get_total(bx24, method, filter_field={}):
