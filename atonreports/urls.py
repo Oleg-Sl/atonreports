@@ -8,4 +8,6 @@ urlpatterns = [
     path('reports/dpk/api/v1/', include('dpk_api_v1.urls', namespace='dpk_api_v1')),
     path('reports/calls-statistic/api/v1/', include('cs_api_v1.urls', namespace='cs_api_v1')),
 
+    path('reports/auth/', include('djoser.urls')),
+    path('reports/auth/', include('djoser.urls.jwt')),
 ]
