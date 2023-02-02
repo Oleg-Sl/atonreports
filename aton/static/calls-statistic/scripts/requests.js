@@ -1,4 +1,4 @@
-// import { DOMAIN } from "./domain.js";
+import { DOMAIN } from "./domain.js";
 
 
 class Auth {
@@ -230,8 +230,10 @@ class Auth {
 export default class Request {
     constructor() {
         this.api = `${DOMAIN}calls-statistic/api/v1/`;
-        // this.api = DOMAIN;
         this.auth = new Auth(DOMAIN);
+        // this.api = `${DOMAIN}calls-statistic/api/v1/`;
+        // // this.api = DOMAIN;
+        // this.auth = new Auth(DOMAIN);
     }
 
     async init() {
