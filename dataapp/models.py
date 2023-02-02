@@ -204,7 +204,7 @@ class Activity(models.Model):
                                      blank=True, null=True, choices=OWNER_TYPE_CHOICE)
     OWNER_ID = models.PositiveIntegerField(verbose_name='ID сущности к которой привязан звонок',
                                            blank=True, null=True)
-    OWNER_NAME = models.CharField(verbose_name='Название сущности к которой привязан звонок', max_length=350,
+    OWNER_NAME = models.CharField(verbose_name='Название сущности к которой привязан звонок', max_length=950,
                                   blank=True, null=True)
     CREATED = models.DateTimeField(verbose_name='Дата создания дела', blank=True, null=True, db_index=True)
     END_TIME = models.DateTimeField(verbose_name='Дата завершения дела', blank=True, null=True)

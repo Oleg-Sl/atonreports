@@ -40,10 +40,15 @@ def create_or_update_activity(activity_data, companies_data, active=True):
         # "CALL_START_DATE": call_start_date,
     }
 
-    obj_, created = Activity.objects.update_or_create(
-        ID=activity_data.get("ID", None),
-        defaults=data
-    )
+    obj_ = None
+    try:
+        obj_, created = Activity.objects.update_or_create(
+            ID=activity_data.get("ID", None),
+            defaults=data
+        )
+    except Exception as err:
+        print("ID ACTIVITY = ", activity_data.get("ID"))
+        print(err)
     return obj_
 
 
