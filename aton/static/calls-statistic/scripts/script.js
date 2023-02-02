@@ -383,7 +383,7 @@ async function start() {
 
 $(document).ready(function() {
     BX24.ready(async function() {
-        setTimeout(start, 5000);
+        setTimeout(start, 500);
     })
 })
 
