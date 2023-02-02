@@ -100,7 +100,7 @@ export default class SelectDataByStatistic {
     // получение списка всех подразделений из Битрикс
     async getAllDepartments() {
         this.departments = await this.bx.callMethod("department.get");          // список всех аподраздеоений
-        this.companyStructure = this.getTreeDepartments();                      // создание иерархии подразделений (структура компаний)
+        this.companyStructure = this.getTreeeDepartments();                      // создание иерархии подразделений (структура компаний)
     }
 
     // установка галочек в выбранных подразделениях
@@ -205,9 +205,13 @@ export default class SelectDataByStatistic {
 
     // окно "выбранные пользователи подразделений" - вывод списка подразделений
     async renderSelectedDepartment() {
+        console.log("renderSelectedDepartment");
+        console.log(this.departments);
+        console.log(this.saveDepartments);
         this.containerUserDepart.innerHTML = "";
         for (let department of this.departments) {
             if (department.ID && this.saveDepartments.includes(department.ID)) {
+                console.log(department.ID);
                 await this.renderUsersDepartment(department);
             }
         }

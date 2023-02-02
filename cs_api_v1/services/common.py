@@ -18,7 +18,8 @@ from dataapp.models import (
 )
 from ..serializers import ProductionCalendarSerializer
 
-CASH_TIMMEOUT = 60 * 60 * 4
+CASH_TIMMEOUT = 6
+# 0 * 60 * 4
 
 
 # добавление всех дней месяц в БД
