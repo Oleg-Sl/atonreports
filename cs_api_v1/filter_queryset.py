@@ -17,12 +17,12 @@ from dataapp.models import (
 
 class CallsFilter(filters.FilterSet):
     CREATED = filters.DateFromToRangeFilter()
-    CALL_START_DATE = filters.DateFromToRangeFilter(field_name='phone__CALL_START_DATE')
-    CALL_DURATION = filters.NumberFilter(field_name='phone__CALL_DURATION', lookup_expr='gte')
+    CALL_START_DATE = filters.DateFromToRangeFilter(field_name='CALL_START_DATE')
+    DURATION = filters.NumberFilter(field_name='DURATION', lookup_expr='gte')
 
     class Meta:
         model = Activity
-        fields = ["RESPONSIBLE_ID", "CREATED", "CALL_DURATION", "CALL_START_DATE"]
+        fields = ["RESPONSIBLE_ID", "CREATED", "DURATION", "CALL_START_DATE"]
 
 
 class CommentFilter(filters.FilterSet):
