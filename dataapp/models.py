@@ -235,7 +235,7 @@ class Phone(models.Model):
     CALL_ID = models.CharField(verbose_name='ID звонка в BX24', max_length=75, unique=True, db_index=True)
     CALL_TYPE = models.CharField(verbose_name='Тип звонка', max_length=1, choices=CALL_TYPE_CHOICE)
     PHONE_NUMBER = models.CharField(verbose_name='Номер телефона', max_length=20, blank=True, null=True)
-    CALL_DURATION = models.PositiveIntegerField(verbose_name='Длительность звонка', db_index=True)
+    CALL_DURATION = models.PositiveIntegerField(verbose_name='Длительность звонка', null=True, db_index=True)
     CALL_START_DATE = models.DateTimeField(verbose_name='Дата начала звонка', db_index=True)
 
     CRM_ACTIVITY_ID = models.ForeignKey(Activity, verbose_name='Дело', on_delete=models.SET_NULL,
