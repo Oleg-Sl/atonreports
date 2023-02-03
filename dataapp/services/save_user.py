@@ -15,6 +15,9 @@ def add_user_orm(user):
 
 
 def add_user_drf(user):
+    departments = user.get("UF_DEPARTMENT")
+    user["URL"] = get_url_user(user.get("ID", None))
+    user["UF_DEPARTMENT"] = departments[0] if departments else None,
     exist_obj = User.objects.filter(ID=user.get("ID", None)).first()
 
     if exist_obj:
