@@ -23,7 +23,8 @@ class User(models.Model):
         ('1', 'Ограниченно разрешено'),
         ('2', 'Разрешено'),
     )
-    ID = models.PositiveIntegerField(verbose_name='ID пользователя в BX24', unique=True, db_index=True)
+    ID = models.PositiveIntegerField(primary_key=True, verbose_name='ID пользователя в BX24',
+                                     unique=True, db_index=True)
     LAST_NAME = models.CharField(verbose_name='Фамилия', max_length=35, blank=True, null=True)
     NAME = models.CharField(verbose_name='Имя', max_length=35, blank=True, null=True)
     # WORK_POSITION = models.CharField(verbose_name='Должность', max_length=75, blank=True, null=True)
@@ -52,7 +53,7 @@ class Direction(models.Model):
     Методы: crm.dealcategory.list => [{ID: ..., NAME: ...}, ...];
             crm.deal.fields => UF_CRM_1610523951 => [{ID: ..., VALUE: ...}, ...] - для направления 43 (отдел продаж)
     """
-    ID = models.PositiveIntegerField(verbose_name='ID направления в BX24', unique=True, db_index=True)
+    ID = models.PositiveIntegerField(primary_key=True, verbose_name='ID направления в BX24', unique=True, db_index=True)
     VALUE = models.CharField(verbose_name='Название направления', max_length=50)
     new = models.BooleanField(verbose_name='Новое напрвление', default=True, db_index=True)
     general_id_bx = models.IntegerField(verbose_name='ID направления в BX24 (для совместимости со старыми направлениями)')
@@ -75,7 +76,7 @@ class Stage(models.Model):
         ("WON", 'Успешна'),
         ("FAILURE", 'Провалена'),
     ]
-    ID = models.PositiveIntegerField(verbose_name='ID стадии в BX24', unique=True, db_index=True)
+    ID = models.PositiveIntegerField(primary_key=True, verbose_name='ID стадии в BX24', unique=True, db_index=True)
     STATUS_ID = models.CharField(verbose_name='Аббревиатура стадии сделки', max_length=35, db_index=True)
     NAME = models.CharField(verbose_name='Название стадии сделки', max_length=150)
     won = models.BooleanField(verbose_name='Сделка завершена успешно', default=False, db_index=True)
@@ -92,7 +93,7 @@ class Stage(models.Model):
 
 
 class Company(models.Model):
-    ID = models.PositiveIntegerField(verbose_name='ID компании в BX24', unique=True, db_index=True)
+    ID = models.PositiveIntegerField(primary_key=True, verbose_name='ID компании в BX24', unique=True, db_index=True)
     TITLE = models.CharField(verbose_name="Название компании", max_length=300, blank=True, null=True, db_index=True)
     DATE_CREATE = models.DateTimeField(verbose_name='Дата создания', blank=True, null=True)
     ADDRESS = models.CharField(verbose_name='Адрес компании', max_length=300, blank=True, null=True)
@@ -135,7 +136,7 @@ class Company(models.Model):
 
 
 class Deal(models.Model):
-    ID = models.PositiveIntegerField(verbose_name='id сделки в BX24', unique=True, db_index=True)
+    ID = models.PositiveIntegerField(primary_key=True, verbose_name='id сделки в BX24', unique=True, db_index=True)
     TITLE = models.CharField(verbose_name='Название сделки', max_length=350, blank=True, null=True)
     DATE_CREATE = models.DateTimeField(verbose_name='Дата создания сделки', blank=True, null=True)
     DATE_MODIFY = models.DateTimeField(verbose_name='Дата последнего изменения', blank=True, null=True)
@@ -192,7 +193,7 @@ class Activity(models.Model):
         ('4', 'Завершено автоматически'),
     )
 
-    ID = models.PositiveIntegerField(verbose_name='ID дела в BX24', unique=True, db_index=True)
+    ID = models.PositiveIntegerField(primary_key=True, verbose_name='ID дела в BX24', unique=True, db_index=True)
     COMPLETED = models.CharField(verbose_name='Заершено дело или нет', max_length=1, choices=COMPLETED_CHOICE)
     DIRECTION = models.CharField(verbose_name='Направление дела (входящее/исходящее)', max_length=1,
                                  choices=DIRECTION_CHOICE, db_index=True)

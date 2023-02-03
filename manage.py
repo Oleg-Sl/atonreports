@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
+"""Django's command-line utility for administrative save_data_from_bx24."""
 import os
 import sys
 
 
 def main():
-    """Run administrative tasks."""
+    """Run administrative save_data_from_bx24."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'atonreports.settings')
     try:
         from django.core.management import execute_from_command_line

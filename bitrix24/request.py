@@ -89,8 +89,8 @@ class Bitrix24:
     #         "start": -1
     #     }
     #     data = self.request(method, params).get("result")
-    #     if data and isinstance(data, dict) and "tasks" in data:
-    #         data = data.get("tasks")
+    #     if data and isinstance(data, dict) and "save_data_from_bx24" in data:
+    #         data = data.get("save_data_from_bx24")
     #     if data and isinstance(data, list):
     #         id_start = data[-1].get("ID") or data[-1].get("id")
     #         data.extend(self.request_list(method, fields, filter, id_start))

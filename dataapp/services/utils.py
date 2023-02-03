@@ -1,5 +1,7 @@
 import pprint
 
+from bitrix24 import tokens
+
 
 def get_events(bx24, event_name, limit):
     response = bx24.call("event.offline.get", {
@@ -32,3 +34,9 @@ def editing_money_in_number(numb):
         return f"{float(numb):.2f}"
     else:
         return None
+
+
+def get_url_user(id_user):
+    domain = tokens.get_secret("domain")
+    return f"https://{domain}/company/personal/user/{id_user}/"
+
