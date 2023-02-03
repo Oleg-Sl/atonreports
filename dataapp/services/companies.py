@@ -71,7 +71,7 @@ def create_or_update_company(company_data, inn=None, address={}, active=True):
     data["sector"]=company_data.get("UF_CRM_1640828035")
     data["region"]=company_data.get("UF_CRM_1639121988")
     data["source"]=company_data.get("UF_CRM_1639121612")
-    data["number_employees"]=company_data.get("UF_CRM_1639121303")
+    data["number_employees"]=company_data.get("UF_CRM_1639121303") or None
     data["district"]=company_data.get("UF_CRM_1639121341")
     data["main_activity"]=company_data.get("UF_CRM_1617767435")
     data["other_activities"]=company_data.get("UF_CRM_1639121225")
