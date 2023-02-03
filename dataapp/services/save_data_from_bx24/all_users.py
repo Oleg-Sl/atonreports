@@ -11,7 +11,7 @@ def save_to_db(bx24, method, id_start=0):
     if users and isinstance(users, list):
         id_start = users[-1].get("ID")
         for user in users:
-            # print("INPUT: ", user)
+            print("INPUT: ", user.get("ID"))
             res = save_user.add_user_drf(user)
             print("OUTPUT: ", res)
         save_to_db(bx24, method, id_start)
