@@ -6,7 +6,7 @@ from bitrix24.request import Bitrix24
 from dataapp.services import utils, companies
 
 
-LIMIT_EVENTS = 1
+LIMIT_EVENTS = 25
 
 
 class Command(BaseCommand):

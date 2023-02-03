@@ -8,7 +8,7 @@ from dataapp.services import utils
 from dataapp.services.users import get_all_users, add_users
 
 
-LIMIT_EVENTS = 1
+LIMIT_EVENTS = 25
 
 
 class Command(BaseCommand):
