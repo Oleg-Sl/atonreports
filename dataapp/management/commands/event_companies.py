@@ -21,6 +21,7 @@ class Command(BaseCommand):
             self.get_and_save_companies_by_type_event(event)
 
     def get_and_save_companies_by_type_event(self, event_name, count_recursion=10):
+        print(event_name)
         active = False if event_name == "ONCRMCOMPANYDELETE" else True
         if count_recursion <= 0:
             return
@@ -33,6 +34,7 @@ class Command(BaseCommand):
         if not companies_ids:
             return
 
+        print("COUNT = ", len(companies_ids))
         if active:
             # Получение данных компаний
             companies_data = companies.get_company_data(self.bx24, companies_ids)
@@ -45,8 +47,8 @@ class Command(BaseCommand):
 
             # Сохранение данных
             for company_id, company_data in companies_data.items():
-                print(company_id)
-                print(company_data)
+                # print(company_id)
+                # print(company_data)
                 company_obj = companies.create_or_update_company(
                     company_data,
                     companies_requisites_data.get(company_id),

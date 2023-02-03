@@ -22,6 +22,7 @@ class Command(BaseCommand):
             self.get_and_save_calls_by_type_event(event)
 
     def get_and_save_calls_by_type_event(self, event_name, count_recursion=10):
+        print(event_name)
         if count_recursion <= 0:
             return
 
@@ -31,11 +32,11 @@ class Command(BaseCommand):
 
         if not events_call_data_:
             return
-
+        print("COUNT = ", len(events_call_data_))
         # Сохранение данных
-        for call_data_ in events_call_data_[:5]:
+        for call_data_ in events_call_data_:
             # pprint.pprint(call_data_)
-            print(call_data_)
+            # print(call_data_)
             if isinstance(call_data_, dict):
                 print(calls.create_or_update_call(call_data_))
 

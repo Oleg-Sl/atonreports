@@ -23,6 +23,7 @@ class Command(BaseCommand):
 
 
     def get_and_save_activities_by_type_event(self, event_name, count_recursion=10):
+        print(event_name)
         active = False if event_name == "ONCRMACTIVITYDELETE" else True
         if count_recursion <= 0:
             return
@@ -33,6 +34,7 @@ class Command(BaseCommand):
         # activities_ids = [1863, 1867, 1869, 1923, 1925, 485]
         if not activities_ids:
             return
+        print("COUNT = ", len(activities_ids))
 
         if active:
             # Получение данных активностей
@@ -42,8 +44,8 @@ class Command(BaseCommand):
                 companies_data = activities.get_companies_for_activities(self.bx24, activities_data)
                 # Сохранение данных
                 for activity_id, activity_data in activities_data.items():
-                    print(activity_id)
-                    print(activity_data)
+                    # print(activity_id)
+                    # print(activity_data)
                     activity_obj = activities.create_or_update_activity(activity_data, companies_data.get(activity_id, {}), active)
                     # print(activity_obj)
         else:

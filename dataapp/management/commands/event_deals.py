@@ -21,6 +21,7 @@ class Command(BaseCommand):
             self.get_and_save_deals_by_type_event(event)
 
     def get_and_save_deals_by_type_event(self, event_name, count_recursion=20):
+        print(event_name)
         active = False if event_name == "ONCRMDEALDELETE" else True
         if count_recursion <= 0:
             return
@@ -31,15 +32,15 @@ class Command(BaseCommand):
 
         if not deals_ids:
             return
-
+        print("COUNT = ", len(deals_ids))
         if active:
             # Получение данных сделок
             deals_data = deals.get_data(self.bx24, deals_ids)
             if isinstance(deals_data, dict):
                 # Сохранение данных
                 for deal_id, deal_data in deals_data.items():
-                    print(deal_id)
-                    print(deal_data)
+                    # print(deal_id)
+                    # print(deal_data)
                     deals.create_or_update_deal(deal_data, active)
         else:
             [deals.change_deal_active(deals_id_, active) for deals_id_ in deals_ids]
