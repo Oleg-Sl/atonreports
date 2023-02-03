@@ -63,22 +63,22 @@ def create_or_update_company(company_data, inn=None, address={}, active=True):
     """ Сохранение компании из BX24 """
     data = {}
     data["ASSIGNED_BY_ID"] = User.objects.filter(ID=company_data.get("ASSIGNED_BY_ID")).first()
-    data["TITLE"]=company_data.get("TITLE")
-    data["DATE_CREATE"]=company_data.get("DATE_CREATE")
-    data["ADDRESS"]=company_data.get("ADDRESS")
-    data["REVENUE"]=company_data.get("REVENUE")
-    data["INDUSTRY"]=company_data.get("INDUSTRY")
-    data["sector"]=company_data.get("UF_CRM_1640828035")
-    data["region"]=company_data.get("UF_CRM_1639121988")
-    data["source"]=company_data.get("UF_CRM_1639121612")
+    data["TITLE"]=company_data.get("TITLE") or None
+    data["DATE_CREATE"]=company_data.get("DATE_CREATE") or None
+    data["ADDRESS"]=company_data.get("ADDRESS") or None
+    data["REVENUE"]=company_data.get("REVENUE") or None
+    data["INDUSTRY"]=company_data.get("INDUSTRY") or None
+    data["sector"]=company_data.get("UF_CRM_1640828035") or None
+    data["region"]=company_data.get("UF_CRM_1639121988") or None
+    data["source"]=company_data.get("UF_CRM_1639121612") or None
     data["number_employees"]=company_data.get("UF_CRM_1639121303") or None
-    data["district"]=company_data.get("UF_CRM_1639121341")
-    data["main_activity"]=company_data.get("UF_CRM_1617767435")
-    data["other_activities"]=company_data.get("UF_CRM_1639121225")
-    data["profit"]=company_data.get("UF_CRM_1639121262")
-    data["requisite_region"] = address.get("REGION")
-    data["requisites_city"] = address.get("CITY")
-    data["requisites_province"] = address.get("PROVINCE")
+    data["district"]=company_data.get("UF_CRM_1639121341") or None
+    data["main_activity"]=company_data.get("UF_CRM_1617767435") or None
+    data["other_activities"]=company_data.get("UF_CRM_1639121225") or None
+    data["profit"]=company_data.get("UF_CRM_1639121262") or None
+    data["requisite_region"] = address.get("REGION") or None
+    data["requisites_city"] = address.get("CITY") or None
+    data["requisites_province"] = address.get("PROVINCE") or None
     data["inn"] = inn
     data["active"] = active
 
