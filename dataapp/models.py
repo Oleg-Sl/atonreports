@@ -27,7 +27,6 @@ class User(models.Model):
                                      unique=True, db_index=True)
     LAST_NAME = models.CharField(verbose_name='Фамилия', max_length=35, blank=True, null=True)
     NAME = models.CharField(verbose_name='Имя', max_length=35, blank=True, null=True)
-    # WORK_POSITION = models.CharField(verbose_name='Должность', max_length=75, blank=True, null=True)
     UF_DEPARTMENT = models.PositiveIntegerField(verbose_name='ID департамета', db_index=True)
 
     ACTIVE = models.BooleanField(verbose_name='Пользователь активен (не уволен)', default=True, db_index=True)
