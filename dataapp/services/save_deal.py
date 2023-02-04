@@ -9,6 +9,7 @@ def add_deal_drf(deal):
         direction = deal["UF_CRM_1610523951"]
     stage = Stage.objects.filter(STATUS_ID=deal.get("STAGE_ID")).first()
 
+    deal["CLOSEDATE"] = deal.get("CLOSEDATE") or None
     deal["CLOSED"] = True if deal.get("CLOSED") == "Y" else False
     deal["opportunity"] = deal.get("OPPORTUNITY") or 0
     deal["balance_on_payments"] = utils.editing_money_in_number(deal.get("UF_CRM_1575629957086", ""))
