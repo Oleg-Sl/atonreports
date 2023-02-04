@@ -1,10 +1,7 @@
-import pprint
 from django.core.management.base import BaseCommand
-from django.utils import timezone
-
 
 from bitrix24.request import Bitrix24
-from dataapp.services import utils, calls
+from dataapp.services import utils, save_call
 
 
 LIMIT_EVENTS = 25
@@ -12,35 +9,29 @@ LIMIT_EVENTS = 25
 
 class Command(BaseCommand):
     help = 'Read events: ONVOXIMPLANTCALLEND'
-    events = ["ONVOXIMPLANTCALLEND", ]
+    bx24 = Bitrix24()
 
     def handle(self, *args, **kwargs):
-        self.bx24 = Bitrix24()
+        print("ONVOXIMPLANTCALLEND")
+        self.get_and_save_calls("ONVOXIMPLANTCALLEND")
 
-        # Получение завершенных звонков
-        for event in self.events:
-            self.get_and_save_calls_by_type_event(event)
-
-    def get_and_save_calls_by_type_event(self, event_name, count_recursion=10):
-        print(event_name)
+    def get_and_save_calls(self, event_name, count_recursion=10):
         if count_recursion <= 0:
             return
 
         # Получение всех событий
-        events_call_data_ = utils.get_events(self.bx24, event_name, LIMIT_EVENTS)
-        # events_call_data_ = self.bx24.call("voximplant.statistic.get", {"SORT": "ID", "ORDER": "DESC"})["result"]
-
-        if not events_call_data_:
+        events_calls_ = utils.get_events(self.bx24, event_name, LIMIT_EVENTS)
+        print("Количество = ", len(events_calls_))
+        print(events_calls_)
+        if not events_calls_:
             return
-        print("COUNT = ", len(events_call_data_))
-        # Сохранение данных
-        for call_data_ in events_call_data_:
-            # pprint.pprint(call_data_)
-            # print(call_data_)
+        for call_data_ in events_calls_:
             if isinstance(call_data_, dict):
-                print(calls.create_or_update_call(call_data_))
+                print("INPUT: ", call_data_)
+                res = save_call.add_call_drf(call_data_)
+                print("OUTPUT: ", res)
 
         # если извлекли не все данные из очереди событий
-        if len(events_call_data_) == LIMIT_EVENTS:
-            self.get_and_save_calls_by_type_event(event_name, count_recursion - 1)
+        if len(events_calls_) == LIMIT_EVENTS:
+            self.get_and_save_calls(event_name, count_recursion - 1)
 

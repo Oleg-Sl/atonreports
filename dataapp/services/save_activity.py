@@ -27,22 +27,32 @@ def add_activity_drf(activity):
     return serializer.errors
 
 
-# def get_data_activities(bx24, ids):
-#     cmd = {}
-#     for id_ in ids:
-#         cmd[id_] = f"crm.activity.get?id={id_}"
-#
-#     response = bx24.call("batch", {
-#         "halt": 0,
-#         "cmd": cmd
-#     })
-#     # pprint.pprint(response)
-#     if not response or "result" not in response or "result" not in response["result"]:
-#         return
-#
-#     return response["result"]["result"]
-#
-#
+def update_activity_drf(activity):
+    if "RESPONSIBLE_ID" in activity:
+        responsible_obj = User.objects.filter(ID=activity.get("RESPONSIBLE_ID")).first()
+        activity["RESPONSIBLE_ID"] = responsible_obj.pk if responsible_obj else None
+    if "COMPANY_ID" in activity:
+        company_obj = Company.objects.filter(ID=activity.get("COMPANY_ID")).first()
+        activity["COMPANY_ID"] = company_obj.pk if company_obj else None
+
+    exist_obj = Activity.objects.filter(ID=activity.get("ID", None)).first()
+
+    if exist_obj:
+        serializer = ActivitySerializer(exist_obj, data=activity)
+    else:
+        serializer = ActivitySerializer(data=activity)
+
+    if serializer.is_valid():
+        try:
+            serializer.save()
+        except Exception as err:
+            return err
+        # return serializer.data
+        return
+
+    return serializer.errors
+
+
 # def create_or_update_activity(activity_data, companies_data, active=True):
 #     # print("*"*99)
 #     # print(activity_data)
@@ -89,47 +99,3 @@ def add_activity_drf(activity):
 #     return activity_obj
 #
 #
-# def get_companies_for_activities(bx24, activities_data):
-#     # Формирование списка batch запросов
-#     cmd = {}
-#     for activity_id, activity_data in activities_data.items():
-#         # pprint.pprint(activity_data)
-#         if activity_data["OWNER_TYPE_ID"] == "1" and activity_data["OWNER_ID"]:
-#             cmd[activity_id] = f"crm.lead.get?id={activity_data['OWNER_ID']}"
-#         if activity_data["OWNER_TYPE_ID"] == "2" and activity_data["OWNER_ID"]:
-#             cmd[activity_id] = f"crm.deal.get?id={activity_data['OWNER_ID']}"
-#         if activity_data["OWNER_TYPE_ID"] == "3" and activity_data["OWNER_ID"]:
-#             cmd[activity_id] = f"crm.contact.get?id={activity_data['OWNER_ID']}"
-#         if activity_data["OWNER_TYPE_ID"] == "4" and activity_data["OWNER_ID"]:
-#             cmd[activity_id] = f"crm.company.get?id={activity_data['OWNER_ID']}"
-#
-#     # выполнение запроса к Битрикс24 для получения связанной компании
-#     response = bx24.call("batch", {
-#         "halt": 0,
-#         "cmd": cmd
-#     })
-#
-#     if not response or "result" not in response or "result" not in response["result"] or not isinstance(response["result"]["result"], dict):
-#         return
-#
-#     # извлечение ID компании и названия сущности
-#     result = {}
-#     for activity_id, entity_data  in response["result"]["result"].items():
-#         data_ = {}
-#         if activities_data[activity_id]["OWNER_TYPE_ID"] == "1":
-#             data_["COMPANY_ID"] = entity_data.get("COMPANY_ID")
-#             data_["OWNER_NAME"] = entity_data.get("TITLE")
-#         if activities_data[activity_id]["OWNER_TYPE_ID"] == "2":
-#             data_["COMPANY_ID"] = entity_data.get("COMPANY_ID")
-#             data_["OWNER_NAME"] = entity_data.get("TITLE")
-#         if activities_data[activity_id]["OWNER_TYPE_ID"] == "3":
-#             data_["COMPANY_ID"] = entity_data.get("COMPANY_ID")
-#             lastname = entity_data.get("LAST_NAME", "")
-#             name = entity_data.get("NAME", "")
-#             data_["OWNER_NAME"] = f"{lastname} {name}"
-#         if activities_data[activity_id]["OWNER_TYPE_ID"] == "4":
-#             data_["COMPANY_ID"] = entity_data.get("ID")
-#             data_["OWNER_NAME"] = entity_data.get("TITLE")
-#         result[activity_id] = data_
-#
-#     return result
