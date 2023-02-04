@@ -6,7 +6,7 @@ from .. import save_activity
 
 
 def save_to_db(bx24):
-    total_activities = get_total(bx24, "crm.activity.list", {"TYPE_ID": "1",})
+    total_activities = get_total(bx24, "crm.activity.list", {"TYPE_ID": "2",})
     save_activities_to_db(bx24, total_activities)
 
 
@@ -17,10 +17,10 @@ def save_activities_to_db(bx24, total=0, count=0, id_start=0):
             "OWNER_ID", "CREATED", "END_TIME", "RESPONSIBLE_ID"
         ],
         "filter": {
+            # "TYPE_ID": "1",
             "TYPE_ID": "2",
-            # "TYPE_ID": "2",
             ">ID": id_start,
-            # ">CREATED": None,
+            ">CREATED": "2022-01-01",
             # "<CREATED": None
         },
         "order": {"ID": "ASC"},
