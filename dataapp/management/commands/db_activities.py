@@ -1,13 +1,13 @@
-import pprint
 from django.core.management.base import BaseCommand
-from django.utils import timezone
 
-
-from dataapp.services.tasks import creat_activities
+from dataapp.services.save_data_from_bx24 import all_activities
+from bitrix24.request import Bitrix24
 
 
 class Command(BaseCommand):
     help = 'Save activities to DB'
 
     def handle(self, *args, **kwargs):
-        creat_activities.creat_and_update_activities()
+        bx24 = Bitrix24()
+        all_activities.save_to_db(bx24)
+

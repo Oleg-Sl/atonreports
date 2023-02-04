@@ -192,7 +192,7 @@ class Activity(models.Model):
         ('4', 'Завершено автоматически'),
     )
 
-    ID = models.PositiveIntegerField(primary_key=True, verbose_name='ID дела в BX24', unique=True, db_index=True)
+    ID = models.PositiveIntegerField(verbose_name='ID дела в BX24', unique=True, db_index=True)
     COMPLETED = models.CharField(verbose_name='Заершено дело или нет', max_length=1, choices=COMPLETED_CHOICE)
     DIRECTION = models.CharField(verbose_name='Направление дела (входящее/исходящее)', max_length=1,
                                  choices=DIRECTION_CHOICE, db_index=True)
@@ -329,8 +329,9 @@ def post_save_activity(instance, **kwargs):
     if instance.COMPANY_ID:
         company_obj_ = Company.objects.filter(ID=instance.COMPANY_ID).first()
         if company_obj_:
-            company_obj_.date_last_communication = instance.CALL_START_DATE
-            company_obj_.save()
+            if not company_obj_.date_last_communication or company_obj_.date_last_communication < instance.CALL_START_DATE:
+                company_obj_.date_last_communication = instance.CALL_START_DATE
+                company_obj_.save()
     # phone_obj_ = Phone.objects.filter(CRM_ACTIVITY_ID=instance.ID).first()
     # if not phone_obj_ or not phone_obj_.CRM_ACTIVITY_ID:
     #     phone_obj_.CRM_ACTIVITY_ID
