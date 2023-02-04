@@ -16,6 +16,7 @@ def add_deal_drf(deal):
     deal["company"] = deal.get("COMPANY_ID") or None
     deal["direction"] = direction or None
     if stage:
+        print(stage)
         deal["stage"] = stage.pk
 
     exist_obj = Deal.objects.filter(ID=deal.get("ID", None)).first()
