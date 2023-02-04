@@ -6,7 +6,6 @@ from .. import save_company
 
 
 def save_to_db(bx24):
-    #
     # total_companies = get_total(bx24, "crm.company.list", {})
     # save_companies_to_db(bx24, total_companies)
     #
@@ -83,13 +82,13 @@ def save_addresses_to_db(bx24, total=0, count=0, id_start=0):
         count += 50
         id_start = addresses_list[-1].get("LOC_ADDR_ID")
         for address in addresses_list:
-            print("INPUT: ", address)
+            print("INPUT: ", address.get("ENTITY_ID"))
             address["ID"] = address.get("ENTITY_ID")
             res = save_company.update_company_drf(address)
             print("OUTPUT: ", res)
 
         print(f"Получено адресов {count} из {total}")
-        save_requisites_to_db(bx24, total, count, id_start)
+        save_addresses_to_db(bx24, total, count, id_start)
 
 
 def get_total(bx24, method, filter_field={}):
