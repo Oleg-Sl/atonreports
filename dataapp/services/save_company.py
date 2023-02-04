@@ -40,15 +40,15 @@ def update_company_drf(company):
 
     if exist_obj:
         serializer = CompanySerializer(exist_obj, data=company)
-    else:
-        serializer = CompanySerializer(data=company)
+        # else:
+        #     serializer = CompanySerializer(data=company)
 
-    if serializer.is_valid():
-        serializer.save()
-        # return serializer.data
-        return
+        if serializer.is_valid():
+            serializer.save()
+            # return serializer.data
+            return
 
-    return serializer.errors
+        return serializer.errors
 
 
 # def get_company_data(bx24, ids):
