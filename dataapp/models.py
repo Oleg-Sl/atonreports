@@ -327,7 +327,7 @@ def post_save_deal(instance, **kwargs):
 def post_save_activity(instance, **kwargs):
     # Добавление даты последней коммуникации с компанией
     if instance.COMPANY_ID:
-        company_obj_ = Company.objects.filter(ID=instance.COMPANY_ID).first()
+        company_obj_ = Company.objects.filter(pk=instance.COMPANY_ID.pk).first()
         if company_obj_:
             if not company_obj_.date_last_communication or company_obj_.date_last_communication < instance.CALL_START_DATE:
                 company_obj_.date_last_communication = instance.CALL_START_DATE
@@ -346,4 +346,3 @@ def post_save_phone(instance, **kwargs):
         activity_obj_.DURATION = instance.CALL_DURATION
         activity_obj_.CALL_START_DATE = instance.CALL_START_DATE
         activity_obj_.save()
-

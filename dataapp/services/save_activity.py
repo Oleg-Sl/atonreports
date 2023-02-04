@@ -21,8 +21,8 @@ def add_activity_drf(activity):
             serializer.save()
         except Exception as err:
             return err
-        return serializer.data
-        # return
+        # return serializer.data
+        return
 
     return serializer.errors
 
