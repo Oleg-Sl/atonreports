@@ -3,9 +3,14 @@ from ..serializers import ActivitySerializer
 
 
 def add_activity_drf(activity):
-    if activity.get("COMPANY_ID") == "0":
-        activity["COMPANY_ID"] = None
+    responsible_obj = User.objects.filter(ID=activity.get("RESPONSIBLE_ID")).first()
+    company_obj = Company.objects.filter(ID=activity.get("COMPANY_ID")).first()
+
+    activity["RESPONSIBLE_ID"] = responsible_obj.pk if responsible_obj else None
+    activity["COMPANY_ID"] = company_obj.pk if company_obj else None
+
     exist_obj = Activity.objects.filter(ID=activity.get("ID", None)).first()
+
     if exist_obj:
         serializer = ActivitySerializer(exist_obj, data=activity)
     else:
