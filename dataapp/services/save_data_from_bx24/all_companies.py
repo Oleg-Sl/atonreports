@@ -6,12 +6,12 @@ from .. import save_company
 
 
 def save_to_db(bx24):
-
-    total_companies = get_total(bx24, "crm.company.list", {})
-    save_companies_to_db(bx24, total_companies)
-
-    total_requisites = get_total(bx24, "crm.requisite.list", {"ENTITY_TYPE_ID": 4})
-    save_requisites_to_db(bx24, total_requisites)
+    #
+    # total_companies = get_total(bx24, "crm.company.list", {})
+    # save_companies_to_db(bx24, total_companies)
+    #
+    # total_requisites = get_total(bx24, "crm.requisite.list", {"ENTITY_TYPE_ID": 4})
+    # save_requisites_to_db(bx24, total_requisites)
 
     total_addresses = get_total(bx24, "crm.address.list", {"ENTITY_TYPE_ID": 4})
     save_addresses_to_db(bx24, total_addresses)
