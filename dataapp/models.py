@@ -192,7 +192,7 @@ class Activity(models.Model):
         ('4', 'Завершено автоматически'),
     )
 
-    ID = models.PositiveIntegerField(verbose_name='ID дела в BX24', unique=True, db_index=True)
+    ID = models.PositiveIntegerField(primary_key=True, verbose_name='ID дела в BX24', unique=True, db_index=True)
     COMPLETED = models.CharField(verbose_name='Заершено дело или нет', max_length=1, choices=COMPLETED_CHOICE)
     DIRECTION = models.CharField(verbose_name='Направление дела (входящее/исходящее)', max_length=1,
                                  choices=DIRECTION_CHOICE, db_index=True)
