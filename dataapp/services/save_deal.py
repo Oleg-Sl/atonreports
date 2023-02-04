@@ -7,7 +7,7 @@ def add_deal_drf(deal):
     direction = deal["CATEGORY_ID"]
     if direction in [43, "43"]:
         direction = deal["UF_CRM_1610523951"]
-    stage = Stage.objects.filter(STATUS_ID=deal.get("STAGE_ID")).first(),
+    stage = Stage.objects.filter(STATUS_ID=deal.get("STAGE_ID")).first()
 
     deal["CLOSED"] = True if deal.get("CLOSED") == "Y" else False
     deal["opportunity"] = deal.get("OPPORTUNITY") or 0
@@ -16,7 +16,6 @@ def add_deal_drf(deal):
     deal["company"] = deal.get("COMPANY_ID") or None
     deal["direction"] = direction or None
     if stage:
-        print(stage)
         deal["stage"] = stage.pk
 
     exist_obj = Deal.objects.filter(ID=deal.get("ID", None)).first()
