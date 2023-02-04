@@ -6,7 +6,7 @@ from .. import save_activity
 
 
 def save_to_db(bx24):
-    total_activities = get_total(bx24, "crm.activity.list", {})
+    total_activities = get_total(bx24, "crm.activity.list", {"TYPE_ID": "1",})
     save_activities_to_db(bx24, total_activities)
 
 
@@ -32,7 +32,7 @@ def save_activities_to_db(bx24, total=0, count=0, id_start=0):
         id_start = activities_list[-1].get("ID")
         activities_company_ = get_companies_for_activities(bx24, activities_list)
         for activity in activities_list:
-            activity.updatea(activities_company_)
+            activity.update(activities_company_)
             res = save_activity.add_activity_drf(activity)
             if res:
                 print("INPUT: ", activity)
