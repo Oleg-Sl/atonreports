@@ -35,7 +35,7 @@ def update_company_drf(company):
         company["requisites_province"] = company.get("PROVINCE")
     if company.get("RQ_INN"):
         company["inn"] = company.get("RQ_INN")
-    print("=> ", company)
+
     exist_obj = Company.objects.filter(ID=company.get("ID", None)).first()
 
     if exist_obj:
@@ -45,7 +45,8 @@ def update_company_drf(company):
 
     if serializer.is_valid():
         serializer.save()
-        return serializer.data
+        # return serializer.data
+        return
 
     return serializer.errors
 
