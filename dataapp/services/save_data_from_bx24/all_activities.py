@@ -17,7 +17,7 @@ def save_activities_to_db(bx24, total=0, count=0, id_start=0):
             "OWNER_ID", "CREATED", "END_TIME", "RESPONSIBLE_ID"
         ],
         "filter": {
-            "TYPE_ID": "1",
+            "TYPE_ID": "2",
             # "TYPE_ID": "2",
             ">ID": id_start,
             # ">CREATED": None,
