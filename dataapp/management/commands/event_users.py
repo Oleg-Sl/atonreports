@@ -20,3 +20,5 @@ class Command(BaseCommand):
             print("INPUT: ", user)
             res_ = add_user_drf(user)
             print("OUTPUT: ", res_)
+
+

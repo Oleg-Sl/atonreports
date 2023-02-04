@@ -40,20 +40,48 @@ def add_deal_drf(deal):
     return serializer.errors
 
 
-# def get_data(bx24, ids):
-#     cmd = {}
-#     for id_ in ids:
-#         cmd[id_] = f"crm.deal.get?id={id_}"
-#     response = bx24.call("batch", {
-#         "halt": 0,
-#         "cmd": cmd
-#     })
-#     if not response or "result" not in response or "result" not in response["result"]:
-#         return
-#
-#     return response["result"]["result"]
-#
-#
+def update_deal_drf(deal):
+    if "CATEGORY_ID" in deal:
+        direction = deal["CATEGORY_ID"]
+        if direction in [43, "43"]:
+            direction = deal["UF_CRM_1610523951"]
+        direction_obj = Direction.objects.filter(ID=direction).first()
+        deal["direction"] = direction_obj.pk if direction_obj else None
+    if "COMPANY_ID" in deal:
+        company_obj = Company.objects.filter(ID=deal.get("COMPANY_ID")).first()
+        deal["company"] =  company_obj.pk if company_obj else None
+    if "STAGE_ID" in deal:
+        stage_obj = Stage.objects.filter(STATUS_ID=deal.get("STAGE_ID")).first()
+        deal["stage"] = stage_obj.pk if stage_obj else None
+    if "CLOSEDATE" in deal:
+        deal["CLOSEDATE"] = deal.get("CLOSEDATE") or None
+    if "CLOSED" in deal:
+        deal["CLOSED"] = True if deal.get("CLOSED") == "Y" else False
+    if "OPPORTUNITY" in deal:
+        deal["opportunity"] = deal.get("OPPORTUNITY") or 0
+    if "UF_CRM_1575629957086" in deal:
+        deal["balance_on_payments"] = utils.editing_money_in_number(deal.get("UF_CRM_1575629957086", ""))
+    if "UF_CRM_1575375338" in deal:
+        deal["amount_paid"] = utils.editing_money_in_number(deal.get("UF_CRM_1575375338", ""))
+
+    exist_obj = Deal.objects.filter(ID=deal.get("ID", None)).first()
+
+    if exist_obj:
+        serializer = DealSerializer(exist_obj, data=deal)
+    else:
+        serializer = DealSerializer(data=deal)
+
+    if serializer.is_valid():
+        try:
+            serializer.save()
+        except Exception as err:
+            return err
+        # return serializer.data
+        return
+
+    return serializer.errors
+
+
 # def create_or_update_deal(data, active):
 #     direction = data["CATEGORY_ID"]
 #     if direction in [43, "43"]:

@@ -15,11 +15,8 @@ def get_events(bx24, event_name, limit):
         return
 
     events = response["result"]["events"]
-    # pprint.pprint(events)
-
     events_data = []
     for event in events:
-        # event_data = event.get("EVENT_DATA", {}).get("FIELDS", {}).get("ID", {})
         event_data = event.get("EVENT_DATA", {})
         events_data.append(event_data)
 

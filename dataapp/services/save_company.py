@@ -14,6 +14,7 @@ def add_company_drf(company):
     company["other_activities"] = company.get("UF_CRM_1639121225") or None
     company["profit"] = company.get("UF_CRM_1639121262") or None
 
+
     exist_obj = Company.objects.filter(ID=company.get("ID", None)).first()
 
     if exist_obj:
@@ -37,14 +38,12 @@ def update_company_drf(company):
         company["requisites_province"] = company.get("PROVINCE")
     if company.get("RQ_INN"):
         company["inn"] = company.get("RQ_INN")
+    if company.get("active") is not None:
+        company["active"] = company.get("active")
 
     exist_obj = Company.objects.filter(ID=company.get("ID", None)).first()
-
     if exist_obj:
         serializer = CompanySerializer(exist_obj, data=company)
-        # else:
-        #     serializer = CompanySerializer(data=company)
-
         if serializer.is_valid():
             serializer.save()
             # return serializer.data
@@ -53,62 +52,7 @@ def update_company_drf(company):
         return serializer.errors
 
 
-# def get_company_data(bx24, ids):
-#     cmd = {}
-#     for id_ in ids:
-#         cmd[id_] = f"crm.company.get?id={id_}"
-#
-#     response = bx24.call("batch", {
-#         "halt": 0,
-#         "cmd": cmd
-#     })
-#
-#     if not response or "result" not in response or "result" not in response["result"]:
-#         return
-#
-#     return response["result"]["result"]
-#
-#
-# def get_company_requisite(bx24, ids):
-#     cmd = {}
-#     for id_ in ids:
-#         cmd[id_] = f"crm.requisite.list?filter[ENTITY_ID]={id_}&filter[ENTITY_TYPE_ID]=4&select[]=RQ_INN"
-#
-#     response = bx24.call("batch", {
-#         "halt": 0,
-#         "cmd": cmd
-#     })
-#
-#     if not response or "result" not in response or "result" not in response["result"]:
-#         return
-#
-#     result = {}
-#     for company_id, req_ in response["result"]["result"].items():
-#         result[company_id] = req_[0].get("RQ_INN", None) if req_ else None
-#
-#     return result
-#
-#
-# def get_company_requisite_address(bx24, ids):
-#     cmd = {}
-#     for id_ in ids:
-#         cmd[id_] = f"crm.address.list?filter[ENTITY_ID]={id_}&filter[ENTITY_TYPE_ID]=4&select[]=ENTITY_ID&select[]=REGION&select[]=CITY&select[]=PROVINCE"
-#
-#     response = bx24.call("batch", {
-#         "halt": 0,
-#         "cmd": cmd
-#     })
-#
-#     if not response or "result" not in response or "result" not in response["result"]:
-#         return
-#
-#     result = {}
-#     for company_id, addr_ in response["result"]["result"].items():
-#         result[company_id] = addr_[0] if addr_ else {}
-#
-#     return result
-#
-#
+
 # def create_or_update_company(company_data, inn=None, address={}, active=True):
 #     """ Сохранение компании из BX24 """
 #     data = {}
