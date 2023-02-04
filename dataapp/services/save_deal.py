@@ -27,7 +27,8 @@ def add_deal_drf(deal):
 
     if serializer.is_valid():
         serializer.save()
-        return serializer.data
+        # return serializer.data
+        return
 
     return serializer.errors
 
