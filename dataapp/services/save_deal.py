@@ -13,7 +13,7 @@ def add_deal_drf(deal):
     deal["opportunity"] = deal.get("OPPORTUNITY") or 0
     deal["balance_on_payments"] = utils.editing_money_in_number(deal.get("UF_CRM_1575629957086", ""))
     deal["amount_paid"] = utils.editing_money_in_number(deal.get("UF_CRM_1575375338", ""))
-    deal["company"] = deal.get("COMPANY_ID") or None
+    deal["company"] = None if deal.get("COMPANY_ID") == "0" else deal.get("COMPANY_ID")
     deal["direction"] = direction or None
     if stage:
         deal["stage"] = stage.pk
