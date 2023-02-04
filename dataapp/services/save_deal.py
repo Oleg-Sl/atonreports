@@ -34,8 +34,8 @@ def add_deal_drf(deal):
             serializer.save()
         except Exception as err:
             return err
-        return serializer.data
-        # return
+        # return serializer.data
+        return
 
     return serializer.errors
 
