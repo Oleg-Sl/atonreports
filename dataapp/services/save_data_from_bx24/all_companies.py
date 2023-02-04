@@ -67,7 +67,7 @@ def save_requisites_to_db(bx24, total=0, count=0, id_start=0):
             res = save_company.update_company_drf(requisite)
             print("OUTPUT: ", res)
 
-        print(f"Получено {count} из {total}")
+        print(f"Получено реквизитов {count} из {total}")
         save_requisites_to_db(bx24, total, count, id_start)
 
 
@@ -88,7 +88,7 @@ def save_addresses_to_db(bx24, total=0, count=0, id_start=0):
             res = save_company.update_company_drf(address)
             print("OUTPUT: ", res)
 
-        print(f"Получено {count} из {total}")
+        print(f"Получено адресов {count} из {total}")
         save_requisites_to_db(bx24, total, count, id_start)
 
 
