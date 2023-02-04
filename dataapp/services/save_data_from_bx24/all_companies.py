@@ -1,16 +1,11 @@
 import sys
 sys.setrecursionlimit(2000)
 
-from bitrix24.request import Bitrix24
 from .. import save_company
 
 
 def save_to_db(bx24):
-    # total_companies = get_total(bx24, "crm.company.list", {})
-    # save_companies_to_db(bx24, total_companies)
-    #
-    # total_requisites = get_total(bx24, "crm.requisite.list", {"ENTITY_TYPE_ID": 4})
-    # save_requisites_to_db(bx24, total_requisites)
+
 
     total_addresses = get_total(bx24, "crm.address.list", {"ENTITY_TYPE_ID": 4})
     save_addresses_to_db(bx24, total_addresses)
@@ -30,7 +25,11 @@ def save_companies_to_db(bx24, total=0, count=0, id_start=0):
         },
         "order": {"ID": "ASC"},
         "start": -1
-    }
+    }    # total_companies = get_total(bx24, "crm.company.list", {})
+    # save_companies_to_db(bx24, total_companies)
+    #
+    # total_requisites = get_total(bx24, "crm.requisite.list", {"ENTITY_TYPE_ID": 4})
+    # save_requisites_to_db(bx24, total_requisites)
 
     companies_list = bx24.call("crm.company.list", params).get("result")
 
@@ -61,7 +60,7 @@ def save_requisites_to_db(bx24, total=0, count=0, id_start=0):
         count += 50
         id_start = requisites_list[-1].get("ID")
         for requisite in requisites_list:
-            print("INPUT: ", requisite.get("ENTITY_ID"))
+            print("INPUT: ", requisite.get("ID"))
             requisite["ID"] = requisite.get("ENTITY_ID")
             res = save_company.update_company_drf(requisite)
             print("OUTPUT: ", res)
@@ -82,7 +81,7 @@ def save_addresses_to_db(bx24, total=0, count=0, id_start=0):
         count += 50
         id_start = addresses_list[-1].get("LOC_ADDR_ID")
         for address in addresses_list:
-            print("INPUT: ", address.get("ENTITY_ID"))
+            print("INPUT: ", address.get("LOC_ADDR_ID"))
             address["ID"] = address.get("ENTITY_ID")
             res = save_company.update_company_drf(address)
             print("OUTPUT: ", res)
