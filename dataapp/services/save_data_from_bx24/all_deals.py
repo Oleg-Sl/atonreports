@@ -30,9 +30,11 @@ def save_deals_to_db(bx24, total=0, count=0, id_start=0):
         count += 50
         id_start = deals_list[-1].get("ID")
         for deal in deals_list:
-            print("INPUT: ", deal.get("ID"))
             res = save_deal.add_deal_drf(deal)
-            print("OUTPUT: ", res)
+            if res:
+                print("INPUT: ", deal)
+                # print("INPUT: ", deal.get("ID"))
+                print("OUTPUT: ", res)
 
         print(f"Получено {count} из {total}")
         save_deals_to_db(bx24, total, count, id_start)
