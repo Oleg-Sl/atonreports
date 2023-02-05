@@ -1,3 +1,5 @@
+import pprint
+
 from . import utils
 from dataapp.models import Stage, Deal, Direction, Company
 from ..serializers import DealSerializer
@@ -65,9 +67,9 @@ def update_deal_drf(deal):
         deal["amount_paid"] = utils.editing_money_in_number(deal.get("UF_CRM_1575375338", ""))
 
     exist_obj = Deal.objects.filter(ID=deal.get("ID", None)).first()
-
+    pprint.pprint(deal)
     if exist_obj:
-        serializer = DealSerializer(exist_obj, data=deal)
+        serializer = DealSerializer(exist_obj, data={})
     else:
         serializer = DealSerializer(data=deal)
 

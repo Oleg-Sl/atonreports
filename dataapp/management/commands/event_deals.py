@@ -19,7 +19,7 @@ class Command(BaseCommand):
         print("ONCRMDEALDELETE")
         self.get_and_save_deals("ONCRMDEALDELETE")
 
-    def get_and_save_deals(self, event_name, count_recursion=40):
+    def get_and_save_deals(self, event_name, count_recursion=10):
         if count_recursion <= 0:
             return
 
@@ -44,7 +44,7 @@ class Command(BaseCommand):
                     "active": active
                 })
                 print("OUTPUT: ", res)
-
+        return
         # если извлекли не все данные из очереди событий
         if len(deals_ids) == LIMIT_EVENTS:
             self.get_and_save_deals(event_name, count_recursion - 1)
