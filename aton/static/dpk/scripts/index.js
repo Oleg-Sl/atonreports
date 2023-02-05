@@ -73,7 +73,7 @@ class App {
         
         
         this.page = 1;
-        this.order = "name";
+        this.order = "TITLE";
     }
 
     async init() {
