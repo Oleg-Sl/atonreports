@@ -95,7 +95,7 @@ export default class FilterDirection {
     renderData(dataList) {
         let contentHTML = "";
         for (let obj of dataList) {
-            contentHTML += templateCartDirectionElement(obj.id_bx, obj.name);
+            contentHTML += templateCartDirectionElement(obj.ID, obj.VALUE);
         }
         this.elemWindowContent.innerHTML = `
             <ul>
