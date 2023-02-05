@@ -144,46 +144,56 @@ class CommentViewSet(viewsets.ModelViewSet):
     filterset_class = filter_queryset.CommentFilter
     # permission_classes = [IsAuthenticated]
 
-    def dispatch(self, request, *args, **kwargs):
-        if "recipient" in request.data:
-            recipient = User.objects.filter(ID=request.data.get("recipient")).first()
-            if recipient:
-                request.data["recipient"] = recipient.pk
-        if "commentator" in request.data:
-            commentator = User.objects.filter(ID=request.data.get("commentator")).first()
-            if commentator:
-                request.data["commentator"] = commentator.pk
-        if "verified_by_user" in request.data:
-            verified_by_user = User.objects.filter(ID=request.data.get("verified_by_user")).first()
-            if verified_by_user:
-                request.data["recipient"] = verified_by_user.pk
+    # def dispatch(self, request, *args, **kwargs):
+    #     if "recipient" in request.data:
+    #         recipient = User.objects.filter(ID=request.data.get("recipient")).first()
+    #         if recipient:
+    #             request.data["recipient"] = recipient.pk
+    #     if "commentator" in request.data:
+    #         commentator = User.objects.filter(ID=request.data.get("commentator")).first()
+    #         if commentator:
+    #             request.data["commentator"] = commentator.pk
+    #     if "verified_by_user" in request.data:
+    #         verified_by_user = User.objects.filter(ID=request.data.get("verified_by_user")).first()
+    #         if verified_by_user:
+    #             request.data["recipient"] = verified_by_user.pk
+    #
+    #     return super().dispatch(request, *args, **kwargs)
 
-        return super().dispatch(request, *args, **kwargs)
-
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    def create(self, request, *args, **kwargs):
+        recipient = User.objects.filter(ID=request.data.get("recipient")).first()
+        commentator = User.objects.filter(ID=request.data.get("commentator")).first()
+        verified_by_user = User.objects.filter(ID=request.data.get("verified_by_user")).first()
+        data = dict(request.data)
+        if recipient:
+            data["recipient"] = recipient.pk
+        if commentator:
+            data["commentator"] = commentator.pk
+        if verified_by_user:
+            data["verified_by_user"] = verified_by_user.pk
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        # recipient = User.objects.filter(ID=request.data.get("recipient")).first()
-        # commentator = User.objects.filter(ID=request.data.get("commentator")).first()
-        # verified_by_user = User.objects.filter(ID=request.data.get("verified_by_user")).first()
+        recipient = User.objects.filter(ID=request.data.get("recipient")).first()
+        commentator = User.objects.filter(ID=request.data.get("commentator")).first()
+        verified_by_user = User.objects.filter(ID=request.data.get("verified_by_user")).first()
         data = {
-            "recipient": request.data.get("recipient", instance.recipient.pk),
-            # "recipient": recipient.pk if recipient else instance.recipient.pk,
-            "commentator": request.data.get("commentator", instance.commentator.pk),
-            # "commentator": commentator.pk if commentator else instance.commentator.pk,
+            # "recipient": request.data.get("recipient", instance.recipient.pk),
+            "recipient": recipient.pk if recipient else instance.recipient.pk,
+            # "commentator": request.data.get("commentator", instance.commentator.pk),
+            "commentator": commentator.pk if commentator else instance.commentator.pk,
             "date_comment": request.data.get("date_comment", instance.date_comment),
             "date_comment_add": request.data.get("date_comment_add", instance.date_comment_add),
             "comment": request.data.get("comment", instance.comment),
             "verified": request.data.get("verified", instance.verified),
-            "verified_by_user": request.data.get("verified_by_user", instance.verified_by_user),
-            # "verified_by_user": verified_by_user.pk if verified_by_user else instance.verified_by_user.pk,
+            # "verified_by_user": request.data.get("verified_by_user", instance.verified_by_user),
+            "verified_by_user": verified_by_user.pk if verified_by_user else instance.verified_by_user.pk,
             "date_verified": request.data.get("date_verified", instance.date_verified)
         }
 
