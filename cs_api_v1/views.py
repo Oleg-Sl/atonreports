@@ -59,7 +59,7 @@ CASH_TIMMEOUT = 60 * 60 * 4
 
 # Обработчик установки приложения
 class InstallApiView(views.APIView):
-    # permission_classes = [AllowAny]
+    permission_classes = [AllowAny]
 
     @xframe_options_exempt
     def post(self, request):
@@ -79,7 +79,7 @@ class InstallApiView(views.APIView):
 
 # Обработчик установленного приложения
 class IndexApiView(views.APIView):
-    # permission_classes = [AllowAny]
+    permission_classes = [AllowAny]
 
     @xframe_options_exempt
     def post(self, request):
