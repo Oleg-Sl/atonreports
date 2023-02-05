@@ -484,7 +484,7 @@ class RationActiveByDayApiView(views.APIView):
             date_comment__year=year,
             date_comment__month=month,
         ).values(
-            'recipient', 'date_comment__day'
+            'recipient__ID', 'date_comment__day'
         ).annotate(
             counts=models.Count('date_comment')
         )
@@ -521,14 +521,14 @@ class RationActiveByDayApiView(views.APIView):
                data_user[user_id]["calls_fact"][day_num] = count
 
         for meeting in meetings:
-            user = meeting["RESPONSIBLE_ID"]
+            user = meeting["RESPONSIBLE_ID__ID"]
             day = meeting["END_TIME__day"]
             count = meeting["counts"]
             if user in data_user:
                 data_user[user]["meetings_fact"][day] = count
 
         for comment in comments:
-            user = comment["recipient"]
+            user = comment["recipient__ID"]
             day = comment["date_comment__day"]
             count = comment["counts"]
             if user in data_user:

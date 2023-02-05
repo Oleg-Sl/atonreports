@@ -84,10 +84,10 @@ def get_calls_by_month(departments, year, duration):
             DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID__ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
-            "RESPONSIBLE_ID", 'CALL_START_DATE__month'
+            "RESPONSIBLE_ID__ID", 'CALL_START_DATE__month'
         )
         calls = Counter(queryset_calls)
         cache.set(key, calls, CASH_TIMMEOUT)
@@ -115,10 +115,10 @@ def get_calls_by_month(departments, year, duration):
             DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID__ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__month'
-            "RESPONSIBLE_ID", 'CALL_START_DATE__month'
+            "RESPONSIBLE_ID__ID", 'CALL_START_DATE__month'
         )
         calls_new = Counter(queryset_calls)
         # calls.update(calls_new)
@@ -145,7 +145,7 @@ def get_meetings_by_month(departments, year):
         active=True,
         COMPLETED="Y"
     ).values(
-        "RESPONSIBLE_ID", 'END_TIME__month'
+        "RESPONSIBLE_ID__ID", 'END_TIME__month'
     ).annotate(
         counts=models.Count('END_TIME')
     )
@@ -182,10 +182,10 @@ def get_calls_by_day(departments, year, month, duration):
             DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID__ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
-            "RESPONSIBLE_ID", 'CALL_START_DATE__day'
+            "RESPONSIBLE_ID__ID", 'CALL_START_DATE__day'
         )
         calls = Counter(queryset_calls)
         cache.set(key, calls, CASH_TIMMEOUT)
@@ -215,10 +215,10 @@ def get_calls_by_day(departments, year, month, duration):
             DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID__ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
-            "RESPONSIBLE_ID", 'CALL_START_DATE__day'
+            "RESPONSIBLE_ID__ID", 'CALL_START_DATE__day'
         )
         calls_new = Counter(queryset_calls)
         # calls.update(calls_new)
@@ -246,7 +246,7 @@ def get_meetings_by_day(departments, year, month):
         active=True,
         COMPLETED="Y"
     ).values(
-        "RESPONSIBLE_ID", 'END_TIME__day'
+        "RESPONSIBLE_ID__ID", 'END_TIME__day'
     ).annotate(
         counts=models.Count('END_TIME')
     )
