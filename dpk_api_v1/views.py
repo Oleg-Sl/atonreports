@@ -30,7 +30,7 @@ from dataapp.models import (
     Comment
 )
 
-from dpk_api_v1.serializers import (
+from .serializers import (
     DirectionSerializer,
     StageSerializer,
     CompanySerializer,
