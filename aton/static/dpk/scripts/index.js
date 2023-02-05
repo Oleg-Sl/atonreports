@@ -184,9 +184,9 @@ class App {
         this.companySummaryByDirections = await this.requests.GET("statistic-company-direction", {
             companies: this.companySummary.result.results.map((obj) => obj.ID),
         });
-        this.companySummaryOpportunity = await this.requests.GET("statistic-company-opportunity", {
-            companies: this.companySummary.result.results.map((obj) => obj.ID),
-        });
+        // this.companySummaryOpportunity = await this.requests.GET("statistic-company-opportunity", {
+        //     companies: this.companySummary.result.results.map((obj) => obj.ID),
+        // });
         // console.log("companySummary = ", this.companySummary);
         // console.log("summaryByDirections = ", this.summaryByDirections);
         // console.log("companySummaryByDirections = ", this.companySummaryByDirections);
@@ -194,7 +194,8 @@ class App {
             this.companySummary.result.results, 
             this.summaryByDirections.result, 
             this.companySummaryByDirections.result,
-            this.companySummaryOpportunity.result
+            // this.companySummaryOpportunity.result
+            {}
         );
         
         this.tableStatistic.sortingSelection(this.order);
