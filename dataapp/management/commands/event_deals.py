@@ -36,9 +36,9 @@ class Command(BaseCommand):
                 for deal_id, deal_data in deals_data.items():
                     if deal_data:
                         res = save_deal.update_deal_drf(deal_data[0])
-                        # if res:
-                        print("INPUT: ", deal_data)
-                        print("OUTPUT: ", res)
+                        if res:
+                            print("INPUT: ", deal_data)
+                            print("OUTPUT: ", res)
         else:
             for deal_id_ in deals_ids:
                 res = save_deal.update_deal_drf({
