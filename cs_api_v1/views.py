@@ -144,22 +144,6 @@ class CommentViewSet(viewsets.ModelViewSet):
     filterset_class = filter_queryset.CommentFilter
     # permission_classes = [IsAuthenticated]
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     if "recipient" in request.data:
-    #         recipient = User.objects.filter(ID=request.data.get("recipient")).first()
-    #         if recipient:
-    #             request.data["recipient"] = recipient.pk
-    #     if "commentator" in request.data:
-    #         commentator = User.objects.filter(ID=request.data.get("commentator")).first()
-    #         if commentator:
-    #             request.data["commentator"] = commentator.pk
-    #     if "verified_by_user" in request.data:
-    #         verified_by_user = User.objects.filter(ID=request.data.get("verified_by_user")).first()
-    #         if verified_by_user:
-    #             request.data["recipient"] = verified_by_user.pk
-    #
-    #     return super().dispatch(request, *args, **kwargs)
-
     def create(self, request, *args, **kwargs):
         recipient = User.objects.filter(ID=request.data.get("recipient")).first()
         commentator = User.objects.filter(ID=request.data.get("commentator")).first()
@@ -331,8 +315,9 @@ class CallsPlanViewSet(views.APIView):
                 date_calendar__year=year,
                 date_calendar__month=month
             )
-            calls_plan_list = [{"calendar": obj_prod_calend.pk, "employee": employee} for obj_prod_calend in
-                               prod_calendar]
+            employee_obj_ = User.objects.filter(ID=employee).first()
+            employee_pk_ = employee_obj_.pk if employee_obj_ else None
+            calls_plan_list = [{"calendar": obj_prod_calend.pk, "employee": employee_pk_} for obj_prod_calend in prod_calendar]
 
             serializer = CallsPlanSerializer(data=calls_plan_list, many=True)
             if serializer.is_valid():
