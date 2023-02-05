@@ -182,10 +182,10 @@ class App {
             direction: paramsRequest.direction
         });
         this.companySummaryByDirections = await this.requests.GET("statistic-company-direction", {
-            companies: this.companySummary.result.results.map((obj) => obj.id_bx),
+            companies: this.companySummary.result.results.map((obj) => obj.ID),
         });
         this.companySummaryOpportunity = await this.requests.GET("statistic-company-opportunity", {
-            companies: this.companySummary.result.results.map((obj) => obj.id_bx),
+            companies: this.companySummary.result.results.map((obj) => obj.ID),
         });
         // console.log("companySummary = ", this.companySummary);
         // console.log("summaryByDirections = ", this.summaryByDirections);

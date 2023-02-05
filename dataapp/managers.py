@@ -39,9 +39,9 @@ class DealManager(models.Manager):
     def statistic_company_by_directions(self, companies, directions, lim_date_suspended_deals, lim_date_failed_deals):
         from .models import Deal, Company
         return self.filter(
-            company__pk__in=companies,
+            company__ID__in=companies,
         ).values(
-            "company__pk", "direction"
+            "company__ID", "direction__ID"
         ).annotate(
             name=models.F("direction__VALUE"),
             # дата последнего изменения сделки
@@ -67,8 +67,8 @@ class DealManager(models.Manager):
             # opportunity_success=models.Sum("opportunity", filter=models.Q(stage__status="SUCCESSFUL")),
             opportunity_success=models.Subquery(
                     Company.statistic.filter(
-                        pk=models.OuterRef('company__pk'),
-                        deal__direction=models.OuterRef('direction__pk'),
+                        ID=models.OuterRef('company__ID'),
+                        deal__direction__ID=models.OuterRef('direction__ID'),
                         deal__stage__status="SUCCESSFUL"
                     ).annotate(
                         s=models.Sum('deal__opportunity')
@@ -77,8 +77,8 @@ class DealManager(models.Manager):
             # сумма стоимостей сделок в работе
             opportunity_work=models.Subquery(
                     Company.statistic.filter(
-                        pk=models.OuterRef('company__pk'),
-                        deal__direction=models.OuterRef('direction__pk'),
+                        ID=models.OuterRef('company__ID'),
+                        deal__direction__ID=models.OuterRef('direction__ID'),
                         deal__stage__status="WORK"
                     ).annotate(
                         s=models.Sum('deal__opportunity')

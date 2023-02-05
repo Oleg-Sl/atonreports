@@ -255,7 +255,7 @@ class StatisticCompanyDirectionViewSet(viewsets.GenericViewSet):
         )
 
         # response = queryset
-        response = converting_list_to_dict(queryset, "company__pk", "direction")
+        response = converting_list_to_dict(queryset, "company__ID", "direction__ID")
         return Response(response, status=status.HTTP_200_OK)
 
 
