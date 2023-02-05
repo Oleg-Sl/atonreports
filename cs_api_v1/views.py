@@ -119,7 +119,7 @@ class UsersViewSet(viewsets.ModelViewSet):
 # Получение звоков за выбранный период
 class CallsViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.filter(
-        # COMPANY_ID__isnull=False,
+        COMPANY_ID__isnull=False,
         TYPE_ID=2,      # только звонки
         DIRECTION=2,    # только исходящие
         active=True
@@ -147,15 +147,20 @@ class CommentViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-
+        recipient = User.objects.filter(ID=request.data.get("recipient", instance.recipient.ID)).first()
+        commentator = User.objects.filter(ID=request.data.get("commentator", instance.commentator.ID)).first()
+        verified_by_user = User.objects.filter(ID=request.data.get("verified_by_user", instance.verified_by_user.ID)).first()
         data = {
-            "recipient": request.data.get("recipient", instance.recipient.pk),
-            "commentator": request.data.get("commentator", instance.commentator.pk),
+            # "recipient": request.data.get("recipient", instance.recipient.pk),
+            "recipient": recipient.pk,
+            # "commentator": request.data.get("commentator", instance.commentator.pk),
+            "commentator": commentator.pk,
             "date_comment": request.data.get("date_comment", instance.date_comment),
             "date_comment_add": request.data.get("date_comment_add", instance.date_comment_add),
             "comment": request.data.get("comment", instance.comment),
             "verified": request.data.get("verified", instance.verified),
-            "verified_by_user": request.data.get("verified_by_user", instance.verified_by_user),
+            # "verified_by_user": request.data.get("verified_by_user", instance.verified_by_user),
+            "verified_by_user": verified_by_user.pk,
             "date_verified": request.data.get("date_verified", instance.date_verified)
         }
 
