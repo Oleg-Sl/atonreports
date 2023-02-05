@@ -28,8 +28,10 @@ class CallsFilter(filters.FilterSet):
 
 class CommentFilter(filters.FilterSet):
     date_comment = filters.DateFromToRangeFilter()
+    recipient = filters.NumberFilter(field_name='recipient__ID', lookup_expr='eq')
+    commentator = filters.NumberFilter(field_name='commentator__ID', lookup_expr='eq')
 
     class Meta:
         model = Comment
-        fields = ["recipient__ID", "commentator__ID", "date_comment", ]
+        fields = ["recipient", "commentator", "date_comment", ]
 
