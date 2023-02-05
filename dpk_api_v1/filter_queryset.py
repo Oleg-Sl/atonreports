@@ -28,8 +28,8 @@ class CharInFilter(filters.BaseInFilter, filters.CharFilter):
 
 
 class StatisticCompany(filters.FilterSet):
-    company = NumberInFilter(field_name='pk', lookup_expr='in')
-    responsible = NumberInFilter(field_name='ASSIGNED_BY_ID', lookup_expr='in')
+    company = NumberInFilter(field_name='ID', lookup_expr='in')
+    responsible = NumberInFilter(field_name='ASSIGNED_BY_ID__ID', lookup_expr='in')
 
     sector = filters.CharFilter()
     region = filters.CharFilter()
@@ -37,15 +37,15 @@ class StatisticCompany(filters.FilterSet):
     requisite_region = filters.CharFilter()
     requisites_city = filters.CharFilter()
 
-    revenue = filters.RangeFilter()
     number_employees = filters.RangeFilter()
-    date_created = filters.DateFromToRangeFilter()
+    REVENUE = filters.RangeFilter()
+    DATE_CREATE = filters.DateFromToRangeFilter()
 
 
     class Meta:
         model = Company
         fields = ["company", "ASSIGNED_BY_ID", "sector", "region", "source",
-                  "requisite_region", "requisites_city", "number_employees", "revenue", "date_created"]
+                  "requisite_region", "requisites_city", "number_employees", "REVENUE", "DATE_CREATE"]
 
 
 class StatisticCompanyByDirection(filters.FilterSet):

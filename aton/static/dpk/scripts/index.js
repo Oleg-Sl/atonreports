@@ -151,21 +151,23 @@ class App {
             ordering: this.order,
             page: this.page,
             page_size: this.getPageSize(),
+
             duration: this.getMinDurationForCalcDpk(),
+            direction: this.filterDirection.getRequestParameters().join(","),
+            
             company: this.filterCompany.getRequestParameters().join(","),
             responsible: this.filterResponsible.getRequestParameters().join(","),
-            direction: this.filterDirection.getRequestParameters().join(","),
             sector: this.filterSector.getRequestParameters(),
             region: this.filterRegion.getRequestParameters(),
             source: this.filterSource.getRequestParameters(),
             requisite_region: this.filterRequisiteRegion.getRequestParameters(),
             requisites_city: this.filterRequisiteCity.getRequestParameters(),
-            revenue_min: this.filterRevenue.getMinValue(),
-            revenue_max: this.filterRevenue.getMaxValue(),
             number_employees_min: this.filterEmployees.getMinValue(),
             number_employees_max: this.filterEmployees.getMaxValue(),
-            date_created_after: this.filterCompanyCreated.getMinValue(),
-            date_created_before: this.filterCompanyCreated.getMaxValue(),
+            REVENUE_min: this.filterRevenue.getMinValue(),
+            REVENUE_max: this.filterRevenue.getMaxValue(),
+            DATE_CREATE_after: this.filterCompanyCreated.getMinValue(),
+            DATE_CREATE_before: this.filterCompanyCreated.getMaxValue(),
         }
     }
 
