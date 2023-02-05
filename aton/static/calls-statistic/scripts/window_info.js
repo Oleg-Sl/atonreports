@@ -221,7 +221,7 @@ export default class WindowInfo {
     // запрос списка комментариев от сервера
     async getComments(recipient, dateStart, dataEnd) {
         let params = {
-            recipient: recipient,
+            recipient__ID: recipient,
             date_comment_after: dateStart,
             date_comment_before: dataEnd
         }
@@ -305,7 +305,7 @@ export default class WindowInfo {
     // запрос списка комментариев от сервера
     async getCalls(recipient, dateStart, dataEnd, duration) {
         let params = {
-            RESPONSIBLE_ID: recipient,
+            RESPONSIBLE_ID__ID: recipient,
             //            CREATED_after: dateStart,
             //            CREATED_before: dataEnd,
             CALL_START_DATE_after: dateStart,
