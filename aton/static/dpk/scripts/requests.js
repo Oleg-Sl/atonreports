@@ -23,7 +23,7 @@ class Auth {
             // регистрация пользователя
             let userRegistration = await this.serverRegistrationUser(username, password);
             // создание токенов доступа и обновления
-            let tokens = await this.serverCreateToken("dpk_" + username, password);
+            let tokens = await this.serverCreateToken(username, password);
             // сохранениние созданных токенов в хранилище
             let resSaveTokens = await this.storageSaveTokens(tokens.access, tokens.refresh);
         }
@@ -68,7 +68,7 @@ class Auth {
                     return reject("");
                 }
                 let userData = result.data();
-                return resolve(userData.ID);
+                return resolve(`dpk_${userData.ID}`);
             };
             BX24.callMethod("profile", {}, callback);
         });
