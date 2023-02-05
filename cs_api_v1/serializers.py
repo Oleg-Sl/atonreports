@@ -32,7 +32,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Activity
-        fields = ('OWNER_TYPE_ID', 'OWNER_ID', 'CREATED', 'CALL_START_DATE', 'COMPANY_ID', 'OWNER_NAME', 'phone', )
+        fields = ('OWNER_TYPE_ID', 'OWNER_ID', 'CREATED', 'CALL_START_DATE', 'COMPANY_ID__ID', 'OWNER_NAME', 'phone', )
 
 
 class CallsSerializer(serializers.ModelSerializer):
