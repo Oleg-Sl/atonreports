@@ -89,9 +89,9 @@ class DealManager(models.Manager):
     def statistic_company_summary(self, companies):
         from .models import Deal
         return self.filter(
-            company__pk__in=companies,
+            company__ID__in=companies,
         ).values(
-            "company__pk"
+            "company__ID"
         ).annotate(
             summa_by_company_success=models.Sum("opportunity", filter=models.Q(direction__new=True, stage__status="SUCCESSFUL")),
             # summa_by_company_success=models.Subquery(
@@ -105,7 +105,7 @@ class DealManager(models.Manager):
             # ),
             summa_by_company_work=models.Subquery(
                 Deal.objects.filter(
-                    company=models.OuterRef('company__pk'),
+                    company__ID=models.OuterRef('company__ID'),
                     direction__new=True,
                     stage__status="WORK"
                 ).annotate(

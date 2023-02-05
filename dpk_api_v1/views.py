@@ -283,5 +283,5 @@ class StatisticCompanyOpportunityViewSet(viewsets.GenericViewSet):
         companies_str = request.query_params.get("companies", "")
         companies_ids = [int(el) for el in companies_str.split(",") if isinstance(el, str) and el.isdigit()]
         queryset = self.filter_queryset(self.get_queryset(companies_ids))
-        response = converting_list_to_dict(queryset, "pk")
+        response = converting_list_to_dict(queryset, "company__ID")
         return Response(response, status=status.HTTP_200_OK)
