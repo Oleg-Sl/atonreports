@@ -163,7 +163,7 @@ class FilterCompany extends FilterMultiple {
     renderData(dataList) {
         let contentHTML = "";
         for (let obj of dataList) {
-            contentHTML += templateCartCompanyElement(obj.id_bx, obj.name, obj.inn);
+            contentHTML += templateCartCompanyElement(obj.ID, obj.TITLE, obj.inn);
         }
         this.elemWindowContent.innerHTML = contentHTML;
     }
