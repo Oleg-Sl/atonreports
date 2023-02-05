@@ -40,7 +40,7 @@ class Command(BaseCommand):
             companies_address = get_companies.get_address(self.bx24, companies_ids)
             # Сохранение данных
             for company_id, company_data in companies_data.items():
-                company_data.update(companies_requisites.get(company_id, {}))
+                company_data["inn"] = companies_requisites.get(company_id)
                 company_data.update(companies_address.get(company_id, {}))
                 print("INPUT: ", company_data)
                 res = save_company.update_company_drf(company_data)
