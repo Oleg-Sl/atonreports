@@ -108,6 +108,7 @@ class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UsersUpdateSerializer
     filter_backends = [filters_drf.DjangoFilterBackend]
     filterset_class = UsersDataFilter
+    lookup_field = 'ID'
     # permission_classes = [IsAuthenticated]
 
     # @method_decorator(cache_page(CASH_TIMMEOUT))
