@@ -57,7 +57,7 @@ class StatisticCompanyByDirection(filters.FilterSet):
 
 
 class StatisticByDirection(filters.FilterSet):
-    direction = NumberInFilter(field_name='pk', lookup_expr='in')
+    direction = NumberInFilter(field_name='ID', lookup_expr='in')
 
     class Meta:
         model = Direction

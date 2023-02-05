@@ -18,7 +18,7 @@ class CompanyManager(models.Manager):
 
 class DirectionActualManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().exclude(pk__in=settings.DIRECTION_IGNORE_LIST).filter(new=True)
+        return super().get_queryset().exclude(ID__in=settings.DIRECTION_IGNORE_LIST).filter(new=True)
 
     def count_active_deals(self):
         return self.annotate(
