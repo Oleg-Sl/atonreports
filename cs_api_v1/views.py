@@ -98,6 +98,8 @@ class IndexApiView(views.APIView):
 
 
 class UsersDataFilter(filters_drf.FilterSet):
+    permission_classes = [IsAuthenticated]
+
     class Meta:
         model = User
         fields = ["UF_DEPARTMENT", "ALLOWED_EDIT", "ALLOWED_SETTING", ]
@@ -109,7 +111,7 @@ class UsersViewSet(viewsets.ModelViewSet):
     filter_backends = [filters_drf.DjangoFilterBackend]
     filterset_class = UsersDataFilter
     lookup_field = 'ID'
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     # @method_decorator(cache_page(CASH_TIMMEOUT))
     def dispatch(self, request, *args, **kwargs):
@@ -132,7 +134,7 @@ class CallsViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, ]
     filterset_class = filter_queryset.CallsFilter
     lookup_field = 'ID'
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 # Получение, добавление, обновление комментариев
@@ -142,7 +144,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     ordering = ["date_comment_add"]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = filter_queryset.CommentFilter
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         recipient = User.objects.filter(ID=request.data.get("recipient")).first()
@@ -193,7 +195,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 # Добавление и изменение производственного календаря - NEW
 class ProductionCalendarViewSet(views.APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, requests):
         year = requests.query_params.get("year", datetime.datetime.now().year)
@@ -257,7 +259,7 @@ class ProductionCalendarViewSet(views.APIView):
 
 # Добавление и изменение плана по звонкам - NEW
 class CallsPlanViewSet(views.APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, requests):
         year = requests.query_params.get("year", datetime.datetime.now().year)
@@ -346,7 +348,7 @@ class CallsPlanViewSet(views.APIView):
 
 # Изменение плана по звонкам - NEW
 class CallsPlanCompletedViewSet(views.APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         calendar_date = request.data.get("calendar", None)  # дата: гггг-мм-дд
@@ -383,7 +385,7 @@ class CallsPlanCompletedViewSet(views.APIView):
 
 # получение данных сгруппированных по месяцам одного года
 class RationActiveByMonthApiView(views.APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         departs = request.data.get("depart", "1")
@@ -478,7 +480,7 @@ class RationActiveByMonthApiView(views.APIView):
 
 # получение данных сгруппированных по дням одного месяца
 class RationActiveByDayApiView(views.APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         departs = request.data.get("depart", "1")
