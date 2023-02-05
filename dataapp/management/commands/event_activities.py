@@ -47,7 +47,8 @@ class Command(BaseCommand):
                     "ID": activity_id_,
                     "active": active
                 })
-                print("OUTPUT: ", res)
+                if res:
+                    print("OUTPUT: ", res)
 
         # если извлекли не все данные из очереди событий
         if len(activities_ids) == LIMIT_EVENTS:
