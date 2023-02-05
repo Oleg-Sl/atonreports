@@ -35,16 +35,18 @@ class Command(BaseCommand):
             if isinstance(deals_data, dict):
                 for deal_id, deal_data in deals_data.items():
                     if deal_data:
-                        print("INPUT: ", deal_data)
                         res = save_deal.update_deal_drf(deal_data[0])
-                        print("OUTPUT: ", res)
+                        if res:
+                            print("INPUT: ", deal_data)
+                            print("OUTPUT: ", res)
         else:
             for deal_id_ in deals_ids:
                 res = save_deal.update_deal_drf({
                     "ID": deal_id_,
                     "active": active
                 })
-                print("OUTPUT: ", res)
+                if res:
+                    print("OUTPUT: ", res)
         return
         # если извлекли не все данные из очереди событий
         if len(deals_ids) == LIMIT_EVENTS:
