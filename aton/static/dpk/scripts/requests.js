@@ -222,7 +222,8 @@ class Auth {
 
 export default class Request {
     constructor(domain) {
-        this.api = domain + "api/v1/";
+        this.api = `${domain}dpk/api/v1/`;
+        // this.api = domain + "api/v1/";
         this.auth = new Auth(domain);
     }
 

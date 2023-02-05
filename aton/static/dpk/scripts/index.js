@@ -210,14 +210,12 @@ class App {
     getMinDurationForCalcDpk() {
         return this.elemMinDurationForCalcDpk.value;
     }
-    
 }
 
 
 $(document).ready(function() {
     BX24.init(function(){
         console.log("Ready!!!");
-        // const api = "http://127.0.0.1:8000/dpk/api/v1/";
         // const api = "https://otchet.atonlab.ru/dpk/api/v1/";
         // const api = "https://otchet.atonlab.ru/dpk/";
         
