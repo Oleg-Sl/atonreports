@@ -283,7 +283,7 @@ class CallsPlanViewSet(views.APIView):
                 return Response(data_calendar, status=status.HTTP_400_BAD_REQUEST)
 
         # получение записи плана по звонкам пользователя за переданный день
-        calls_plan_exists = CallsPlan.objects.filter(calendar__date_calendar=date, employee__pk=employee).exists()
+        calls_plan_exists = CallsPlan.objects.filter(calendar__date_calendar=date, employee__ID=employee).exists()
 
         # если запись отсутствует - создание записей по звонкам за месяц
         if not calls_plan_exists:
@@ -305,7 +305,7 @@ class CallsPlanViewSet(views.APIView):
             entries = CallsPlan.objects.filter(
                 calendar__date_calendar__year=year,
                 calendar__date_calendar__month=month,
-                employee__pk=employee
+                employee__ID=employee
             ).update(count_calls=count_calls)
             return Response(True, status=status.HTTP_201_CREATED)
         else:
@@ -314,7 +314,7 @@ class CallsPlanViewSet(views.APIView):
                 calendar__date_calendar__year=year,
                 calendar__date_calendar__month=month,
                 calendar__date_calendar__day=day,
-                employee__pk=employee
+                employee__ID=employee
             ).update(count_calls=count_calls)
             return Response(True, status=status.HTTP_201_CREATED)
 
@@ -347,7 +347,7 @@ class CallsPlanCompletedViewSet(views.APIView):
             calendar__date_calendar__year=year,
             calendar__date_calendar__month=month,
             calendar__date_calendar__day=day,
-            employee__pk=employee
+            employee__ID=employee
         ).update(plan_completed=plan_completed)
 
         if entry == 1:

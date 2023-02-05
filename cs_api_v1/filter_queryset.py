@@ -19,6 +19,7 @@ class CallsFilter(filters.FilterSet):
     CREATED = filters.DateFromToRangeFilter()
     CALL_START_DATE = filters.DateFromToRangeFilter(field_name='CALL_START_DATE')
     DURATION = filters.NumberFilter(field_name='DURATION', lookup_expr='gte')
+    RESPONSIBLE_ID = filters.NumberFilter(field_name='RESPONSIBLE_ID__ID', lookup_expr='eq')
 
     class Meta:
         model = Activity
@@ -30,5 +31,5 @@ class CommentFilter(filters.FilterSet):
 
     class Meta:
         model = Comment
-        fields = ["recipient", "commentator", "date_comment", ]
+        fields = ["recipient__ID", "commentator__ID", "date_comment", ]
 
