@@ -306,7 +306,7 @@ export default class TableStatistic {
         `;
 
         for(let dirId in directions) {
-            let dirName = directions[dirId].name;
+            let dirName = directions[dirId].VALUE;
             let numberActiveDealInDir = directions[dirId].count_active_deal;
             firstRowHTML += `
                 <th scope="col" colspan="${numberColumnsInDir}" class="header-th-direction" style="grid-column: ${startColumnWithDirData}/${startColumnWithDirData + numberColumnsInDir}; grid-row: 1/2">
@@ -457,7 +457,7 @@ export default class TableStatistic {
             let amountOfDealsInWork = "0";
             let amountOfSuccessfulDeals = "0";
             let isAllowedToCreateDeals = 0;
-            let dirName = directions[dirIdBx].name;
+            let dirName = directions[dirIdBx].VALUE;
 
             if (this.companySummaryByDirection[companyIdBx] && this.companySummaryByDirection[companyIdBx][dirIdBx]) {
                 let companyDataByDir = this.companySummaryByDirection[companyIdBx][dirIdBx];
