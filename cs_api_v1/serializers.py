@@ -29,10 +29,11 @@ class ActivityFullSerializer(serializers.ModelSerializer):
 
 class ActivitySerializer(serializers.ModelSerializer):
     phone = PhoneSerializer(many=True, read_only=True)
+    COMPANY_ID = serializers.IntegerField(source='COMPANY_ID.ID', read_only=True)
 
     class Meta:
         model = Activity
-        fields = ('OWNER_TYPE_ID', 'OWNER_ID', 'CREATED', 'CALL_START_DATE', 'COMPANY_ID', 'COMPANY_ID__ID', 'OWNER_NAME', 'phone', )
+        fields = ('OWNER_TYPE_ID', 'OWNER_ID', 'CREATED', 'CALL_START_DATE', 'COMPANY_ID', 'OWNER_NAME', 'phone', )
 
 
 class CallsSerializer(serializers.ModelSerializer):
