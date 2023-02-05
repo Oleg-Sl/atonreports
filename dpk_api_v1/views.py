@@ -85,15 +85,6 @@ class InstallAppApiView(views.APIView):
 
     @xframe_options_exempt
     def post(self, request):
-        # data = {
-        #     "domain": request.query_params.get("DOMAIN", "bits24.bitrix24.ru"),
-        #     "auth_token": request.data.get("AUTH_ID", ""),
-        #     "expires_in": request.data.get("AUTH_EXPIRES", 3600),
-        #     "refresh_token": request.data.get("REFRESH_ID", ""),
-        #     "application_token": request.query_params.get("APP_SID", ""),
-        #     'client_endpoint': f'https://{request.query_params.get("DOMAIN", "bits24.bitrix24.ru")}/rest/',
-        # }
-        # tokens.save_secrets(request.data)
         return render(request, 'dpk/install.html')
 
 
@@ -123,6 +114,7 @@ class DirectionViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'options']
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class StageViewSet(viewsets.ModelViewSet):
@@ -130,6 +122,7 @@ class StageViewSet(viewsets.ModelViewSet):
     serializer_class = StageSerializer
     http_method_names = ['get', 'options']
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
@@ -139,6 +132,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^ID", "TITLE", "^inn"]
     http_method_names = ['get', 'options']
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class SectorCompanyViewSet(viewsets.ModelViewSet):
@@ -157,6 +151,7 @@ class RegionCompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^region", ]
     http_method_names = ['get', 'options']
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class SourceCompanyViewSet(viewsets.ModelViewSet):
@@ -166,6 +161,7 @@ class SourceCompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^source", ]
     http_method_names = ['get', 'options']
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class RequisitesRegionCompanyViewSet(viewsets.ModelViewSet):
@@ -175,6 +171,7 @@ class RequisitesRegionCompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^requisite_region", ]
     http_method_names = ['get', 'options']
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class RequisitesCityCompanyViewSet(viewsets.ModelViewSet):
@@ -184,6 +181,7 @@ class RequisitesCityCompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^requisites_city", ]
     http_method_names = ['get', 'options']
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 class StatisticCompanyViewSet(viewsets.GenericViewSet):
@@ -194,6 +192,7 @@ class StatisticCompanyViewSet(viewsets.GenericViewSet):
     filterset_class = filter_queryset.StatisticCompany
     ordering_fields = ["ID", "TITLE", "ASSIGNED_BY_ID", "dpk", "date_last_communication", "summa_by_company_success", "summa_by_company_work"]
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         duration = self.request.query_params.get("duration", "0")
@@ -220,6 +219,7 @@ class StatisticCompanyViewSet(viewsets.GenericViewSet):
 
 class StatisticCompanyDirectionViewSet(viewsets.GenericViewSet):
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_queryset(self, companies_ids, directions_ids, limit_date_suspended_deals, limit_date_failed_deals):
         return Deal.objects.statistic_company_by_directions(
@@ -262,6 +262,7 @@ class StatisticDirectionViewSet(viewsets.GenericViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = filter_queryset.StatisticByDirection
     # permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -271,7 +272,7 @@ class StatisticDirectionViewSet(viewsets.GenericViewSet):
 
 class StatisticCompanyOpportunityViewSet(viewsets.GenericViewSet):
     # permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
+    permission_classes = [AllowAny]
 
     def get_queryset(self, companies_ids):
         return Company.statistic.statistic_company_summary(companies_ids)

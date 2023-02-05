@@ -93,10 +93,10 @@ class Auth {
         this.refresh = await BX24.userOption.get("refreshToken");
         // время окончания жизни токена обновления
         this.refreshExp = await BX24.userOption.get("refreshExp");
-        console.log("this.access = ", this.access);
-        console.log("this.accessExp = ", this.accessExp);
-        console.log("this.refresh = ", this.refresh);
-        console.log("this.refreshExp = ", this.refreshExp);
+        // console.log("this.access = ", this.access);
+        // console.log("this.accessExp = ", this.accessExp);
+        // console.log("this.refresh = ", this.refresh);
+        // console.log("this.refreshExp = ", this.refreshExp);
     }
 
     // сохранение токенов в хранилище пользователя

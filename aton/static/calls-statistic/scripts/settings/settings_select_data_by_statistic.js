@@ -89,10 +89,10 @@ export default class SelectDataByStatistic {
 
     // получение сохраненного списка подразделений из хранилища Битрикс
     async getSavedDepartments() {
-        console.log("getSavedDepartments = ", BX24);
+        // console.log("getSavedDepartments = ", BX24);
         let storageDepartment = await BX24.appOption.get(this.keyStorageDepartment);
-        console.log("this.keyStorageDepartment = ", this.keyStorageDepartment);
-        console.log("storageDepartment = ", storageDepartment);
+        // console.log("this.keyStorageDepartment = ", this.keyStorageDepartment);
+        // console.log("storageDepartment = ", storageDepartment);
         if (storageDepartment) {
             this.saveDepartments = storageDepartment.split(",");
         } else {
@@ -208,13 +208,13 @@ export default class SelectDataByStatistic {
 
     // окно "выбранные пользователи подразделений" - вывод списка подразделений
     async renderSelectedDepartment() {
-        console.log("renderSelectedDepartment");
-        console.log(this.departments);
-        console.log(this.saveDepartments);
+        // console.log("renderSelectedDepartment");
+        // console.log(this.departments);
+        // console.log(this.saveDepartments);
         this.containerUserDepart.innerHTML = "";
         for (let department of this.departments) {
             if (department.ID && this.saveDepartments.includes(department.ID)) {
-                console.log(department.ID);
+                // console.log(department.ID);
                 await this.renderUsersDepartment(department);
             }
         }

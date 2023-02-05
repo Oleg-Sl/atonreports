@@ -23,7 +23,7 @@ class Auth {
             // регистрация пользователя
             let userRegistration = await this.serverRegistrationUser(username, password);
             // создание токенов доступа и обновления
-            let tokens = await this.serverCreateToken(username, password);
+            let tokens = await this.serverCreateToken("dpk_" + username, password);
             // сохранениние созданных токенов в хранилище
             let resSaveTokens = await this.storageSaveTokens(tokens.access, tokens.refresh);
         }
