@@ -37,9 +37,10 @@ class Command(BaseCommand):
                 companies_data = get_activities.get_companies_for_activities(self.bx24, activities_data)
                 for activity_id, activity_data in activities_data.items():
                     activity_data.update(companies_data.get(activity_id, {}))
-                    print("INPUT: ", activity_data)
                     res = save_activity.update_activity_drf(activity_data)
-                    print("OUTPUT: ", res)
+                    if res:
+                        print("INPUT: ", activity_data)
+                        print("OUTPUT: ", res)
         else:
             for activity_id_ in activities_ids:
                 res = save_activity.update_activity_drf({
