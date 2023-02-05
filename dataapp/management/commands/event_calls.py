@@ -15,7 +15,7 @@ class Command(BaseCommand):
         print("ONVOXIMPLANTCALLEND")
         self.get_and_save_calls("ONVOXIMPLANTCALLEND")
 
-    def get_and_save_calls(self, event_name, count_recursion=10):
+    def get_and_save_calls(self, event_name, count_recursion=20):
         if count_recursion <= 0:
             return
 

@@ -19,7 +19,7 @@ class Command(BaseCommand):
         print("ONCRMDEALDELETE")
         self.get_and_save_deals("ONCRMDEALDELETE")
 
-    def get_and_save_deals(self, event_name, count_recursion=20):
+    def get_and_save_deals(self, event_name, count_recursion=40):
         if count_recursion <= 0:
             return
 
