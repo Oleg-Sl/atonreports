@@ -492,14 +492,14 @@ class RationActiveByDayApiView(views.APIView):
         # получение плана по звонкам
         calls_plan = CallsPlan.objects.select_related("calendar").only(
             "calendar__date_calendar",
-            'employee',
+            'employee__ID',
             'count_calls_avg',
             'plan_completed'
         ).filter(
             calendar__date_calendar__year=year,
             calendar__date_calendar__month=month,
         ).values(
-            'employee', 'count_calls', 'plan_completed', 'calendar__date_calendar__day'
+            'employee__ID', 'count_calls', 'plan_completed', 'calendar__date_calendar__day'
         )
 
         data = {}
@@ -535,7 +535,7 @@ class RationActiveByDayApiView(views.APIView):
                 data_user[user]["comments"][day] = count
 
         for plan in calls_plan:
-            user = plan["employee"]
+            user = plan["employee__ID"]
             day = plan["calendar__date_calendar__day"]
             count = plan["count_calls"]
             completed = plan["plan_completed"]
