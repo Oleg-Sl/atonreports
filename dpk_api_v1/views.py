@@ -224,7 +224,7 @@ class StatisticCompanyDirectionViewSet(viewsets.GenericViewSet):
     # permission_classes = [AllowAny]
 
     def get_queryset(self, companies_ids, directions_ids, limit_date_suspended_deals, limit_date_failed_deals):
-        return Deal.objects.statistic_company_by_directions(
+        return Deal.objects.filter(active=True).statistic_company_by_directions(
             companies_ids,
             directions_ids,
             limit_date_suspended_deals,
