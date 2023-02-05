@@ -73,6 +73,7 @@ def get_calls_by_month(departments, year, duration):
             "RESPONSIBLE_ID__ACTIVE",
             "RESPONSIBLE_ID__UF_DEPARTMENT"
         ).filter(
+            COMPANY_ID__isnull=False,
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
@@ -169,6 +170,7 @@ def get_calls_by_day(departments, year, month, duration):
             "RESPONSIBLE_ID__ACTIVE",
             "RESPONSIBLE_ID__UF_DEPARTMENT"
         ).filter(
+            COMPANY_ID__isnull=False,
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
