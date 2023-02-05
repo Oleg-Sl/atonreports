@@ -336,20 +336,20 @@ export default class TableStatistic {
                     Компания
                     <span class="resize-handle"></span>
                     <span class="sort-company-top">
-                        <i data-order="name" class="bi bi-caret-up-fill sort-button" id="sorting-company-asc"></i>
+                        <i data-order="TITLE" class="bi bi-caret-up-fill sort-button" id="sorting-company-asc"></i>
                     </span>
                     <span class="sort-company-bottom">
-                        <i data-order="-name" class="bi bi-caret-down-fill sort-button" id="sorting-company-desc"></i>
+                        <i data-order="-TITLE" class="bi bi-caret-down-fill sort-button" id="sorting-company-desc"></i>
                     </span>
                 </th>
                 <th scope="col" rowspan="2" class="header-th-data header-th-sort-data" data-type="text-long"  data-position="3">
                     Менеджер 
                     <span class="resize-handle"></span>
                     <span class="sort-responsible-top">
-                        <i data-order="responsible" class="bi bi-caret-up-fill sort-button" id="sorting-responsible-asc"></i>
+                        <i data-order="ASSIGNED_BY_ID" class="bi bi-caret-up-fill sort-button" id="sorting-responsible-asc"></i>
                     </span>
                     <span class="sort-responsible-bottom">
-                        <i data-order="-responsible" class="bi bi-caret-down-fill sort-button" id="sorting-responsible-asc"></i>
+                        <i data-order="-ASSIGNED_BY_ID" class="bi bi-caret-down-fill sort-button" id="sorting-responsible-asc"></i>
                     </span>
                 </th>
                 
@@ -357,10 +357,10 @@ export default class TableStatistic {
                     ДПК
                     <span class="resize-handle"></span>
                     <span class="sort-dpk-top">
-                        <i data-order="dpk" class="bi bi-caret-up-fill sort-button" id="sorting-date_last_communication-asc"></i>
+                        <i data-order="date_last_communication" class="bi bi-caret-up-fill sort-button" id="sorting-date_last_communication-asc"></i>
                     </span>
                     <span class="sort-dpk-bottom">
-                        <i data-order="-dpk" class="bi bi-caret-down-fill sort-button" id="sorting-date_last_communication-asc"></i>
+                        <i data-order="-date_last_communication" class="bi bi-caret-down-fill sort-button" id="sorting-date_last_communication-asc"></i>
                     </span>
                 </th>
                 <th scope="col" rowspan="2" class="header-th-data header-th-sort-data" data-type="numeric-long" data-position="5">

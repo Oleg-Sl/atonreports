@@ -49,7 +49,7 @@ class StatisticCompany(filters.FilterSet):
 
 
 class StatisticCompanyByDirection(filters.FilterSet):
-    company = NumberInFilter(field_name='pk', lookup_expr='in')
+    company = NumberInFilter(field_name='ID', lookup_expr='in')
 
     class Meta:
         model = Company
