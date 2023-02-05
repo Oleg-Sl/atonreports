@@ -72,12 +72,11 @@ class RequisitesCityCompanySerializer(serializers.ModelSerializer):
 class StatisticCompanySerializer(serializers.ModelSerializer):
     summa_by_company_success = serializers.FloatField()
     summa_by_company_work = serializers.FloatField()
-    dpk = serializers.DateTimeField()
     date_last_communication = serializers.DateTimeField()
 
     class Meta:
         model = Company
-        fields = ("ID", "TITLE", "ASSIGNED_BY_ID", "dpk", "date_last_communication", "summa_by_company_success", "summa_by_company_work")
+        fields = ("ID", "TITLE", "ASSIGNED_BY_ID", "date_last_communication", "summa_by_company_success", "summa_by_company_work")
         # fields = '__all__'
 
 

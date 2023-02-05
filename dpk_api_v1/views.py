@@ -192,7 +192,7 @@ class StatisticCompanyViewSet(viewsets.GenericViewSet):
     pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = filter_queryset.StatisticCompany
-    ordering_fields = ["ID", "TITLE", "ASSIGNED_BY_ID", "dpk", "date_last_communication", "summa_by_company_success", "summa_by_company_work"]
+    ordering_fields = ["ID", "TITLE", "ASSIGNED_BY_ID", "date_last_communication", "summa_by_company_success", "summa_by_company_work"]
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
 
