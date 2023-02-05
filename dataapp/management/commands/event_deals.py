@@ -34,9 +34,10 @@ class Command(BaseCommand):
             deals_data = get_deals.get_data(self.bx24, deals_ids)
             if isinstance(deals_data, dict):
                 for deal_id, deal_data in deals_data.items():
-                    print("INPUT: ", deal_data)
-                    res = save_deal.update_deal_drf(deal_data)
-                    print("OUTPUT: ", res)
+                    if deal_data:
+                        print("INPUT: ", deal_data)
+                        res = save_deal.update_deal_drf(deal_data[0])
+                        print("OUTPUT: ", res)
         else:
             for deal_id_ in deals_ids:
                 res = save_deal.update_deal_drf({
