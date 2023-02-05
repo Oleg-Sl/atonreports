@@ -152,15 +152,15 @@ class CommentViewSet(viewsets.ModelViewSet):
         verified_by_user = User.objects.filter(ID=request.data.get("verified_by_user")).first()
         data = {
             # "recipient": request.data.get("recipient", instance.recipient.pk),
-            "recipient": recipient or instance.recipient,
+            "recipient": recipient.pk if recipient else instance.recipient,
             # "commentator": request.data.get("commentator", instance.commentator.pk),
-            "commentator": commentator or instance.commentator,
+            "commentator": commentator.pk if commentator else instance.commentator,
             "date_comment": request.data.get("date_comment", instance.date_comment),
             "date_comment_add": request.data.get("date_comment_add", instance.date_comment_add),
             "comment": request.data.get("comment", instance.comment),
             "verified": request.data.get("verified", instance.verified),
             # "verified_by_user": request.data.get("verified_by_user", instance.verified_by_user),
-            "verified_by_user": verified_by_user or instance.verified_by_user,
+            "verified_by_user": verified_by_user.pk if verified_by_user else instance.verified_by_user,
             "date_verified": request.data.get("date_verified", instance.date_verified)
         }
 
