@@ -101,7 +101,9 @@ class IndexApiView(views.APIView):
 
     @xframe_options_exempt
     def post(self, request):
-        return render(request, 'dpk/index.html')
+        return render(request, 'dpk/index.html', context={
+            "DOMAIN": "https://otchet.atonlab.ru/reports/"
+        })
 
     @xframe_options_exempt
     def get(self, request):

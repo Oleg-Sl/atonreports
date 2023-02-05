@@ -219,10 +219,10 @@ $(document).ready(function() {
         console.log("Ready!!!");
         // const api = "http://127.0.0.1:8000/dpk/api/v1/";
         // const api = "https://otchet.atonlab.ru/dpk/api/v1/";
-        const api = "https://otchet.atonlab.ru/dpk/";
+        // const api = "https://otchet.atonlab.ru/dpk/";
         
         let bx24 = new BX();
-        let requests = new Request(api);
+        let requests = new Request(DOMAIN);
         let createDeal = new CreateDeal(bx24);
         let app = new App(requests, bx24, createDeal);
         app.init();
