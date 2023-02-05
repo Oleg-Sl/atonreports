@@ -73,10 +73,11 @@ class StatisticCompanySerializer(serializers.ModelSerializer):
     summa_by_company_success = serializers.FloatField()
     summa_by_company_work = serializers.FloatField()
     date_last_communication = serializers.DateTimeField()
+    responsible = serializers.IntegerField(source='ASSIGNED_BY_ID.ID', read_only=True)
 
     class Meta:
         model = Company
-        fields = ("ID", "TITLE", "ASSIGNED_BY_ID", "date_last_communication", "summa_by_company_success", "summa_by_company_work")
+        fields = ("ID", "TITLE", "ASSIGNED_BY_ID", "responsible", "date_last_communication", "summa_by_company_success", "summa_by_company_work")
         # fields = '__all__'
 
 

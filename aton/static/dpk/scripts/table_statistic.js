@@ -402,25 +402,23 @@ export default class TableStatistic {
         let companies = this.companySummary;
         console.log("companySummaryOpportunity = ", this.companySummaryOpportunity);
         for (let company of companies) {
-            
-            
-            // let summaByCompanySuccess = company.summa_by_company_success || 0;
-            // let summaByCompanyWork = company.summa_by_company_work || 0;
-            let companyIdBx = company.id_bx;
-            let companyName = company.name || "&ndash;";
+            let summaByCompanySuccess = company.summa_by_company_success || 0;
+            let summaByCompanyWork = company.summa_by_company_work || 0;
+            let companyIdBx = company.ID;
+            let companyName = company.TITLE || "&ndash;";
             let companyInn = company.inn || "&ndash;";
             let companyResponsibleId = company.responsible || "&ndash;";
             let companyResponsibleTitle = this.getUserTitleByIBx(companyResponsibleId);
-            let companyDpkDatetimeStr = company.dpk;
+            let companyDpkDatetimeStr = company.date_last_communication;
             let companyDpkDateStr = this.convertsDatetimeToString(companyDpkDatetimeStr);
 
-            console.log("summaByCompanySuccess = ", this.companySummaryOpportunity[companyIdBx]);
-            let summaByCompanySuccess = 0;
-            let summaByCompanyWork = 0;
-            if (this.companySummaryOpportunity[companyIdBx]) {
-                summaByCompanySuccess = this.companySummaryOpportunity[companyIdBx].summa_by_company_success || 0;
-                summaByCompanyWork = this.companySummaryOpportunity[companyIdBx].summa_by_company_work  || 0;
-            }
+            // console.log("summaByCompanySuccess = ", this.companySummaryOpportunity[companyIdBx]);
+            // let summaByCompanySuccess = 0;
+            // let summaByCompanyWork = 0;
+            // if (this.companySummaryOpportunity[companyIdBx]) {
+            //     summaByCompanySuccess = this.companySummaryOpportunity[companyIdBx].summa_by_company_success || 0;
+            //     summaByCompanyWork = this.companySummaryOpportunity[companyIdBx].summa_by_company_work  || 0;
+            // }
 
             let dpkCellStyle = "";
             if (!companyDpkDatetimeStr || new Date(companyDpkDatetimeStr) < this.dateTransitionDealToInactive) {
