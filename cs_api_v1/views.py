@@ -131,6 +131,7 @@ class CallsViewSet(viewsets.ModelViewSet):
     serializer_class = ActivitySerializer
     filter_backends = [DjangoFilterBackend, ]
     filterset_class = filter_queryset.CallsFilter
+    lookup_field = 'ID'
     # permission_classes = [IsAuthenticated]
 
 
