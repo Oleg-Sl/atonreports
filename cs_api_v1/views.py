@@ -387,7 +387,7 @@ class RationActiveByMonthApiView(views.APIView):
             recipient__STATUS_DISPLAY=True,
             date_comment__year=year,
         ).values(
-            'recipient', 'date_comment__month'
+            'recipient__ID', 'date_comment__month'
         ).annotate(
             counts=models.Count('date_comment')
         )
@@ -395,7 +395,7 @@ class RationActiveByMonthApiView(views.APIView):
         # получение плана по звонкам
         calls_plan = CallsPlan.objects.select_related("calendar").only(
             "calendar__date_calendar",
-            'employee',
+            'employee__ID',
             'count_calls_avg'
         ).filter(
             calendar__date_calendar__year=year,
@@ -403,7 +403,7 @@ class RationActiveByMonthApiView(views.APIView):
             count_calls_avg=models.Avg("count_calls"),
             plan_completed_avg=models.Avg("plan_completed"),
         ).values(
-            'employee', 'count_calls_avg', 'calendar__date_calendar__month'
+            'employee__ID', 'count_calls_avg', 'calendar__date_calendar__month'
         )
 
         data = {}
@@ -424,21 +424,21 @@ class RationActiveByMonthApiView(views.APIView):
                 data_user[user_id]["calls_fact"][month_num] = count
 
         for meeting in meetings:
-            user = meeting["RESPONSIBLE_ID"]
+            user = meeting["RESPONSIBLE_ID__ID"]
             month = meeting["END_TIME__month"]
             count = meeting["counts"]
             if user in data_user:
                 data_user[user]["meetings_fact"][month] = count
 
         for comment in comments:
-            user = comment["recipient"]
+            user = comment["recipient__ID"]
             month = comment["date_comment__month"]
             count = comment["counts"]
             if user in data_user:
                 data_user[user]["comments"][month] = count
 
         for plan in calls_plan:
-            user = plan["employee"]
+            user = plan["employee__ID"]
             month = plan["calendar__date_calendar__month"]
             count = plan["count_calls_avg"]
             if user in data_user:
