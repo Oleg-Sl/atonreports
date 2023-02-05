@@ -19,7 +19,7 @@ class Command(BaseCommand):
         print("ONCRMACTIVITYDELETE")
         self.get_and_save_activities("ONCRMACTIVITYDELETE")
 
-    def get_and_save_activities(self, event_name, count_recursion=20):
+    def get_and_save_activities(self, event_name, count_recursion=40):
         if count_recursion <= 0:
             return
 
