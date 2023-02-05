@@ -39,6 +39,7 @@ class DealManager(models.Manager):
     def statistic_company_by_directions(self, companies, directions, lim_date_suspended_deals, lim_date_failed_deals):
         from .models import Deal, Company
         return self.filter(
+            active=True,
             company__ID__in=companies,
         ).values(
             "company__ID", "direction__ID"
@@ -123,6 +124,7 @@ class CompanyStatisticManager(models.Manager):
         from .models import Deal
         return self.filter(
             pk__in=companies,
+            # active=True
         ).values(
             "pk", "deal__direction"
         ).annotate(
