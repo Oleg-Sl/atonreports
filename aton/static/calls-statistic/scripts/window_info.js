@@ -281,7 +281,7 @@ export default class WindowInfo {
             // ссылка на сущность к которой привязан звонок
             let hrefOwner = `${OWNER_TYPE_URL[call.OWNER_TYPE_ID]}${call.OWNER_ID}/`;
             // ссылка на компанию к которой привязан звонок
-            let hrefCompany = `${OWNER_TYPE_URL["4"]}${call.COMPANY_ID__ID}/`;
+            let hrefCompany = `${OWNER_TYPE_URL["4"]}${call.COMPANY_ID}/`;
             // HTML-код звонка
             contentHTML += templateCallsItem(
                 OWNER_TYPE[call.OWNER_TYPE_ID],                     // тип связанной сущности
