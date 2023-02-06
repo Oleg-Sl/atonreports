@@ -64,27 +64,27 @@ class DealManager(models.Manager):
                 models.Q(stage__status="FAILURE") & models.Q(DATE_MODIFY__gte=lim_date_failed_deals),
                 output_field=models.BooleanField()
             ),
-            # сумма стоимостей успешных сделок
-            # opportunity_success=models.Sum("opportunity", filter=models.Q(stage__status="SUCCESSFUL")),
-            opportunity_success=models.Subquery(
-                    Company.statistic.filter(
-                        ID=models.OuterRef('company__ID'),
-                        deal__direction__ID=models.OuterRef('direction__ID'),
-                        deal__stage__status="SUCCESSFUL"
-                    ).annotate(
-                        s=models.Sum('deal__opportunity')
-                    ).values('s')[:1]
-                ),
-            # сумма стоимостей сделок в работе
-            opportunity_work=models.Subquery(
-                    Company.statistic.filter(
-                        ID=models.OuterRef('company__ID'),
-                        deal__direction__ID=models.OuterRef('direction__ID'),
-                        deal__stage__status="WORK"
-                    ).annotate(
-                        s=models.Sum('deal__opportunity')
-                    ).values('s')[:1]
-                ),
+            # # сумма стоимостей успешных сделок
+            # # opportunity_success=models.Sum("opportunity", filter=models.Q(stage__status="SUCCESSFUL")),
+            # opportunity_success=models.Subquery(
+            #         Company.statistic.filter(
+            #             ID=models.OuterRef('company__ID'),
+            #             deal__direction__ID=models.OuterRef('direction__ID'),
+            #             deal__stage__status="SUCCESSFUL"
+            #         ).annotate(
+            #             s=models.Sum('deal__opportunity')
+            #         ).values('s')[:1]
+            #     ),
+            # # сумма стоимостей сделок в работе
+            # opportunity_work=models.Subquery(
+            #         Company.statistic.filter(
+            #             ID=models.OuterRef('company__ID'),
+            #             deal__direction__ID=models.OuterRef('direction__ID'),
+            #             deal__stage__status="WORK"
+            #         ).annotate(
+            #             s=models.Sum('deal__opportunity')
+            #         ).values('s')[:1]
+            #     ),
         )
 
     def statistic_company_summary(self, companies):

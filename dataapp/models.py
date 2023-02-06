@@ -123,7 +123,8 @@ class Company(models.Model):
     ASSIGNED_BY_ID = models.ForeignKey(User, verbose_name='Ответственый в BX24', on_delete=models.SET_NULL,
                                        related_name='company', blank=True, null=True, db_index=True)
 
-    objects = CompanyManager.from_queryset(CompanyQuerySet)()
+    objects = CompanyManager()
+    # objects = CompanyManager.from_queryset(CompanyQuerySet)()
     statistic = CompanyStatisticManager()
 
     def __str__(self):
