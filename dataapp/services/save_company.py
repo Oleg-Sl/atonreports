@@ -20,6 +20,9 @@ def add_company_drf(company):
     if exist_obj:
         serializer = CompanySerializer(exist_obj, data=company)
     else:
+        company["date_last_communication"] = "2000-02-06T04:55:58+03:00"
+        company["summa_by_company_success"] = 0
+        company["summa_by_company_work"] = 0
         serializer = CompanySerializer(data=company)
 
     if serializer.is_valid():
@@ -54,6 +57,9 @@ def update_company_drf(company):
 
     exist_obj = Company.objects.filter(ID=company.get("ID", None)).first()
     if exist_obj:
+        company["date_last_communication"] = "2000-02-06T04:55:58+03:00"
+        company["summa_by_company_success"] = 0
+        company["summa_by_company_work"] = 0
         serializer = CompanySerializer(exist_obj, data=company)
         if serializer.is_valid():
             serializer.save()

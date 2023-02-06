@@ -318,8 +318,8 @@ def post_save_deal(instance, **kwargs):
             summa_work=models.Sum("opportunity", filter=models.Q(stage__status="WORK"))
         )
         # print("deal_aggregate_obj_ = ", deal_aggregate_obj_)
-        company_obj_.summa_by_company_success = deal_aggregate_obj_["summa_success"]
-        company_obj_.summa_by_company_work = deal_aggregate_obj_["summa_work"]
+        company_obj_.summa_by_company_success = deal_aggregate_obj_["summa_success"] or 0
+        company_obj_.summa_by_company_work = deal_aggregate_obj_["summa_work"] or 0
         company_obj_.save()
 
 
