@@ -196,15 +196,18 @@ def get_calls_by_day(departments, year, month, duration):
         cache.set(key, calls, CASH_TIMMEOUT)
     elif str(year) == str(now.year) and str(month) == str(now.month):
         queryset_calls = Activity.objects.select_related("RESPONSIBLE_ID").only(
+            "COMPANY_ID",
             "active",
             "DURATION",
             "DIRECTION",
             "TYPE_ID",
             "CALL_START_DATE",
+            "RESPONSIBLE_ID__ID",
             "RESPONSIBLE_ID__STATUS_DISPLAY",
             "RESPONSIBLE_ID__ACTIVE",
             "RESPONSIBLE_ID__UF_DEPARTMENT"
         ).filter(
+            COMPANY_ID__isnull=False,
             RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
             RESPONSIBLE_ID__ACTIVE=True,
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
@@ -220,7 +223,8 @@ def get_calls_by_day(departments, year, month, duration):
             DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID__ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID__ID', 'CALL_START_DATE__day', 'COMPANY_ID__ID'
+            # 'RESPONSIBLE_ID__ID', 'CALL_START_DATE__day', 'COMPANY_ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
             "RESPONSIBLE_ID__ID", 'CALL_START_DATE__day'
