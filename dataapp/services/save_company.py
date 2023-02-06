@@ -40,6 +40,17 @@ def update_company_drf(company):
         company["inn"] = company.get("RQ_INN")
     if company.get("active") is not None:
         company["active"] = company.get("active")
+    if "ASSIGNED_BY_ID" in company:
+        assigned_by_id = User.objects.filter(ID=company.get("ASSIGNED_BY_ID")).first()
+        company["ASSIGNED_BY_ID"] = assigned_by_id.pk if assigned_by_id else None
+    company["sector"] = company.get("UF_CRM_1640828035") or None
+    company["region"] = company.get("UF_CRM_1639121988") or None
+    company["source"] = company.get("UF_CRM_1639121612") or None
+    company["number_employees"] = company.get("UF_CRM_1639121303") or None
+    company["district"] = company.get("UF_CRM_1639121341") or None
+    company["main_activity"] = company.get("UF_CRM_1617767435") or None
+    company["other_activities"] = company.get("UF_CRM_1639121225") or None
+    company["profit"] = company.get("UF_CRM_1639121262") or None
 
     exist_obj = Company.objects.filter(ID=company.get("ID", None)).first()
     if exist_obj:

@@ -67,7 +67,7 @@ def update_deal_drf(deal):
     exist_obj = Deal.objects.filter(ID=deal.get("ID", None)).first()
 
     if exist_obj:
-        deal.pop("ID")
+        # deal.pop("ID")
         serializer = DealSerializer(exist_obj, data=deal)
     else:
         serializer = DealSerializer(data=deal)
