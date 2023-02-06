@@ -161,11 +161,13 @@ def get_calls_by_day(departments, year, month, duration):
     now = datetime.datetime.now()
     if calls is None:
         queryset_calls = Activity.objects.select_related("RESPONSIBLE_ID").only(
+            "COMPANY_ID",
             "active",
             "DURATION",
             "DIRECTION",
             "TYPE_ID",
             "CALL_START_DATE",
+            "RESPONSIBLE_ID__ID",
             "RESPONSIBLE_ID__STATUS_DISPLAY",
             "RESPONSIBLE_ID__ACTIVE",
             "RESPONSIBLE_ID__UF_DEPARTMENT"
@@ -184,7 +186,8 @@ def get_calls_by_day(departments, year, month, duration):
             DURATION__gte=duration,
             active=True
         ).distinct(
-            'RESPONSIBLE_ID__ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID'
+            'RESPONSIBLE_ID__ID', 'CALL_START_DATE__day', 'COMPANY_ID__ID'
+            # 'RESPONSIBLE_ID__ID', 'CALL_START_DATE__month', 'CALL_START_DATE__day', 'COMPANY_ID__ID'
         ).values_list(
             # "RESPONSIBLE_ID", 'phone__CALL_START_DATE__day'
             "RESPONSIBLE_ID__ID", 'CALL_START_DATE__day'
