@@ -5,7 +5,7 @@ from .. import save_deal
 
 
 def save_to_db(bx24):
-    total_deals = get_total(bx24, "crm.deal.list", {})
+    total_deals = get_total(bx24, "crm.deal.list", {">DATE_CREATE": "2022-01-05"})
     save_deals_to_db(bx24, total_deals)
 
 
@@ -17,7 +17,7 @@ def save_deals_to_db(bx24, total=0, count=0, id_start=0):
         ],
         "filter": {
             ">ID": id_start,
-            # ">DATE_CREATE": None,
+            ">DATE_CREATE": "2022-01-05",
             # "<DATE_CREATE": None
         },
         "order": {"ID": "ASC"},
