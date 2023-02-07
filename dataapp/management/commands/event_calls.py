@@ -49,3 +49,6 @@ class Command(BaseCommand):
                 if res:
                     print("INPUT: ", activity_data)
                     print("OUTPUT: ", res)
+
+
+

@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from bitrix24.request import Bitrix24
-from dataapp.services import utils, save_activity, get_activities
+from dataapp.services import utils, save_activity, get_activities, get_calls, save_call
 
 
 LIMIT_EVENTS = 25
@@ -41,6 +41,17 @@ class Command(BaseCommand):
                     if res:
                         print("INPUT: ", activity_data)
                         print("OUTPUT: ", res)
+
+            calls_data = get_calls.get_data_calls(self.bx24, activities_ids)
+            if isinstance(calls_data, dict):
+                for _, call_data_ in calls_data.items():
+                    if not call_data_:
+                        continue
+                    res = save_call.add_call_drf(call_data_)
+                    if res:
+                        print("INPUT: ", call_data_)
+                        print("OUTPUT: ", res)
+
         else:
             for activity_id_ in activities_ids:
                 res = save_activity.update_activity_drf({
