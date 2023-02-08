@@ -9,7 +9,7 @@ bx24 = Bitrix24()
 
 
 def get_and_save_company(company_id_):
-    if Company.objects.filter(ID=company_id_).exist():
+    if Company.objects.filter(ID=company_id_).exists():
         return
     companies_data_ = get_companies.get_data(bx24, [company_id_])
     if companies_data_ and isinstance(companies_data_, dict) and company_id_ in companies_data_:
