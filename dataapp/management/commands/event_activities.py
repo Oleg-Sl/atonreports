@@ -47,7 +47,7 @@ class Command(BaseCommand):
                 for _, call_data_ in calls_data.items():
                     if not call_data_:
                         continue
-                    res = save_call.add_call_drf(call_data_)
+                    res = save_call.add_call_drf(call_data_[0])
                     if res:
                         print("INPUT: ", call_data_)
                         print("OUTPUT: ", res)
