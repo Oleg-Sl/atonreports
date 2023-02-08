@@ -5,7 +5,7 @@ from .. import save_call
 
 
 def save_to_db(bx24):
-    total_calls = get_total(bx24, "voximplant.statistic.get", {">CALL_START_DATE": "2023-02-07"})
+    total_calls = get_total(bx24, "voximplant.statistic.get", {">CALL_START_DATE": "2023-02-08"})
     save_calls_to_db(bx24, total_calls)
 
 
@@ -17,7 +17,7 @@ def save_calls_to_db(bx24, total=0, count=0, id_start=0):
         ],
         "FILTER": {
             ">ID": id_start,
-            ">CALL_START_DATE": "2023-02-07",
+            ">CALL_START_DATE": "2023-02-08",
             # "<CALL_START_DAeTE": "2022-01-01",
         },
         "SORT": "ID",

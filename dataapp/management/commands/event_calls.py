@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from bitrix24.request import Bitrix24
-from dataapp.services import utils, save_call, save_activity, get_activities
+from dataapp.services import utils, save_call, save_activity, get_activities, get_companies
 
 LIMIT_EVENTS = 25
 
@@ -50,5 +50,6 @@ class Command(BaseCommand):
                     print("INPUT: ", activity_data)
                     print("OUTPUT: ", res)
 
-
-
+    # def get_and_save_company(self, company_id_):
+    #     companies_data_ = get_companies.get_data(self.bx24, [company_id_])
+    #     # companies_data_.
