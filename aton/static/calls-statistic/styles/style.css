@@ -596,7 +596,7 @@
   z-index: 110;
 }
 #tableStatisticCompaniesCalls thead tr th:last-child {
-  background: #eaebff;
+  background: #efefef;
 }
 #tableStatisticCompaniesCalls tbody {
   display: contents;
@@ -671,7 +671,7 @@
   display: block;
 }
 #tableStatisticCompaniesCalls tbody tr td:last-child {
-  background: #eaebff;
+  background: #efefef;
 }
 #tableStatisticCompaniesCalls tbody tr:hover td {
   background: #efefef;
