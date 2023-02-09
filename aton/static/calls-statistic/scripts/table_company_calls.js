@@ -92,6 +92,7 @@ export default class TableByMonth {
         if (!this.data) return;
         let contentHTML = "";
         for (let departmentData of this.data) {
+            contentHTML += this.renderRowHeadDepart(departmentData);
             contentHTML += this.renderRowEmployeeDepart(departmentData);
         }
         
@@ -105,31 +106,23 @@ export default class TableByMonth {
     // вывод строки руководителя подразделения
     renderRowHeadDepart(departmentData) {
         let contentHTML = "";
+        let summaryCalls = 0;
         for (let numMonth in this.monthList) {
             let month = +numMonth + 1
-            // количество встреч департамента в месяц
-            let countMeeting = this.getSummaryStatisticsForDepartment(departmentData.data, month, "meetings_fact");
-            // количество звонков департамента в месяц
-            let countCalls   = this.getSummaryStatisticsForDepartment(departmentData.data, month, "calls_fact");
-            // среднее количество звонков департамента в день за месяц
-            let countCallsAvg = Math.ceil(countCalls / this.getCountWorkingDays(month)) || 0;
-            // план звонков по подразделению в день на месяц
-            let countCallsPlan = this.getSummaryStatisticsForDepartment(departmentData.data, month, "calls_plan");
-
-            let actualDate = new Date();
-            let date = new Date(this.year, numMonth, 1);
-
-            let cssMarker = "";
-            if (+countCallsPlan > +countCallsAvg && actualDate > date) {
-                cssMarker = "marker-display";
-            }
-
-            contentHTML += templateColMonthRowDepart(countMeeting, countCalls, countCallsAvg, countCallsPlan, cssMarker, month);
+            let countCalls = this.getSummaryStatisticsForDepartment(departmentData.data, month, "data");
+            summaryCalls += countCalls;
+            contentHTML += `
+                <td data-month="${numMonth}">${countCalls}</td>
+            `;
         }
 
-        // Фамилия + Имя руководителя подразделения
-        let headDepart = `${departmentData.headLastname} ${departmentData.headName}`;
-        return templateRowDepart(contentHTML, headDepart);
+        return `
+            <tr class="head-department" data-depart-id="${departmentData.headId}">
+                <td class="table-by-month-first-column">${departmentData.headLastname} ${departmentData.headName}</td>
+                ${contentHTML}
+                <td>${summaryCalls}</td>
+            </tr>
+        `;
     }
 
     // вывод списка сотрудников подразделения
@@ -159,36 +152,6 @@ export default class TableByMonth {
         }
 
         return contentHTML;  
-    }
-
-    // вывод итога таблицы
-    renderTfooter() {
-        let contentHTML = "";
-        let actualDate = new Date();
-
-        for (let numMonth in this.monthList) {
-            let keyMonth = String(+numMonth + 1);
-            let date = new Date(this.year, numMonth, 1);
-            let ccount_avg = "&ndash;";
-            if (actualDate > date) {
-                ccount_avg = this.summaryData[keyMonth]["calls_avg"];
-                // ccount_avg = Math.ceil(this.summaryData[keyMonth]["calls"] / +numMonth + 1);
-            }
-
-            contentHTML += `
-                <td class="table_by-month-border-left">${this.summaryData[keyMonth]["meeting"]}</td>
-                <td>${this.summaryData[keyMonth]["calls"]}</td>
-                <td>${this.summaryData[keyMonth]["calls_avg"]}</td>
-                <td>${this.summaryData[keyMonth]["calls_plan"]}</td>
-            `;
-        }
-
-        return `
-            <tr class="footer-departments">
-                <td class="table-by-month-first-column">Итого</td>
-                ${contentHTML}
-            </tr>
-        `;
     }
 
     // возвращает сумму данных по подразделению за месяц
