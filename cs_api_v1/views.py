@@ -577,7 +577,7 @@ class RationActiveByDayApiView(views.APIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
-class CountsCompanyToCallsByMonthApiView():
+class CountsCompanyToCallsByMonthApiView(views.APIView):
     # permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
 
