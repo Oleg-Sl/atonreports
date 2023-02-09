@@ -121,7 +121,7 @@ class UsersViewSet(viewsets.ModelViewSet):
 # Получение звоков за выбранный период
 class CallsViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.filter(
-        COMPANY_ID__isnull=False,
+        # COMPANY_ID__isnull=False,
         TYPE_ID=2,      # только звонки
         DIRECTION=2,    # только исходящие
         active=True
