@@ -15,6 +15,7 @@ from .views import (
     CallsPlanCompletedViewSet,
     RationActiveByMonthApiView,
     RationActiveByDayApiView,
+    CountsCompanyToCallsByMonthApiView,
 )
 
 
@@ -56,6 +57,11 @@ urlpatterns = [
     # Метод: POST
     # Данные: depart - id подразделения, year - год, month - нмер месяца, duration - миним. длит. для учета в статистике
     path('active-by-day/', RationActiveByDayApiView.as_view()),
+
+    # Получение количества компаний в которые совершили звонки за год сгруппированные по месяцам
+    # Метод: POST
+    # Данные: depart - id подразделения, year - год
+    path('company-calls-by-month/', CountsCompanyToCallsByMonthApiView.as_view()),
 
 ]
 if settings.DEBUG:
