@@ -578,8 +578,8 @@ class RationActiveByDayApiView(views.APIView):
 
 
 class CountsCompanyToCallsByMonthApiView(views.APIView):
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
 
     def post(self, request):
         departs = request.data.get("depart", "1")
@@ -624,9 +624,3 @@ class CountsCompanyToCallsByMonthApiView(views.APIView):
             data[dep].append(user)
 
         return Response(data, status=status.HTTP_200_OK)
-
-
-
-
-
-
