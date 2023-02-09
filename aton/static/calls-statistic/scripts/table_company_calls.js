@@ -65,8 +65,7 @@ export default class TableByMonth {
     renderTable() {
         let contentHTML = "";
         contentHTML += this.renderThead();          // отрисовка заголовка таблицы
-        // contentHTML += this.renderTbody();          // отрисовка тела таблицы
-        // contentHTML += this.renderTfooter();        // отрисовка футера таблицы
+        contentHTML += this.renderTbody();          // отрисовка тела таблицы
         this.container.innerHTML = contentHTML;
     }
     
@@ -93,7 +92,6 @@ export default class TableByMonth {
         if (!this.data) return;
         let contentHTML = "";
         for (let departmentData of this.data) {
-            contentHTML += this.renderRowHeadDepart(departmentData);
             contentHTML += this.renderRowEmployeeDepart(departmentData);
         }
         
@@ -137,59 +135,27 @@ export default class TableByMonth {
     // вывод списка сотрудников подразделения
     renderRowEmployeeDepart(departmentData) {
         let contentHTML = "";
-        let actualDate = new Date();
 
         for (let user of departmentData.data) {
             let contentEmploeeHTML = "";
+            let summaryCalls = 0;
             for (let numMonth in this.monthList) {
-                // let cssClassCell = "";
                 let month = +numMonth + 1
                 let keyMonth = String(month);
-
-                let date = new Date(this.year, numMonth, 1);
-
-                // фактическое кол-во встреч
-                let countMeeting = +user.meetings_fact[keyMonth] || 0;
-                // фактическое кол-во звонков
-                let countCalls = +user.calls_fact[keyMonth] || 0;
-                // среднее кол-во звонков в день
-                let countCallsAvg = Math.ceil(countCalls / this.getCountWorkingDays(month));
-                // план по звонкам в день
-                let countCallsPlan = user.calls_plan[keyMonth];
-                // количество комментариев за месяц
-                let countComments = +user.comments[keyMonth] || 0;
-                
-                // рарешение на редактирование плана по звонкам
-                let edit = this.verificationEditTable(numMonth)
-
-                let dateStart = new Date(this.year, numMonth, 1);
-                let dateEnd = new Date(this.year, +numMonth + 1, 0);
-                
-                let params = {
-                    countMeeting, 
-                    countCalls, 
-                    countCallsAvg, 
-                    countCallsPlan, 
-                    countComments, 
-                    edit, 
-                    month, 
-                    dateStart: this.toDateStringMy(dateStart), 
-                    dateEnd: this.toDateStringMy(dateEnd),
-                    user: user.ID,
-                    departId: departmentData.headId,
-                }
-
+                let countCalls = +user.data[keyMonth] || 0;
+                summaryCalls += countCalls;
                 // HTML-код сотрудника
-                contentEmploeeHTML += templateColMonthRowEmploye(params);
-
-                this.summaryData[keyMonth]["meeting"] += countMeeting;
-                this.summaryData[keyMonth]["calls"] += +countCalls;
-                this.summaryData[keyMonth]["calls_avg"] += countCallsAvg;
-                this.summaryData[keyMonth]["calls_plan"] += +countCallsPlan || 0;
+                contentEmploeeHTML += `
+                    <td data-month="${numMonth}">${countCalls}</td>
+                `;
             }
-
-            let userTitle = `${user.LAST_NAME} ${user.NAME}`;
-            contentHTML += templateRowEmploye(contentEmploeeHTML, departmentData.headId, user.ID, userTitle)
+            contentHTML += `
+                <tr data-depart-id="${departmentData.headId}" data-user-id="${user.ID}">
+                    <td class="table-by-month-first-column">${user.LAST_NAME} ${user.NAME}</td>
+                    ${contentEmploeeHTML}
+                    <td>${summaryCalls}</td>
+                </tr>
+            `;
         }
 
         return contentHTML;  

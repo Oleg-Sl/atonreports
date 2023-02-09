@@ -562,7 +562,7 @@
   width: 100%;
   flex: 1;
   display: grid;
-  grid-template-columns: 200px repeat(48, 65px);
+  grid-template-columns: minmax(200px, 1fr) repeat(13, 1fr);
 }
 #tableStatisticCompaniesCalls thead {
   display: contents;
@@ -589,9 +589,12 @@
   width: 100%;
   text-align: end;
 }
-#tableStatisticCompaniesCalls thead tr:first-child th:nth-child(1) {
+#tableStatisticCompaniesCalls thead tr th:nth-child(1) {
   position: relative;
   z-index: 110;
+}
+#tableStatisticCompaniesCalls thead tr th:last-child {
+  background: #eaebff;
 }
 #tableStatisticCompaniesCalls tbody {
   display: contents;

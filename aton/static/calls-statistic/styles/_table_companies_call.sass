@@ -41,7 +41,7 @@ $border-body-separator: 2px solid #8a8a8a       // граница заголов
     width: 100%
     flex: 1
     display: grid
-    grid-template-columns: 200px repeat(48, 65px)
+    grid-template-columns: minmax(200px, 1fr) repeat(13, 1fr)
 
     thead
         display: contents
@@ -68,13 +68,12 @@ $border-body-separator: 2px solid #8a8a8a       // граница заголов
                     width: 100%
                     text-align: end
 
-            // первая ячейка - первой строки
-            &:first-child
-                th
-                    &:nth-child(1)
-                        // grid-row: 1/5
-                        position: relative
-                        z-index: 110
+                &:nth-child(1)
+                    position: relative
+                    z-index: 110
+
+                &:last-child
+                    background: #eaebff
                     
     tbody
         display: contents
