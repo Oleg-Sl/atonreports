@@ -79,7 +79,13 @@ export default class TableByMonth {
         }
         rowOne = `<th class="table-header" colspan="1" rowspan="4">Итого</th>`;
 
-        return templateThead(rowOne);
+        return `
+            <thead>
+                <tr>
+                    ${rowOne}
+                </tr>
+            </thead>
+        `;
     }
 
     // отрисовка тела таблицы
