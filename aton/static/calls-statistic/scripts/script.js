@@ -10,8 +10,10 @@ import UpdatingEmploye from './settings/settings_update_users.js';              
 
 import {FilterTableByMonth, FilterTableByDay} from './filters.js';                                  // фильтры - таблиц статистики
 import TableByDay from './table_by_day.js';                                                         // модуль работы с таблицей - "Нормирование"
-import TableByMonth from './table_by_month.js';                                                     // окно - "Список комментариев/звоков"
-import WindowInfo from './window_info.js';
+import TableByMonth from './table_by_month.js';                                                     // модуль работы с таблицей - "План/Факт"
+import TableCompanyCalls from './table_company_calls.js';                                           // модуль работы с таблицей - "Кол-во компаний"
+
+import WindowInfo from './window_info.js';                                                          // окно - "Список комментариев/звоков"
 
 
 class App {
@@ -40,29 +42,36 @@ class App {
         // ФИЛЬТРЫ
         this.containerFilterByMonth = document.querySelector("#tableByMonthFilter");                            // контейнер фильтра таблицы по месяцам
         this.containerFilterByDay = document.querySelector("#tableByDayFilter");                                // контейнер фильтра таблицы по дням
+        this.containerFilterCompanyCalls = document.querySelector("#tableCompaniesCallsFilter");                // контейнер фильтра таблицы кол-во компаний
         this.filterTableByMonth = new FilterTableByMonth(this.containerFilterByMonth);                          // объект - фильтрация по месяцам
         this.filterTableByDay = new FilterTableByDay(this.containerFilterByDay);                                // объект - фильтрация по дням
+        this.filterTableCompanyCalls = new FilterTableByMonth(this.containerFilterCompanyCalls);                // объект - фильтрация по годам кол-во компаний
 
         // СПИННЕРЫ
         this.containerSpinnerByMonth = document.querySelector("#tableByMonthSpinner");                          // контейнер спиннера таблицы по месяцам
         this.containerSpinnerByDay = document.querySelector("#tableByDaySpinner");                              // контейнер спиннера таблицы по дням
+        this.containerSpinnerCompanyCalls = document.querySelector("#tableCompaniesCallsSpinner");              // контейнер спиннера таблицы кол-во компаний
 
         // ТАБЛИЦЫ
         this.elementTableByMonth = document.querySelector("#tableStatisticMonth");                              // таблица статистики по месяцам
         this.elementTableByDay = document.querySelector("#tableStatisticDay");                                  // таблица статистики по дням
+        this.elementTableCompanyCalls = document.querySelector("#tableStatisticCompaniesCalls");                // таблица статистики кол-во компаний
         this.tableByMonth = new TableByMonth(this.elementTableByMonth, this.requests, this.infoData);           // объект - таблица статистики по месяцам
         this.tableByDay = new TableByDay(this.elementTableByDay, this.requests, this.infoData);                 // объект - таблица статистики по дням
+        this.tableCompanyCalls = new TableCompanyCalls(this.elementTableCompanyCalls, this.requests, this.infoData);    // объект - таблица статистики кол-во компаний
 
         // КНОПКИ
-        this.buttonGetDataByMonth = document.querySelector(".get-statistic-by-month button");   // кнопка - получить статистику по месяцам
-        this.buttonGetDataByDay = document.querySelector(".get-statistic-by-day button");       // кнопка - получить статистику по месяцам
-        this.buttonOpenSettings = document.querySelector(".header-settings");                   // кнопка - открытия настроек
+        this.buttonGetDataByMonth = document.querySelector(".get-statistic-by-month button");               // кнопка - получить статистику по месяцам
+        this.buttonGetDataByDay = document.querySelector(".get-statistic-by-day button");                   // кнопка - получить статистику по месяцам
+        this.buttonGetDataCompanyCalls = document.querySelector(".get-statistic-companies-calls button");   // кнопка - получить статистику кол-во компаний
+        this.buttonOpenSettings = document.querySelector(".header-settings");                               // кнопка - открытия настроек
 
         // ДАННЫЕ
         this.duration = 20;                             // минисмальная длительность звонков для учета в статистике
         this.departments = [];                          // список id выбранных подразделений
         this.statisticDataByMonth = null;               // статистика за год - по месяцам
         this.statisticDataByDay = null;                 // статистика за месяц - по дням
+        this.statisticDataCompanyCalls = null;          // статистика кол-во компаний за год - по месяцам
 
         // ПРАВА ДОСТУПА
         this.statusEdit = false;                        // право на редактирование данных таблицы: 0 - запрещено, 1 - ограниченно разрешено, 2 - разрешено
@@ -82,6 +91,7 @@ class App {
         // Фильтры
         this.filterTableByMonth.init();                         // фильтр на странице - Нормирование
         this.filterTableByDay.init();                           // фильтр на старнице - План/Факт
+        this.filterTableCompanyCalls.init();                    // фильтр на старнице - Кол-во компаний
 
         // Настройки
         await this.settingsSelectedData.init();                 // настройки -> выбор подразделений и сотруднико для вывода статистики
@@ -101,7 +111,7 @@ class App {
         // Получение настроек приложения для вывода статистики
         await this.getDepartments();                            // получение выбранных (сохраненного) в настройках списка подразделений
 
-        this.headDepart = await this.getListDepartmentHeads();                      // руководители подразделений
+        this.headDepart = await this.getListDepartmentHeads();  // руководители подразделений
 
         // Вывод таблицы с данными по месяцам
         // await this.renderTableByMonth();                        // вывод таблицы статистика по месяцам
@@ -123,6 +133,12 @@ class App {
             this.renderTableByDay();                                        // вывод таблицы статистика по месяцам
         })
 
+        // обработчик кнопки получения данных кол-во компаний
+        this.buttonGetDataCompanyCalls.addEventListener("click", (event) => {
+            clearTimeout(this.timerId);
+            this.renderTableCompanyCalls();
+        })
+
         // Событие открытия вкладки "Нормирование"
         let tabNormalization = document.querySelector('#nav-month-tab');
         tabNormalization.addEventListener('shown.bs.tab', async (event) => {
@@ -135,6 +151,13 @@ class App {
         tabPlanActual.addEventListener('shown.bs.tab', async (event) => {
             clearTimeout(this.timerId);
             this.renderTableByDay();
+        })
+
+        // Событие открытия вкладки "Кол-во компаний"
+        let tabCompanyCalls = document.querySelector('#nav-companies-calls-tab');
+        tabCompanyCalls.addEventListener('shown.bs.tab', async (event) => {
+            clearTimeout(this.timerId);
+            this.renderTableCompanyCalls();
         })
     }
 
@@ -164,7 +187,7 @@ class App {
     }
 
     // получение статистики по месяцам
-    async getStatisticByMonth(year=2021) {
+    async getStatisticByMonth(year=2022) {
         let method = "active-by-month";
         let statisticDataByMonth = [];
         
@@ -199,7 +222,7 @@ class App {
     }
 
     // получение статистики по дням
-    async getStatisticByDay(year=2021, month=11) {
+    async getStatisticByDay(year=2022, month=11) {
         let method = "active-by-day";
         let statisticDataByDay = [];
         
@@ -234,6 +257,41 @@ class App {
 
         return statisticDataByDay;
 
+    }
+
+    // получение статистики кол-во компаний
+    async getStatisticCompanyCalls(year=2022) {
+        let method = "company-calls-by-month";
+        let statisticCompanyCalls = [];
+        
+        let data = {
+            depart: this.departments.join(","),
+            year: year,
+            duration: this.duration,
+        }
+
+        let response = await this.requests.POST(method, data);
+        if (response.error) {
+            console.log('Не удалось получить данные статистики кол-во компаний. Ответ: ', response);
+            return;
+        }
+
+        // убираем из статистики данные руководителя подразделения
+        for (let dep in response.result) {
+            let dataDepart = {};
+            dataDepart.headId = this.headDepart[dep]["ID"];
+            dataDepart.headLastname = this.headDepart[dep]["LAST_NAME"];
+            dataDepart.headName = this.headDepart[dep]["NAME"];
+            dataDepart.data = [];
+            for (let statistics of response.result[dep]) {
+                if (statistics.ID != this.headDepart[dep]["ID"]) {
+                    dataDepart.data.push(statistics);
+                }
+            }
+            statisticCompanyCalls.push(dataDepart);
+        }
+
+        return statisticCompanyCalls;
     }
 
     // получение списка рабочих дней
@@ -336,6 +394,27 @@ class App {
         // показ таблицы и сокрытие спиннера
         this.elementTableByDay.classList.remove("d-none");
         this.containerSpinnerByDay.classList.add("d-none");
+    }
+
+    // вывод таблицы статистика кол-во компаний
+    async renderTableCompanyCalls() {
+        // сокрытие таблицы и показ спиннера
+        this.elementTableCompanyCalls.classList.add("d-none");
+        this.containerSpinnerCompanyCalls.classList.remove("d-none");
+
+        let actualYear = this.filterTableCompanyCalls.getYear();
+        let statisticData = await this.getStatisticCompanyCalls(actualYear);
+
+        let params = {
+            actualYear,
+            headDepart: this.headDepart,
+        }
+        
+        this.tableCompanyCalls.render(statisticData, params);
+
+        // показ таблицы и сокрытие спиннера
+        this.elementTableCompanyCalls.classList.remove("d-none");
+        this.containerSpinnerCompanyCalls.classList.add("d-none");
     }
 
     async getListDepartmentHeads() {
