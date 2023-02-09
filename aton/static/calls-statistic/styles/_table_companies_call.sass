@@ -72,7 +72,7 @@ $border-body-separator: 2px solid #8a8a8a       // граница заголов
             &:first-child
                 th
                     &:nth-child(1)
-                        grid-row: 1/5
+                        // grid-row: 1/5
                         position: relative
                         z-index: 110
                     
@@ -168,27 +168,27 @@ $border-body-separator: 2px solid #8a8a8a       // граница заголов
                     font-weight: 600
 
 
-$i: 2
-@while  $i < 26
-    #tableStatisticCompaniesCalls thead tr:first-child th:nth-child(#{$i})
-        grid-column: #{2 * $i - 2}/#{2 * $i - 2 + 3}
-    #tableStatisticCompaniesCalls thead tr:first-child th:nth-child(#{$i + 1})
-        grid-column: #{2 * $i - 2 + 3}/#{2 * $i - 2 + 4}
+// $i: 2
+// @while  $i < 26
+//     #tableStatisticCompaniesCalls thead tr:first-child th:nth-child(#{$i})
+//         grid-column: #{2 * $i - 2}/#{2 * $i - 2 + 3}
+//     #tableStatisticCompaniesCalls thead tr:first-child th:nth-child(#{$i + 1})
+//         grid-column: #{2 * $i - 2 + 3}/#{2 * $i - 2 + 4}
 
-    $i: $i + 2
+//     $i: $i + 2
 
 
-@for $i from 1 through 12
-    #tableStatisttableStatisticCompaniesCallsicMonth thead tr:nth-child(2) th:nth-child(#{$i})
-        grid-column: #{4 * $i - 2}/#{4 * $i - 2 + 4}
+// @for $i from 1 through 13
+//     #tableStatisttableStatisticCompaniesCallsicMonth thead tr:nth-child(2) th:nth-child(#{$i})
+//         grid-column: #{4 * $i - 2}/#{4 * $i - 2 + 4}
     
 
 
-$k: 2
-@while  $k < 26
-    #tableStatisticCompaniesCalls thead tr:nth-child(3) th:nth-child(#{$k - 1})
-        grid-column: #{2 * $k - 2}/#{2 * $k - 2 + 3}
-    #tableStatisticCompaniesCalls thead tr:nth-child(3) th:nth-child(#{$k})
-        grid-column: #{2 * $k - 2 + 3}/#{2 * $k - 2 + 4}
+// $k: 2
+// @while  $k < 26
+//     #tableStatisticCompaniesCalls thead tr:nth-child(3) th:nth-child(#{$k - 1})
+//         grid-column: #{2 * $k - 2}/#{2 * $k - 2 + 3}
+//     #tableStatisticCompaniesCalls thead tr:nth-child(3) th:nth-child(#{$k})
+//         grid-column: #{2 * $k - 2 + 3}/#{2 * $k - 2 + 4}
 
-    $k: $k + 2
+//     $k: $k + 2
