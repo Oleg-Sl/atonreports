@@ -77,7 +77,7 @@ export default class TableByMonth {
             // формирование HTML-строк заголовка таблицы
             rowOne += templateColMonthRowTwo(this.monthList[numMonth]);
         }
-        rowOne = `<th class="table-header" colspan="1" rowspan="4">Итого</th>`;
+        rowOne += `<th class="table-header" colspan="1" rowspan="4">Итого</th>`;
 
         return `
             <thead>
