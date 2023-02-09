@@ -65,8 +65,8 @@ export default class TableByMonth {
     renderTable() {
         let contentHTML = "";
         contentHTML += this.renderThead();          // отрисовка заголовка таблицы
-        contentHTML += this.renderTbody();          // отрисовка тела таблицы
-        contentHTML += this.renderTfooter();        // отрисовка футера таблицы
+        // contentHTML += this.renderTbody();          // отрисовка тела таблицы
+        // contentHTML += this.renderTfooter();        // отрисовка футера таблицы
         this.container.innerHTML = contentHTML;
     }
     
@@ -77,6 +77,7 @@ export default class TableByMonth {
             // формирование HTML-строк заголовка таблицы
             rowOne += templateColMonthRowTwo(this.monthList[numMonth]);
         }
+        rowOne = `<th class="table-header" colspan="1" rowspan="4">Итого</th>`;
 
         return templateThead(rowOne);
     }
