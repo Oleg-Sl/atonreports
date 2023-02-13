@@ -5,7 +5,7 @@ from .. import save_company
 
 
 def save_to_db(bx24):
-    total_companies = get_total(bx24, "crm.company.list", {">DATE_CREATE": "2023-02-01",})
+    total_companies = get_total(bx24, "crm.company.list", {})
     save_companies_to_db(bx24, total_companies)
 
     total_requisites = get_total(bx24, "crm.requisite.list", {"ENTITY_TYPE_ID": 4})
@@ -24,7 +24,7 @@ def save_companies_to_db(bx24, total=0, count=0, id_start=0):
         ],
         "filter": {
             ">ID": id_start,
-            ">DATE_CREATE": "2023-02-01",
+            # ">DATE_CREATE": "2022-01-01",
             # "<DATE_CREATE": None
         },
         "order": {"ID": "ASC"},
