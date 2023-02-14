@@ -31,7 +31,7 @@ class StatisticCompany(filters.FilterSet):
     company = NumberInFilter(field_name='ID', lookup_expr='in')
     responsible = NumberInFilter(field_name='ASSIGNED_BY_ID__ID', lookup_expr='in')
 
-    sector = filters.CharFilter(lookup_expr="contains")
+    sector = filters.CharFilter(lookup_expr="icontains")
     region = filters.CharFilter()
     source = filters.CharFilter()
     requisite_region = filters.CharFilter()
