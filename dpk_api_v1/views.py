@@ -160,7 +160,7 @@ class SourceCompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.filter(source__isnull=False).values("source").distinct("source")
     serializer_class = SourceCompanySerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ["^source", ]
+    search_fields = ["source", ]
     http_method_names = ['get', 'options']
     permission_classes = [IsAuthenticated]
     # permission_classes = [AllowAny]
