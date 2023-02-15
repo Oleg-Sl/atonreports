@@ -70,7 +70,7 @@ class DealManager(models.Manager):
                     Company.statistic.filter(
                         ID=models.OuterRef('company__ID'),
                         deal__direction__ID=models.OuterRef('direction__ID'),
-                        deal__stage__status="SUCCESSFUL"
+                        deal__stage__status="WON"
                     ).annotate(
                         s=models.Sum('deal__opportunity')
                     ).values('s')[:1]
@@ -94,7 +94,7 @@ class DealManager(models.Manager):
         ).values(
             "company__ID"
         ).annotate(
-            summa_by_company_success=models.Sum("opportunity", filter=models.Q(direction__new=True, stage__status="SUCCESSFUL")),
+            summa_by_company_success=models.Sum("opportunity", filter=models.Q(direction__new=True, stage__status="WON")),
             # summa_by_company_success=models.Subquery(
             #     Deal.objects.filter(
             #         company=models.OuterRef('company__pk'),
@@ -149,7 +149,7 @@ class CompanyStatisticManager(models.Manager):
                 output_field=models.BooleanField()
             ),
             # сумма стоимостей успешных сделок
-            opportunity_success=models.Sum("deal__opportunity", filter=models.Q(deal__stage__status="SUCCESSFUL")),
+            opportunity_success=models.Sum("deal__opportunity", filter=models.Q(deal__stage__status="WON")),
             # сумма стоимостей сделок в работе
             # opportunity_work=models.Sum("opportunity", filter=models.Q(stage__status="WORK")),
             opportunity_work=models.Subquery(
@@ -190,7 +190,7 @@ class CompanyStatisticManager(models.Manager):
                 Company.statistic.filter(
                     pk=models.OuterRef('pk'),
                     deal__direction__new=True,
-                    deal__stage__status="SUCCESSFUL"
+                    deal__stage__status="WON"
                 ).annotate(
                     s=models.Sum('deal__opportunity')
                 ).values('s')[:1]
