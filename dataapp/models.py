@@ -315,7 +315,7 @@ def post_save_deal(instance, **kwargs):
         deal_aggregate_obj_ = Deal.objects.only("company", "opportunity", "stage__status").filter(
             company=company_obj_.pk
         ).aggregate(
-            summa_success=models.Sum("opportunity", filter=models.Q(stage__status="SUCCESSFUL")),
+            summa_success=models.Sum("opportunity", filter=models.Q(stage__status="WON")),
             summa_work=models.Sum("opportunity", filter=models.Q(stage__status="WORK"))
         )
         # print("deal_aggregate_obj_ = ", deal_aggregate_obj_)
