@@ -65,6 +65,7 @@ export default class CreateDeal {
                     UF_CRM_1610523951: directionCommaId,
                     ASSIGNED_BY_ID: responsibleId,
                     OPENED: "Y",
+                    UF_CRM_1677053804: 1,
                 },
                 params: { REGISTER_SONET_EVENT: "Y" }
             }
