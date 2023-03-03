@@ -18,7 +18,7 @@ def get_and_save_company(company_id_):
 
 
 def add_activity_drf(activity):
-    if activity["COMPANY_ID"]:
+    if activity.get("COMPANY_ID"):
         get_and_save_company(activity["COMPANY_ID"])
 
     responsible_obj = User.objects.filter(ID=activity.get("RESPONSIBLE_ID")).first()
