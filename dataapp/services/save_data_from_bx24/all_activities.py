@@ -18,10 +18,10 @@ def save_activities_to_db(bx24, total=0, count=0, id_start=0):
         ],
         "filter": {
             # "TYPE_ID": "1",
-            "TYPE_ID": "2",
+            # "TYPE_ID": "2",
             ">ID": id_start,
-            ">CREATED": "2023-02-08",
-            # "<CREATED": None
+            ">CREATED": "2023-01-01",
+            "<CREATED": "2023-02-15"
         },
         "order": {"ID": "ASC"},
         "start": -1

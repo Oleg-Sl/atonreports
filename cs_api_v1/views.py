@@ -584,6 +584,7 @@ class CountsCompanyToCallsByMonthApiView(views.APIView):
     def post(self, request):
         departs = request.data.get("depart", "1")
         year = request.data.get("year", 2021)
+        duration = request.data.get("duration", 20)
         departments = departs.split(",")
 
         # получение списка пользователей
@@ -596,9 +597,9 @@ class CountsCompanyToCallsByMonthApiView(views.APIView):
             RESPONSIBLE_ID__STATUS_DISPLAY=True,
             TYPE_ID=2,
             DIRECTION=2,
-            # DURATION__gte=duration,
+            DURATION__gte=duration,
         ).distinct(
-            "COMPANY_ID__ID", "RESPONSIBLE_ID__ID"
+            "COMPANY_ID__ID", "RESPONSIBLE_ID__ID", "CALL_START_DATE__month"
         ).values_list(
             "RESPONSIBLE_ID__ID",
             "CALL_START_DATE__month"
