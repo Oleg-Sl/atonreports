@@ -445,7 +445,7 @@ class App {
             headDepart: this.headDepart,
         }
         
-        this.tableCompanyCalls.render(statisticData, params);
+        this.tableCompanyCalls.render(statisticData, summaryData, params);
 
         // показ таблицы и сокрытие спиннера
         this.elementTableCompanyCalls.classList.remove("d-none");
