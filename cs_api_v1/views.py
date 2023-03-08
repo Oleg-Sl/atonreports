@@ -639,23 +639,23 @@ class CountsCompanyToCallsSummaryApiView(views.APIView):
 
         # получение списка пользователей
         users = common.get_users_by_depeartments(departments)
-
-        queryset_count_companies = Activity.objects.select_related("RESPONSIBLE_ID", "COMPANY_ID").filter(
-            CALL_START_DATE__year=year,
-            RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
-            RESPONSIBLE_ID__ACTIVE=True,
-            RESPONSIBLE_ID__STATUS_DISPLAY=True,
-            TYPE_ID=2,
-            DIRECTION=2,
-            DURATION__gte=duration,
-        ).distinct(
-            "COMPANY_ID__ID", "RESPONSIBLE_ID__ID"
-        ).values_list(
-            "RESPONSIBLE_ID__ID",
-        )
-        count_companies_ = Counter(queryset_count_companies)
-
-        return Response(count_companies_, status=status.HTTP_200_OK)
+        return Response(users, status=status.HTTP_200_OK)
+        # queryset_count_companies = Activity.objects.select_related("RESPONSIBLE_ID", "COMPANY_ID").filter(
+        #     CALL_START_DATE__year=year,
+        #     RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
+        #     RESPONSIBLE_ID__ACTIVE=True,
+        #     RESPONSIBLE_ID__STATUS_DISPLAY=True,
+        #     TYPE_ID=2,
+        #     DIRECTION=2,
+        #     DURATION__gte=duration,
+        # ).distinct(
+        #     "COMPANY_ID__ID", "RESPONSIBLE_ID__ID"
+        # ).values_list(
+        #     "RESPONSIBLE_ID__ID",
+        # )
+        # count_companies_ = Counter(queryset_count_companies)
+        #
+        # return Response(count_companies_, status=status.HTTP_200_OK)
 
         # data = {}
         # for department in departments:
