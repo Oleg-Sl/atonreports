@@ -7,7 +7,7 @@ from django.db import models
 from django_filters.rest_framework import DjangoFilterBackend
 
 from django_filters import rest_framework as filters_drf
-
+from threading import Thread
 
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
@@ -21,6 +21,8 @@ import datetime
 import calendar
 from collections import Counter
 
+from dataapp.services.save_data_from_bx24 import all_users
+from bitrix24.request import Bitrix24
 
 
 
@@ -637,8 +639,8 @@ class CountsCompanyToCallsSummaryApiView(views.APIView):
         duration = request.data.get("duration", 20)
         departments = departs.split(",")
 
-        # получение списка пользователей
-        users = common.get_users_by_depeartments(departments)
+        # # получение списка пользователей
+        # users = common.get_users_by_depeartments(departments)
 
         queryset_count_companies = Activity.objects.select_related("RESPONSIBLE_ID", "COMPANY_ID").filter(
             CALL_START_DATE__year=year,
@@ -658,23 +660,25 @@ class CountsCompanyToCallsSummaryApiView(views.APIView):
 
         return Response(count_companies_, status=status.HTTP_200_OK)
 
-        # data = {}
-        # for department in departments:
-        #     data[department] = []
-        #
-        # data_user = {}
-        # for user in users:
-        #     user["data"] = {}
-        #     key = user["ID"]
-        #     data_user[key] = user
-        #
-        # for (user_id, month_num), count in count_companies_.items():
-        #     if user_id in data_user:
-        #         data_user[user_id]["data"][month_num] = count
-        #
-        # for user_id, user in data_user.items():
-        #     dep = str(user["UF_DEPARTMENT"])
-        #     data[dep].append(user)
-        #
-        # return Response(data, status=status.HTTP_200_OK)
+
+THREAD_USER_UPDATE = None
+class UserUpdateApiView(views.APIView):
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
+
+    def post(self, request):
+        global THREAD_USER_UPDATE
+        if not THREAD_USER_UPDATE or not THREAD_USER_UPDATE.is_alive():
+            bx24 = Bitrix24()
+            all_users.save_to_db(bx24, "user.get")
+            THREAD_USER_UPDATE = Thread(target=all_users.save_to_db, args=(bx24, "user.get"))
+            THREAD_USER_UPDATE.start()
+            return Response("Обновление списка сотрудников началось", status=status.HTTP_200_OK)
+
+        return Response("Процесс обновления списка сотрудников уже запущен", status=status.HTTP_200_OK)
+
+
+
+
+
 

@@ -17,6 +17,7 @@ from .views import (
     RationActiveByDayApiView,
     CountsCompanyToCallsByMonthApiView,
     CountsCompanyToCallsSummaryApiView,
+    UserUpdateApiView,
 )
 
 
@@ -65,6 +66,8 @@ urlpatterns = [
     path('company-calls-by-month/', CountsCompanyToCallsByMonthApiView.as_view()),
 
     path('company-calls-summary/', CountsCompanyToCallsSummaryApiView.as_view()),
+
+    path('users-update/', UserUpdateApiView.as_view()),
 
 ]
 if settings.DEBUG:
