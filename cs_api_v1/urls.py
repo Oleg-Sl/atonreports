@@ -16,6 +16,7 @@ from .views import (
     RationActiveByMonthApiView,
     RationActiveByDayApiView,
     CountsCompanyToCallsByMonthApiView,
+    CountsCompanyToCallsSummaryApiView,
 )
 
 
@@ -62,6 +63,8 @@ urlpatterns = [
     # Метод: POST
     # Данные: depart - id подразделения, year - год
     path('company-calls-by-month/', CountsCompanyToCallsByMonthApiView.as_view()),
+
+    path('company-calls-summary/', CountsCompanyToCallsSummaryApiView.as_view()),
 
 ]
 if settings.DEBUG:

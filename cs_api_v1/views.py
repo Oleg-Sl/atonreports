@@ -625,3 +625,52 @@ class CountsCompanyToCallsByMonthApiView(views.APIView):
             data[dep].append(user)
 
         return Response(data, status=status.HTTP_200_OK)
+
+
+class CountsCompanyToCallsSummaryApiView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        departs = request.data.get("depart", "1")
+        year = request.data.get("year", 2021)
+        duration = request.data.get("duration", 20)
+        departments = departs.split(",")
+
+        # получение списка пользователей
+        users = common.get_users_by_depeartments(departments)
+
+        queryset_count_companies = Activity.objects.select_related("RESPONSIBLE_ID", "COMPANY_ID").filter(
+            CALL_START_DATE__year=year,
+            RESPONSIBLE_ID__UF_DEPARTMENT__in=departments,
+            RESPONSIBLE_ID__ACTIVE=True,
+            RESPONSIBLE_ID__STATUS_DISPLAY=True,
+            TYPE_ID=2,
+            DIRECTION=2,
+            DURATION__gte=duration,
+        ).distinct(
+            "COMPANY_ID__ID", "RESPONSIBLE_ID__ID"
+        ).values_list(
+            "RESPONSIBLE_ID__ID",
+        )
+        count_companies_ = Counter(queryset_count_companies)
+
+        data = {}
+        for department in departments:
+            data[department] = []
+
+        data_user = {}
+        for user in users:
+            user["data"] = {}
+            key = user["ID"]
+            data_user[key] = user
+
+        for (user_id, month_num), count in count_companies_.items():
+            if user_id in data_user:
+                data_user[user_id]["data"][month_num] = count
+
+        for user_id, user in data_user.items():
+            dep = str(user["UF_DEPARTMENT"])
+            data[dep].append(user)
+
+        return Response(data, status=status.HTTP_200_OK)
+

@@ -294,6 +294,39 @@ class App {
         return statisticCompanyCalls;
     }
 
+    async getSummaryStatisticCompanyCalls(year=2022) {
+        let method = "company-calls-summary";
+        
+        let data = {
+            depart: this.departments.join(","),
+            year: year,
+            duration: this.duration,
+        }
+
+        let response = await this.requests.POST(method, data);
+        if (response.error) {
+            console.log('Не удалось получить итоговые данные статистики кол-во компаний. Ответ: ', response);
+            return;
+        }
+
+        // // убираем из статистики данные руководителя подразделения
+        // for (let dep in response.result) {
+        //     let dataDepart = {};
+        //     dataDepart.headId = this.headDepart[dep]["ID"];
+        //     dataDepart.headLastname = this.headDepart[dep]["LAST_NAME"];
+        //     dataDepart.headName = this.headDepart[dep]["NAME"];
+        //     dataDepart.data = [];
+        //     for (let statistics of response.result[dep]) {
+        //         if (statistics.ID != this.headDepart[dep]["ID"]) {
+        //             dataDepart.data.push(statistics);
+        //         }
+        //     }
+        //     statisticCompanyCalls.push(dataDepart);
+        // }
+
+        return response.result;
+    }
+
     // получение списка рабочих дней
     async getCountWorkingDay(year) {
         let countWorking = [];
@@ -404,6 +437,8 @@ class App {
 
         let actualYear = this.filterTableCompanyCalls.getYear();
         let statisticData = await this.getStatisticCompanyCalls(actualYear);
+        let summaryData = await this.getSummaryStatisticCompanyCalls(actualYear);
+        console.log("summaryData = ", summaryData);
 
         let params = {
             actualYear,

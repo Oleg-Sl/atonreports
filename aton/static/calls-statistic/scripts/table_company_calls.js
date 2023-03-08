@@ -45,7 +45,7 @@ export default class TableByMonth {
 
     // обновление данных таблицы
     render(data, params) {
-        console.log("data = ", data);
+        // console.log("data = ", data);
         this.data = data;                                       // данные статистики
         this.year = params.actualYear;                          // год
         this.headDepart = params.headDepart;                    // руководители подразделений
