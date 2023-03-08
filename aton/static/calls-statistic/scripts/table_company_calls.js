@@ -77,7 +77,7 @@ export default class TableByMonth {
         let rowOne = `<th class="table-header table-by-month-first-column" colspan="1" rowspan="4"></th>`;
         let rowTwo = `<th class="table-header table-by-month-first-column" colspan="1" rowspan="4"></th>`;
         for (let numMonth in this.monthList) {
-            let countCalls = this.getSummaryStatisticsForDepartment(this.data, month, "data");
+            let countCalls = this.getSummaryStatisticsForDepartment(this.data, numMonth, "data");
             // формирование HTML-строк заголовка таблицы
             rowOne += templateColMonthRowTwo(this.monthList[numMonth]);
             rowTwo += `<th class="table-header-two" colspan="4">${countCalls}</th>`;
