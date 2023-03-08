@@ -82,8 +82,12 @@ export default class TableByMonth {
             rowOne += templateColMonthRowTwo(this.monthList[numMonth]);
             rowTwo += `<th class="table-header-two" colspan="4">${countCalls}</th>`;
         }
+        let total = 0;
+        for (let key in this.summaryData) {
+            total += this.summaryData[key];
+        }
         rowOne += `<th class="table-header" colspan="1" rowspan="4">Итого</th>`;
-        rowTwo += `<th class="table-header" colspan="1" rowspan="4"></th>`;
+        rowTwo += `<th class="table-header" colspan="1" rowspan="4">${total}</th>`;
 
         return `
             <thead>
@@ -130,7 +134,7 @@ export default class TableByMonth {
             <tr class="head-department" data-depart-id="${departmentData.headId}">
                 <td class="table-by-month-first-column">${departmentData.headLastname} ${departmentData.headName}</td>
                 ${contentHTML}
-                <td>${summaryCalls}</td>
+                <td> </td>
             </tr>
         `;
     }
