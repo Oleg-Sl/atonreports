@@ -44,9 +44,10 @@ export default class TableByMonth {
     }
 
     // обновление данных таблицы
-    render(data, params) {
+    render(data, summaryData, params) {
         // console.log("data = ", data);
         this.data = data;                                       // данные статистики
+        this.summaryData = summaryData;                         // данные по звонкам за год
         this.year = params.actualYear;                          // год
         this.headDepart = params.headDepart;                    // руководители подразделений
         this.duration = params.duration;                        // минимальная длительность звонка
@@ -106,11 +107,11 @@ export default class TableByMonth {
     // вывод строки руководителя подразделения
     renderRowHeadDepart(departmentData) {
         let contentHTML = "";
-        let summaryCalls = 0;
+        // let summaryCalls = 0;
         for (let numMonth in this.monthList) {
             let month = +numMonth + 1
             let countCalls = this.getSummaryStatisticsForDepartment(departmentData.data, month, "data");
-            summaryCalls += countCalls;
+            // summaryCalls += countCalls;
             contentHTML += `
                 <td data-month="${numMonth}">${countCalls}</td>
             `;
@@ -120,7 +121,7 @@ export default class TableByMonth {
             <tr class="head-department" data-depart-id="${departmentData.headId}">
                 <td class="table-by-month-first-column">${departmentData.headLastname} ${departmentData.headName}</td>
                 ${contentHTML}
-                <td>${summaryCalls}</td>
+                // <td>${summaryCalls}</td>
             </tr>
         `;
     }
@@ -131,12 +132,12 @@ export default class TableByMonth {
 
         for (let user of departmentData.data) {
             let contentEmploeeHTML = "";
-            let summaryCalls = 0;
+            // let summaryCalls = 0;
             for (let numMonth in this.monthList) {
                 let month = +numMonth + 1
                 let keyMonth = String(month);
                 let countCalls = +user.data[keyMonth] || 0;
-                summaryCalls += countCalls;
+                // summaryCalls += countCalls;
                 // HTML-код сотрудника
                 contentEmploeeHTML += `
                     <td data-month="${numMonth}">${countCalls}</td>
@@ -146,7 +147,7 @@ export default class TableByMonth {
                 <tr data-depart-id="${departmentData.headId}" data-user-id="${user.ID}">
                     <td class="table-by-month-first-column">${user.LAST_NAME} ${user.NAME}</td>
                     ${contentEmploeeHTML}
-                    <td>${summaryCalls}</td>
+                    <td>${this.summaryData[user.ID]}</td>
                 </tr>
             `;
         }
