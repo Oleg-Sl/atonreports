@@ -65,24 +65,33 @@ export default class TableByMonth {
     // отрисовка данных таблицы
     renderTable() {
         let contentHTML = "";
-        contentHTML += this.renderThead();          // отрисовка заголовка таблицы
-        contentHTML += this.renderTbody();          // отрисовка тела таблицы
+        let contentTbodyHTML = this.renderTbody();          // отрисовка тела таблицы
+        let contentTheadHTML = this.renderThead();          // отрисовка заголовка таблицы
+        contentHTML += contentTheadHTML;
+        contentHTML += contentTbodyHTML;
         this.container.innerHTML = contentHTML;
     }
     
     // отрисовка заголовка таблицы
     renderThead() {
         let rowOne = `<th class="table-header table-by-month-first-column" colspan="1" rowspan="4"></th>`;
+        let rowTwo = `<th class="table-header table-by-month-first-column" colspan="1" rowspan="4"></th>`;
         for (let numMonth in this.monthList) {
+            let countCalls = this.getSummaryStatisticsForDepartment(this.data, month, "data");
             // формирование HTML-строк заголовка таблицы
             rowOne += templateColMonthRowTwo(this.monthList[numMonth]);
+            rowTwo += `<th class="table-header-two" colspan="4">${countCalls}</th>`;
         }
         rowOne += `<th class="table-header" colspan="1" rowspan="4">Итого</th>`;
+        rowOne += `<th class="table-header" colspan="1" rowspan="4"></th>`;
 
         return `
             <thead>
                 <tr>
                     ${rowOne}
+                </tr>
+                <tr>
+                    ${rowTwo}
                 </tr>
             </thead>
         `;
@@ -96,7 +105,7 @@ export default class TableByMonth {
             contentHTML += this.renderRowHeadDepart(departmentData);
             contentHTML += this.renderRowEmployeeDepart(departmentData);
         }
-        
+
         return `
             <tbody>
                 ${contentHTML}            
@@ -155,13 +164,25 @@ export default class TableByMonth {
         return contentHTML;  
     }
 
-    // возвращает сумму данных по подразделению за месяц
     getSummaryStatisticsForDepartment(data, month, key) {
         let keyMonth = String(month);
         let accum = 0;
         for (let user of data) {
             let count = user[key][keyMonth] || 0;
             accum += count;
+        }
+        return accum;
+    }
+
+    // возвращает сумму данных по подразделению за месяц
+    getSummaryStatisticsForCompany(data, month, key) {
+        let keyMonth = String(month);
+        let accum = 0;
+        for (let departmentData of data) {
+            for (let user of departmentData.data) {
+                let count = user[key][keyMonth] || 0;
+                accum += count;
+            }
         }
         return accum;
     }

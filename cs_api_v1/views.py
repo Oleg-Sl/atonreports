@@ -628,8 +628,8 @@ class CountsCompanyToCallsByMonthApiView(views.APIView):
 
 
 class CountsCompanyToCallsSummaryApiView(views.APIView):
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
 
     def post(self, request):
         departs = request.data.get("depart", "1")
