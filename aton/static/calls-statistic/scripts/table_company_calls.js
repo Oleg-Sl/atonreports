@@ -168,6 +168,18 @@ export default class TableByMonth {
         return contentHTML;  
     }
 
+    // getSummaryStatisticsYearForDepartment(data, departmentData) {
+    //     // let keyMonth = String(month);
+    //     let accum = 0;
+    //     for (let user of data) {
+    //         let count = user[key][keyMonth] || 0;
+    //         accum += count;
+    //     }
+     
+    // // for (let key in this.summaryData) {
+    // //     total += this.summaryData[key];
+    // }
+
     getSummaryStatisticsForDepartment(data, month, key) {
         let keyMonth = String(month);
         let accum = 0;
