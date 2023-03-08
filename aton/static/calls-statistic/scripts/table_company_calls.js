@@ -107,11 +107,11 @@ export default class TableByMonth {
     // вывод строки руководителя подразделения
     renderRowHeadDepart(departmentData) {
         let contentHTML = "";
-        // let summaryCalls = 0;
+        let summaryCalls = 0;
         for (let numMonth in this.monthList) {
             let month = +numMonth + 1
             let countCalls = this.getSummaryStatisticsForDepartment(departmentData.data, month, "data");
-            // summaryCalls += countCalls;
+            summaryCalls += countCalls;
             contentHTML += `
                 <td data-month="${numMonth}">${countCalls}</td>
             `;
@@ -121,7 +121,7 @@ export default class TableByMonth {
             <tr class="head-department" data-depart-id="${departmentData.headId}">
                 <td class="table-by-month-first-column">${departmentData.headLastname} ${departmentData.headName}</td>
                 ${contentHTML}
-                // <td>${summaryCalls}</td>
+                <td>${summaryCalls}</td>
             </tr>
         `;
     }
