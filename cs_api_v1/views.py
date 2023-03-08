@@ -650,8 +650,8 @@ class CountsCompanyToCallsSummaryApiView(views.APIView):
             DURATION__gte=duration,
         ).distinct(
             "COMPANY_ID__ID", "RESPONSIBLE_ID__ID"
-        ).values(
-            "RESPONSIBLE_ID__ID",
+        ).values_list(
+            "RESPONSIBLE_ID__ID", flat=True
         )
             # .annotate(models.Count("RESPONSIBLE_ID__ID"))
         # count_companies_ = Counter(queryset_count_companies)
