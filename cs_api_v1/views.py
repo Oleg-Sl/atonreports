@@ -652,7 +652,8 @@ class CountsCompanyToCallsSummaryApiView(views.APIView):
             "COMPANY_ID__ID", "RESPONSIBLE_ID__ID"
         ).values(
             "RESPONSIBLE_ID__ID",
-        ).annotate("RESPONSIBLE_ID__ID")
+        )
+            # .annotate("RESPONSIBLE_ID__ID")
         # count_companies_ = Counter(queryset_count_companies)
 
         return Response(queryset_count_companies, status=status.HTTP_200_OK)
