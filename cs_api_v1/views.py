@@ -654,23 +654,25 @@ class CountsCompanyToCallsSummaryApiView(views.APIView):
         )
         count_companies_ = Counter(queryset_count_companies)
 
-        data = {}
-        for department in departments:
-            data[department] = []
+        return Response(count_companies_, status=status.HTTP_200_OK)
 
-        data_user = {}
-        for user in users:
-            user["data"] = {}
-            key = user["ID"]
-            data_user[key] = user
-
-        for (user_id, month_num), count in count_companies_.items():
-            if user_id in data_user:
-                data_user[user_id]["data"][month_num] = count
-
-        for user_id, user in data_user.items():
-            dep = str(user["UF_DEPARTMENT"])
-            data[dep].append(user)
-
-        return Response(data, status=status.HTTP_200_OK)
+        # data = {}
+        # for department in departments:
+        #     data[department] = []
+        #
+        # data_user = {}
+        # for user in users:
+        #     user["data"] = {}
+        #     key = user["ID"]
+        #     data_user[key] = user
+        #
+        # for (user_id, month_num), count in count_companies_.items():
+        #     if user_id in data_user:
+        #         data_user[user_id]["data"][month_num] = count
+        #
+        # for user_id, user in data_user.items():
+        #     dep = str(user["UF_DEPARTMENT"])
+        #     data[dep].append(user)
+        #
+        # return Response(data, status=status.HTTP_200_OK)
 
