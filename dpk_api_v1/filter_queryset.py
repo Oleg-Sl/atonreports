@@ -41,11 +41,13 @@ class StatisticCompany(filters.FilterSet):
     REVENUE = filters.RangeFilter()
     DATE_CREATE = filters.DateFromToRangeFilter()
 
+    inn = filters.CharFilter(lookup_expr="isnull")
 
     class Meta:
         model = Company
         fields = ["company", "ASSIGNED_BY_ID", "sector", "region", "source",
-                  "requisite_region", "requisites_city", "number_employees", "REVENUE", "DATE_CREATE"]
+                  "requisite_region", "requisites_city", "number_employees",
+                  "REVENUE", "DATE_CREATE", "inn", ]
 
 
 class StatisticCompanyByDirection(filters.FilterSet):
