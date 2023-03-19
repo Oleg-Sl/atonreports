@@ -50,7 +50,7 @@ class StatisticCompany(filters.FilterSet):
         model = Company
         fields = ["company", "ASSIGNED_BY_ID", "sector", "region", "source",
                   "requisite_region", "requisites_city", "number_employees",
-                  "REVENUE", "DATE_CREATE", "inn", "inn_empty", ]
+                  "REVENUE", "DATE_CREATE", "inn", ]
 
 
 class StatisticCompanyByDirection(filters.FilterSet):
