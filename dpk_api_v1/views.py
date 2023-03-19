@@ -193,8 +193,8 @@ class StatisticCompanyViewSet(viewsets.GenericViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = filter_queryset.StatisticCompany
     ordering_fields = ["ID", "TITLE", "ASSIGNED_BY_ID", "date_last_communication", "summa_by_company_success", "summa_by_company_work"]
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
 
     # def get_queryset(self):
     #     duration = self.request.query_params.get("duration", "0")
