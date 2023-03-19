@@ -43,13 +43,14 @@ class StatisticCompany(filters.FilterSet):
 
     # inn = filters.CharFilter(field_name='inn', lookup_expr="regex")
     inn = filters.CharFilter(lookup_expr="regex")
+    inn_empty = filters.CharFilter(field_name="inn", lookup_expr="isnull")
     # inn = filters.CharFilter()
 
     class Meta:
         model = Company
         fields = ["company", "ASSIGNED_BY_ID", "sector", "region", "source",
                   "requisite_region", "requisites_city", "number_employees",
-                  "REVENUE", "DATE_CREATE", "inn", ]
+                  "REVENUE", "DATE_CREATE", "inn", "inn_empty", ]
 
 
 class StatisticCompanyByDirection(filters.FilterSet):
