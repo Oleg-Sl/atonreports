@@ -41,7 +41,7 @@ class StatisticCompany(filters.FilterSet):
     REVENUE = filters.RangeFilter()
     DATE_CREATE = filters.DateFromToRangeFilter()
 
-    inn = filters.CharFilter(lookup_expr="isnull")
+    inn = filters.CharFilter(lookup_expr="regex")
 
     class Meta:
         model = Company
