@@ -39,9 +39,12 @@ class App {
         // фильтр - РЕКВИЗИТ-РЕГИОН
         this.elementRequisiteRegion = document.querySelector('#filterRequisiteRegion');
         this.filterRequisiteRegion = new FilterSingle(this.elementRequisiteRegion, this.requests, 'requisite_region', 'requisite_region');
-        // фильтр - РЕКВИЗИТ-ГОРОД
-        this.elementFilterRequisiteCity = document.querySelector('#filterRequisiteCity');
-        this.filterRequisiteCity = new FilterSingle(this.elementFilterRequisiteCity, this.requests, 'requisites_city', 'requisites_city');
+        // // фильтр - РЕКВИЗИТ-ГОРОД
+        // this.elementFilterRequisiteCity = document.querySelector('#filterRequisiteCity');
+        // this.filterRequisiteCity = new FilterSingle(this.elementFilterRequisiteCity, this.requests, 'requisites_city', 'requisites_city');
+        // фильтр - РЕКВИЗИТ-ИНН
+        this.elementFilterRequisiteInn = document.querySelector('#filterRequisiteInn');
+        this.filterRequisiteInn = new FilterSelect(this.elementFilterRequisiteCity, this.requests);
         // фильтр - ГОДОВОЙ ОБОРОТ КОМПАНИИ
         this.elementFilterRevenue = document.querySelector('#filterRevenue');
         this.filterRevenue = new FilterRange(this.elementFilterRevenue);
@@ -87,7 +90,7 @@ class App {
         this.filterRegion.init();
         this.filterSource.init();
         this.filterRequisiteRegion.init();
-        this.filterRequisiteCity.init();
+        // this.filterRequisiteCity.init();
         this.filterRevenue.init();
         this.filterEmployees.init();
         this.filterCompanyCreated.init();
@@ -161,7 +164,8 @@ class App {
             region: this.filterRegion.getRequestParameters(),
             source: this.filterSource.getRequestParameters(),
             requisite_region: this.filterRequisiteRegion.getRequestParameters(),
-            requisites_city: this.filterRequisiteCity.getRequestParameters(),
+            // requisites_city: this.filterRequisiteCity.getRequestParameters(),
+            inn: this.filterRequisiteInn.getRequestParameters(),
             number_employees_min: this.filterEmployees.getMinValue(),
             number_employees_max: this.filterEmployees.getMaxValue(),
             REVENUE_min: this.filterRevenue.getMinValue(),
