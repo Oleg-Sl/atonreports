@@ -1,5 +1,5 @@
 import sys
-sys.setrecursionlimit(2000)
+sys.setrecursionlimit(10000)
 import datetime
 
 from .. import save_company
