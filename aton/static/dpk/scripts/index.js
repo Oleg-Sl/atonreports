@@ -7,6 +7,7 @@ import WindowSearchUser from './filters/user.js';
 import FilterDirection from './filters/direction.js';
 import {FilterSingle, } from './filters/single.js';
 import {FilterRange, } from './filters/range.js';
+import {FilterSelect, } from './filters/select.js';
 
 import CreateDeal from './create_deal_in_bx24.js';
 import Paginator from './pagination.js';
