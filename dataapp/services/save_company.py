@@ -40,7 +40,7 @@ def update_company_drf(company):
     if company.get("PROVINCE"):
         company["requisites_province"] = company.get("PROVINCE")
     if company.get("RQ_INN"):
-        company["inn"] = company.get("RQ_INN") || ""
+        company["inn"] = company.get("RQ_INN") or ""
     if company.get("active") is not None:
         company["active"] = company.get("active")
     if "ASSIGNED_BY_ID" in company:
