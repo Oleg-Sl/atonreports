@@ -12,6 +12,6 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         bx24 = Bitrix24()
 
-        all_companies.save_to_db(bx24, datetime.date(2023, 3, 10))
+        all_companies.save_to_db(bx24, datetime.date(2023, 1, 1))
 
 
