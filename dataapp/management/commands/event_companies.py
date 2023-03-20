@@ -42,7 +42,9 @@ class Command(BaseCommand):
             for company_id, company_data in companies_data.items():
                 company_data["inn"] = companies_requisites.get(company_id)
                 company_data.update(companies_address.get(company_id, {}))
+                print("company_data = ", company_data)
                 res = save_company.update_company_drf(company_data)
+                print("res = ", res)
                 if res:
                     print("INPUT: ", company_data)
                     print("OUTPUT: ", res)
