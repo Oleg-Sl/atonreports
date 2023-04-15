@@ -1,7 +1,9 @@
+import redis
 from django.core.management.base import BaseCommand
 
 from bitrix24.request import Bitrix24
 from dataapp.services import utils, save_deal, get_deals
+from dataapp.services.google_sheet import put_deal_to_queu
 
 
 LIMIT_EVENTS = 25
@@ -31,10 +33,15 @@ class Command(BaseCommand):
         if not deals_ids:
             return
         if active:
+            redis_conn = redis.Redis(host='localhost', port=6379, db=5)
             deals_data = get_deals.get_data(self.bx24, deals_ids)
+            fields = self.bx24.call("crm.deal.fields", {})
             if isinstance(deals_data, dict):
                 for deal_id, deal_data in deals_data.items():
                     if deal_data:
+                        print("deal_id: ", deal_id)
+                        print("deal_data: ", deal_data)
+                        put_deal_to_queu.put(deal_data[0], fields.get("result", {}), redis_conn)
                         res = save_deal.update_deal_drf(deal_data[0])
                         if res:
                             print("INPUT: ", deal_data)
@@ -47,7 +54,7 @@ class Command(BaseCommand):
                 })
                 if res:
                     print("OUTPUT: ", res)
-        # return
+
         # если извлекли не все данные из очереди событий
         if len(deals_ids) == LIMIT_EVENTS:
             self.get_and_save_deals(event_name, count_recursion - 1)
