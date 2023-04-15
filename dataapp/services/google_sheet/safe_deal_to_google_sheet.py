@@ -179,7 +179,8 @@ def run():
             continue
 
         deal = redis_client.blpop("googlequeue", timeout=60)
-        add_deal_to_google(deal)
+        if deal:
+            add_deal_to_google(deal)
 
         time.sleep(1)
 
