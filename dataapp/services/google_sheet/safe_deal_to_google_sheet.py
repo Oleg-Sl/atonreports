@@ -181,7 +181,7 @@ def run():
 
         queue_item = redis_client.blpop("googlequeue", timeout=60)
         if queue_item:
-            deal_str = queue_item.decode('utf-8')
+            deal_str = queue_item[1].decode('utf-8')
             deal = json.loads(deal_str)
             add_deal_to_google(deal)
 
