@@ -1,5 +1,6 @@
 import redis
 import time
+import json
 
 from pprint import pprint
 from datetime import datetime
@@ -178,8 +179,10 @@ def run():
             time.sleep(5)
             continue
 
-        deal = redis_client.blpop("googlequeue", timeout=60)
-        if deal:
+        queue_item = redis_client.blpop("googlequeue", timeout=60)
+        if queue_item:
+            deal_str = queue_item.decode('utf-8')
+            deal = json.loads(deal_str)
             add_deal_to_google(deal)
 
         time.sleep(1)
