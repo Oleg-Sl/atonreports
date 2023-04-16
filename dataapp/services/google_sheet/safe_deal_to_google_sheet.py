@@ -112,7 +112,7 @@ def date_parser(date_str):
 
 def get_row_for_insert_to_google(deal):
     date_obj_start_work = date_parser(deal.get("UF_CRM_WORK_ACCEPTENCE_DAY"))
-    date_obj_payment = date_parser(deal.get("UF_CRM_1575375338"))
+    date_obj_payment = date_parser(deal.get("UF_CRM_1553188396"))
     date_obj_delivery = date_parser(deal.get("UF_CRM_1540262622"))
     date_obj_act = date_parser(deal.get("UF_CRM_1572403036"))
     date_obj_contract_deadline = date_parser(deal.get("UF_CRM_1526281552"))
@@ -129,6 +129,7 @@ def get_row_for_insert_to_google(deal):
         f"https://atonlab.bitrix24.ru/crm/deal/details/{deal.get('ID')}/",
         float(deal.get("UF_CRM_1619591604401")) if deal.get("UF_CRM_1619591604401") else 0,
         get_payment(deal.get("UF_CRM_1575375338")),
+                              # UF_CRM_1575375338
         date_obj_payment.strftime("%d.%m.%Y") if date_obj_payment else "",
         float(deal.get("UF_CRM_1620264903")) if deal.get("UF_CRM_1620264903") else 0,
         getDirection(deal.get("direction")),
