@@ -1,4 +1,4 @@
-
+import json
 from dataapp.models import Stage, Deal, Direction, Company, User
 
 
@@ -19,7 +19,8 @@ def put(deal, fields, redis_conn):
     deal["crm_status"] = get_value(fields["UF_CRM_STATUS_ID"]["items"], deal["UF_CRM_STATUS_ID"])
     deal["direction"] = get_value(fields["UF_CRM_1610523951"]["items"], deal["UF_CRM_1610523951"])
 
-    redis_conn.rpush('googlequeue', deal)
+    deal_str = json.dumps(deal)
+    redis_conn.rpush('googlequeue', deal_str)
 
 
 def get_value(items, id_item):
