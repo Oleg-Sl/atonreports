@@ -178,10 +178,10 @@ def add_deal_to_google(deal):
     row = find_index(ids_deals, deal["ID"])
     data = get_row_for_insert_to_google(deal)
 
-    if data["deal_won"] and row:
+    if deal["deal_won"] and row:
         ind_start_slice = COL_WITH_START_UPDATE["number"] - 1
         api.update_row(sheet_name, COL_WITH_START_UPDATE["name"], row + 1, data[ind_start_slice:])
-    elif not data["deal_won"] and row:
+    elif not deal["deal_won"] and row:
         api.remove_row(SHEET_NUMBER, row)
     else:
         api.append_row(sheet_name, len(ids_deals) + 1, data)
