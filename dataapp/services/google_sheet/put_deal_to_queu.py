@@ -7,10 +7,10 @@ def put(deal, fields, redis_conn):
     # deal["company"] = company
     # deal["stage"] = stage
 
-    if not deal["CATEGORY_ID"] or deal["CATEGORY_ID"] not in [43, "43"]:
+    if deal["CATEGORY_ID"] and deal["CATEGORY_ID"] not in [43, "43"]:
         return
 
-    if not deal["UF_CRM_1602484766"] or int(deal.get("UF_CRM_1602484766")) <= 4:
+    if deal["UF_CRM_1602484766"] and int(deal.get("UF_CRM_1602484766")) <= 4:
         return
 
     stage = Stage.objects.filter(STATUS_ID=deal["STAGE_ID"]).values("NAME", "status").first()
