@@ -3,9 +3,12 @@ from dataapp.models import Stage, Deal, Direction, Company, User
 
 
 def put(deal, fields, redis_conn):
-    company, stage = Deal.objects.filter(ID=deal["ID"]).values_list("TITLE", "stage__NAME").first()
-    deal["company"] = company
-    deal["stage"] = stage
+    # company, stage = Deal.objects.filter(ID=deal["ID"]).values_list("TITLE", "stage__NAME").first()
+    # deal["company"] = company
+    # deal["stage"] = stage
+
+    stage = Stage.objects.filter(STATUS_ID=deal["STAGE_ID"]).values("NAME").first()
+    deal["stage"] = stage['NAME'] if stage else None
 
     assigned = User.objects.filter(ID=deal["ASSIGNED_BY_ID"]).values("LAST_NAME", "NAME").first()
     deal["assigned"] = f"{assigned['NAME']} {assigned['LAST_NAME']}" if assigned else None

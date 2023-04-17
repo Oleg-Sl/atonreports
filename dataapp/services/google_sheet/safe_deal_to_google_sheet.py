@@ -123,7 +123,7 @@ def get_row_for_insert_to_google(deal):
         date_obj_start_work.year if date_obj_start_work else "",
         get_month(date_obj_start_work),
         date_obj_start_work.strftime('%d.%m.%Y') if date_obj_start_work else "",
-        deal.get("company"),
+        deal.get("TITLE"),
         deal.get("assigned"),
         deal.get("rop"),
         f"https://atonlab.bitrix24.ru/crm/deal/details/{deal.get('ID')}/",
