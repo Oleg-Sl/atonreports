@@ -3,17 +3,12 @@ from dataapp.models import Stage, Deal, Direction, Company, User
 
 
 def put(deal, fields, redis_conn):
-    # company, stage = Deal.objects.filter(ID=deal["ID"]).values_list("TITLE", "stage__NAME").first()
-    # deal["company"] = company
-    # deal["stage"] = stage
-
     if deal["CATEGORY_ID"] and deal["CATEGORY_ID"] not in [43, "43"]:
         return
 
     if deal["UF_CRM_1602484766"] and int(deal.get("UF_CRM_1602484766")) <= 4:
         return
 
-    # COMPANY_ID
     company = Company.objects.filter(ID=deal["COMPANY_ID"]).values("TITLE").first()
     deal["company"] = company['TITLE'] if company else None
 
