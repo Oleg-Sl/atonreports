@@ -2,7 +2,7 @@ import json
 from dataapp.models import Stage, Deal, Direction, Company, User
 
 
-def put(deal, fields, redis_conn):
+def put(deal, fields, redis_conn, bx24):
     if deal["CATEGORY_ID"] and deal["CATEGORY_ID"] not in [43, "43"]:
         return
 
@@ -10,7 +10,11 @@ def put(deal, fields, redis_conn):
         return
 
     company = Company.objects.filter(ID=deal["COMPANY_ID"]).values("TITLE").first()
-    deal["company"] = company['TITLE'] if company else None
+    if company:
+        deal["company"] = company['TITLE']
+    else:
+        response = bx24.call("crm.deal.list", {"filter": {"ID": deal["COMPANY_ID"]}, "select": ["TITLE"]})
+        deal["company"] = response.get("result", {}).get("TITLE", "-")
 
     stage = Stage.objects.filter(STATUS_ID=deal["STAGE_ID"]).values("NAME", "status").first()
     deal["stage"] = stage['NAME'] if stage else None

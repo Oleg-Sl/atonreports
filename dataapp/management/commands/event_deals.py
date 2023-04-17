@@ -41,7 +41,7 @@ class Command(BaseCommand):
                     if deal_data:
                         print("deal_id: ", deal_id)
                         print("deal_data: ", deal_data)
-                        put_deal_to_queu.put(deal_data[0], fields.get("result", {}), redis_conn)
+                        put_deal_to_queu.put(deal_data[0], fields.get("result", {}), redis_conn, self.bx24)
                         res = save_deal.update_deal_drf(deal_data[0])
                         if res:
                             print("INPUT: ", deal_data)
