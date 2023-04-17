@@ -14,7 +14,9 @@ def put(deal, fields, redis_conn, bx24):
         deal["company"] = company['TITLE']
     else:
         response = bx24.call("crm.deal.list", {"filter": {"ID": deal["COMPANY_ID"]}, "select": ["TITLE"]})
-        deal["company"] = response.get("result", [{}])[0].get("TITLE", "-")
+        companies_ = response.get("result", [])
+        if companies_:
+            deal["company"] = companies_[0].get("TITLE", "-")
 
     stage = Stage.objects.filter(STATUS_ID=deal["STAGE_ID"]).values("NAME", "status").first()
     deal["stage"] = stage['NAME'] if stage else None
