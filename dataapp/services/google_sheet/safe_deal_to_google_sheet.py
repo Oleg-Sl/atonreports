@@ -184,7 +184,7 @@ def add_deal_to_google(deal):
         api.update_row(sheet_name, COL_WITH_START_UPDATE["name"], row + 1, data[ind_start_slice:])
     elif not deal["deal_won"] and row:
         api.remove_row(SHEET_NUMBER, row)
-    elif deal.get("UF_CRM_1602484766") == "5":
+    elif deal["deal_won"] and deal.get("UF_CRM_1602484766") == "5":
         api.append_row(sheet_name, len(ids_deals) + 1, data)
 
 
