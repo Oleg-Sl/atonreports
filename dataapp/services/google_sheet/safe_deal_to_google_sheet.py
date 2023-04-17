@@ -128,6 +128,7 @@ def date_parser(date_str):
         date_obj = None
     return date_obj
 
+
 def get_row_for_insert_to_google(deal):
     date_obj_start_work = date_parser(deal.get("UF_CRM_WORK_ACCEPTENCE_DAY"))
     date_obj_payment = date_parser(deal.get("UF_CRM_1553188396"))
@@ -182,10 +183,16 @@ def add_deal_to_google(deal):
     if deal["deal_won"] and row:
         ind_start_slice = COL_WITH_START_UPDATE["number"] - 1
         api.update_row(sheet_name, COL_WITH_START_UPDATE["name"], row + 1, data[ind_start_slice:])
+
+        api.append_row(sheet_name, len(api.get_data_column("all", COL_NAME_WITH_IDS)) + 1, [data[0], "UPDATE", deal, data])
     elif not deal["deal_won"] and row:
         api.remove_row(SHEET_NUMBER, row)
+
+        api.append_row(sheet_name, len(api.get_data_column("all", COL_NAME_WITH_IDS)) + 1, [data[0], "REMOVE", deal, data])
     elif deal["deal_won"] and deal.get("UF_CRM_1602484766") == "5":
         api.append_row(sheet_name, len(ids_deals) + 1, data)
+
+        api.append_row(sheet_name, len(api.get_data_column("all", COL_NAME_WITH_IDS)) + 1, [data[0], "APPEND", deal, data])
 
 
 def run():
