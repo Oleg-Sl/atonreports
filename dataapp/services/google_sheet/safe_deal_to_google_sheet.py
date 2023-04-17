@@ -167,6 +167,7 @@ def get_row_for_insert_to_google(deal):
         deal.get("pb_out"),
         date_obj_contract_deadline.strftime("%d.%m.%Y") if date_obj_contract_deadline else "",
         date_obj_expected_payment.strftime("%d.%m.%Y") if date_obj_expected_payment else "",
+        deal.get("UF_CRM_1602484766")
     ]
 
 
