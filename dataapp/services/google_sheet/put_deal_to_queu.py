@@ -13,6 +13,10 @@ def put(deal, fields, redis_conn):
     if deal["UF_CRM_1602484766"] and int(deal.get("UF_CRM_1602484766")) <= 4:
         return
 
+    # COMPANY_ID
+    company = Company.objects.filter(ID=deal["COMPANY_ID"]).values("TITLE").first()
+    deal["company"] = company['TITLE'] if company else None
+
     stage = Stage.objects.filter(STATUS_ID=deal["STAGE_ID"]).values("NAME", "status").first()
     deal["stage"] = stage['NAME'] if stage else None
     deal["deal_won"] = False if stage and stage['status'] == "FAILURE" else True
