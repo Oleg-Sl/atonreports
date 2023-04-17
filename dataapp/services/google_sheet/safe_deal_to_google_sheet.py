@@ -72,6 +72,24 @@ class GoogleAPI:
         response = request.execute()
         return response
 
+    def remove_row(self, sheet_id, row_index):
+        delete_request = {
+            "deleteDimension": {
+                "range": {
+                    "sheetId": sheet_id,
+                    "dimension": "ROWS",
+                    "startIndex": row_index,
+                    "endIndex": row_index + 1
+                }
+            }
+        }
+        request = self.client.spreadsheets().batchUpdate(
+            spreadsheetId=self.spreadsheet_id,
+            body={"requests": [delete_request]}
+        )
+        response = request.execute()
+        return response
+
 
 def find_index(lst, item):
     try:
@@ -160,9 +178,11 @@ def add_deal_to_google(deal):
     row = find_index(ids_deals, deal["ID"])
     data = get_row_for_insert_to_google(deal)
 
-    if row:
+    if data["deal_won"] and row:
         ind_start_slice = COL_WITH_START_UPDATE["number"] - 1
         api.update_row(sheet_name, COL_WITH_START_UPDATE["name"], row + 1, data[ind_start_slice:])
+    elif not data["deal_won"] and row:
+        api.remove_row(SHEET_NUMBER, row)
     else:
         api.append_row(sheet_name, len(ids_deals) + 1, data)
 
@@ -173,7 +193,8 @@ def run():
     while True:
         try:
             if redis_client.ping():
-                print('Соединение с Redis восстановлено')
+                pass
+                # print('Соединение с Redis восстановлено')
             else:
                 print('Нет связи с Redis')
         except redis.exceptions.ConnectionError:

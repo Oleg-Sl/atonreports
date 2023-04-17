@@ -7,8 +7,15 @@ def put(deal, fields, redis_conn):
     # deal["company"] = company
     # deal["stage"] = stage
 
-    stage = Stage.objects.filter(STATUS_ID=deal["STAGE_ID"]).values("NAME").first()
+    if not deal["CATEGORY_ID"] or deal["CATEGORY_ID"] not in [43, "43"]:
+        return
+
+    if not deal["UF_CRM_1602484766"] or int(deal.get("UF_CRM_1602484766")) <= 4:
+        return
+
+    stage = Stage.objects.filter(STATUS_ID=deal["STAGE_ID"]).values("NAME", "status").first()
     deal["stage"] = stage['NAME'] if stage else None
+    deal["deal_won"] = False if stage and stage['status'] == "FAILURE" else True
 
     assigned = User.objects.filter(ID=deal["ASSIGNED_BY_ID"]).values("LAST_NAME", "NAME").first()
     deal["assigned"] = f"{assigned['NAME']} {assigned['LAST_NAME']}" if assigned else None
