@@ -17,6 +17,8 @@ def put(deal, fields, redis_conn, bx24):
         companies_ = response.get("result", [])
         if companies_:
             deal["company"] = companies_[0].get("TITLE", "-")
+        else:
+            deal["company"] = json.dumps({"company_id": deal["COMPANY_ID"], "response_from_bx24": response}, ensure_ascii=False)
 
     stage = Stage.objects.filter(STATUS_ID=deal["STAGE_ID"]).values("NAME", "status").first()
     deal["stage"] = stage['NAME'] if stage else None
