@@ -75,7 +75,7 @@ class GoogleAPI:
         request = self.client.spreadsheets().values().update(
             spreadsheetId=self.spreadsheet_id,
             range=f'{sheet_name}!{start_col_name}{row_index}',
-            valueInputOption='RAW',
+            valueInputOption='USER_ENTERED',
             body={'values': [data,]}
         )
         response = request.execute()
