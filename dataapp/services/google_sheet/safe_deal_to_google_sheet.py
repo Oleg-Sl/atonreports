@@ -53,11 +53,20 @@ class GoogleAPI:
         return response.get("values", [None,])[0]
 
     def append_row(self, sheet_name, row_index, data):
-        request = self.client.spreadsheets().values().update(
+        # request = self.client.spreadsheets().values().update(
+        #     spreadsheetId=self.spreadsheet_id,
+        #     range=f'{sheet_name}!A{row_index}',
+        #     valueInputOption='RAW',
+        #     body={'values': [data,]}
+        # )
+        request = self.client.spreadsheets().values().append(
             spreadsheetId=self.spreadsheet_id,
-            range=f'{sheet_name}!A{row_index}',
-            valueInputOption='RAW',
-            body={'values': [data,]}
+            range=sheet_name,
+            valueInputOption='USER_ENTERED',
+            insertDataOption='INSERT_ROWS',
+            body={
+                'values': [data],
+            },
         )
         response = request.execute()
         return response
