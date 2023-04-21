@@ -146,6 +146,12 @@ def get_row_for_insert_to_google(deal):
     date_obj_contract_deadline = date_parser(deal.get("UF_CRM_1526281552"))
     date_obj_expected_payment = date_parser(deal.get("UF_CRM_1676966362"))
 
+    direction = getDirection(deal.get("direction"))
+    if deal.get("UF_CRM_1611128441") == "Оценка проф. рисков":
+        direction = "Оценка проф. рисков"
+    if deal.get("UF_CRM_1611128441") == "Программа ПК":
+        direction = "ПК"
+
     return [
         int(deal.get('ID')),
         date_obj_start_work.year if date_obj_start_work else "",
@@ -157,12 +163,11 @@ def get_row_for_insert_to_google(deal):
         f"https://atonlab.bitrix24.ru/crm/deal/details/{deal.get('ID')}/",
         float(deal.get("UF_CRM_1619591604401")) if deal.get("UF_CRM_1619591604401") else 0,
         get_payment(deal.get("UF_CRM_1575375338")),
-                              # UF_CRM_1575375338
         date_obj_payment.strftime("%d.%m.%Y") if date_obj_payment else "",
         float(deal.get("UF_CRM_1620264903")) if deal.get("UF_CRM_1620264903") else 0,
-        getDirection(deal.get("direction")),
-        deal.get("UF_CRM_1611128441"),
-        deal.get("UF_CRM_1611202566"),
+        direction,                              # направление
+        deal.get("UF_CRM_1611128441"),          # услуга
+        deal.get("UF_CRM_1611202566"),          # инженер
         date_obj_delivery.strftime("%d.%m.%Y") if date_obj_delivery else "",
         deal.get("UF_CRM_1581493417"),
         date_obj_act.strftime("%d.%m.%Y") if date_obj_act else "",
