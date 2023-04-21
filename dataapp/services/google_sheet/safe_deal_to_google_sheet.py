@@ -12,8 +12,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 MONTH_NAME_LIST = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
 
 CREDENTIALS_FILE = "creds.json"
-SPREADSHEET_ID = '1eweIL3uEzJAcNK5K1QYkKpUoOPfFhbY-4bP38jaicp0'
-# SPREADSHEET_ID = "1sM2AweePLayksP2f_dwabT9-ZNO6CovfCTrwlV31rP4"
+# SPREADSHEET_ID = '1eweIL3uEzJAcNK5K1QYkKpUoOPfFhbY-4bP38jaicp0'
+SPREADSHEET_ID = "1sM2AweePLayksP2f_dwabT9-ZNO6CovfCTrwlV31rP4"
 
 SHEET_NUMBER = 0            # Порядковый номер листа (нумерация начинается с 0)
 COL_NAME_WITH_IDS = "A"     # Название столбца где хранятся ID сделок для поиска дублей
@@ -182,7 +182,7 @@ def get_row_for_insert_to_google(deal):
         deal.get("pb_out"),
         date_obj_contract_deadline.strftime("%d.%m.%Y") if date_obj_contract_deadline else "",
         date_obj_expected_payment.strftime("%d.%m.%Y") if date_obj_expected_payment else "",
-        deal.get("UF_CRM_1602484766")
+        # deal.get("UF_CRM_1602484766")
     ]
 
 
@@ -198,15 +198,15 @@ def add_deal_to_google(deal):
         ind_start_slice = COL_WITH_START_UPDATE["number"] - 1
         api.update_row(sheet_name, COL_WITH_START_UPDATE["name"], row + 1, data[ind_start_slice:])
 
-        api.append_row("all", len(api.get_data_column("all", COL_NAME_WITH_IDS)) + 1, [data[0], "UPDATE", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
+        api.append_row("log", len(api.get_data_column("log", COL_NAME_WITH_IDS)) + 1, [data[0], "UPDATE", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
     elif not deal["deal_won"] and row:
         api.remove_row(SHEET_NUMBER, row)
 
-        api.append_row("all", len(api.get_data_column("all", COL_NAME_WITH_IDS)) + 1, [data[0], "REMOVE", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
+        api.append_row("log", len(api.get_data_column("log", COL_NAME_WITH_IDS)) + 1, [data[0], "REMOVE", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
     elif deal["deal_won"] and deal.get("UF_CRM_1602484766") == "5":
         api.append_row(sheet_name, len(ids_deals) + 1, data)
 
-        api.append_row("all", len(api.get_data_column("all", COL_NAME_WITH_IDS)) + 1, [data[0], "APPEND", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
+        api.append_row("log", len(api.get_data_column("log", COL_NAME_WITH_IDS)) + 1, [data[0], "APPEND", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
 
 
 def run():
