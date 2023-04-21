@@ -155,31 +155,31 @@ def get_row_for_insert_to_google(deal):
     return [
         int(deal.get('ID')),
         date_obj_start_work.year if date_obj_start_work else "",
-        get_month(date_obj_start_work),
+        get_month(date_obj_start_work) or "",
         date_obj_start_work.strftime('%d.%m.%Y') if date_obj_start_work else "",
-        deal.get("company"),
-        deal.get("assigned"),
-        deal.get("rop"),
+        deal.get("company") or "",
+        deal.get("assigned") or "",
+        deal.get("rop") or "",
         f"https://atonlab.bitrix24.ru/crm/deal/details/{deal.get('ID')}/",
         float(deal.get("UF_CRM_1619591604401")) if deal.get("UF_CRM_1619591604401") else 0,
-        get_payment(deal.get("UF_CRM_1575375338")),
+        get_payment(deal.get("UF_CRM_1575375338"))  or 0,
         date_obj_payment.strftime("%d.%m.%Y") if date_obj_payment else "",
         float(deal.get("UF_CRM_1620264903")) if deal.get("UF_CRM_1620264903") else 0,
-        direction,                              # направление
-        deal.get("UF_CRM_1611128441"),          # услуга
-        deal.get("UF_CRM_1611202566"),          # инженер
+        direction or "",                              # направление
+        deal.get("UF_CRM_1611128441") or "",          # услуга
+        deal.get("UF_CRM_1611202566") or "",          # инженер
         date_obj_delivery.strftime("%d.%m.%Y") if date_obj_delivery else "",
-        deal.get("UF_CRM_1581493417"),
+        deal.get("UF_CRM_1581493417") or "",
         date_obj_act.strftime("%d.%m.%Y") if date_obj_act else "",
-        deal.get("stage"),
-        deal.get("source"),
-        deal.get("source_dir"),
+        deal.get("stage") or "",
+        deal.get("source") or "",
+        deal.get("source_dir") or "",
         # deal.get("source_id"),
-        deal.get("UF_CRM_1681619452562"),
-        deal.get("UTM_SOURCE"),
-        deal.get("UTM_CAMPAIGN"),
-        deal.get("crm_status"),
-        deal.get("pb_out"),
+        deal.get("UF_CRM_1681619452562") or "",
+        deal.get("UTM_SOURCE") or "",
+        deal.get("UTM_CAMPAIGN") or "",
+        deal.get("crm_status") or "",
+        deal.get("pb_out") or "",
         date_obj_contract_deadline.strftime("%d.%m.%Y") if date_obj_contract_deadline else "",
         date_obj_expected_payment.strftime("%d.%m.%Y") if date_obj_expected_payment else "",
         # deal.get("UF_CRM_1602484766")
