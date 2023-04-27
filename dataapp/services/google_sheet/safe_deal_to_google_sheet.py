@@ -151,6 +151,8 @@ def get_row_for_insert_to_google(deal):
         direction = "Оценка проф. рисков"
     if deal.get("UF_CRM_1611128441") == "Программа ПК":
         direction = "ПК"
+    if deal.get("UF_CRM_1611128441") == "Аутсорсинг":
+        direction = "Охрана труда"
 
     return [
         int(deal.get('ID')),
