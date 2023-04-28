@@ -124,7 +124,7 @@ def get_payment(paymentRub):
 
 
 def getDirection(direction, service):
-    new_dir = ""
+    new_dir = direction
     if direction == "Аутсорсинг по ОТ(повторный)":
         new_dir = "Аутсорсинг"
 
