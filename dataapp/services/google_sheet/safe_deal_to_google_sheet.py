@@ -123,11 +123,21 @@ def get_payment(paymentRub):
         return 0
 
 
-def getDirection(direction):
-    newDir = ""
-    if direction:
-        newDir = direction.replace(" по ОТ(повторный)", "")
-    return newDir
+def getDirection(direction, service):
+    new_dir = ""
+    if direction == "Аутсорсинг по ОТ(повторный)":
+        new_dir = "Аутсорсинг"
+
+    elif direction == "Охрана труда" and service == "Аутсорсинг":
+        new_dir = "Аутсорсинг"
+
+    elif service == "Оценка проф. рисков":
+        new_dir = "Оценка проф. рисков"
+
+    # elif service == "Программа ПК":
+    #     new_dir = "ПК"
+
+    return new_dir
 
 
 def date_parser(date_str):
@@ -146,13 +156,7 @@ def get_row_for_insert_to_google(deal):
     date_obj_contract_deadline = date_parser(deal.get("UF_CRM_1526281552"))
     date_obj_expected_payment = date_parser(deal.get("UF_CRM_1676966362"))
 
-    direction = getDirection(deal.get("direction"))
-    if deal.get("UF_CRM_1611128441") == "Оценка проф. рисков":
-        direction = "Оценка проф. рисков"
-    if deal.get("UF_CRM_1611128441") == "Программа ПК":
-        direction = "ПК"
-    if deal.get("UF_CRM_1611128441") == "Аутсорсинг":
-        direction = "Охрана труда"
+    direction = getDirection(deal.get("direction"), deal.get("UF_CRM_1611128441"))
 
     return [
         int(deal.get('ID')),
