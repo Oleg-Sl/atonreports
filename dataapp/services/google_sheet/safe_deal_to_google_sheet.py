@@ -200,6 +200,9 @@ def add_deal_to_google(deal):
     row = find_index(ids_deals, deal["ID"])
     data = get_row_for_insert_to_google(deal)
 
+    if not deal.get("UF_CRM_1602484766"):
+        return
+
     if deal["deal_won"] and row:
         # обновление сделки, если она не проиграна
         ind_start_slice = COL_WITH_START_UPDATE["number"] - 1
@@ -209,8 +212,8 @@ def add_deal_to_google(deal):
         # удаление сделки, если она проиграна
         api.remove_row(SHEET_NUMBER, row)
         api.append_row("log", len(api.get_data_column("log", COL_NAME_WITH_IDS)) + 1, [data[0], "REMOVE", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
-    # elif deal["deal_won"] and deal.get("UF_CRM_1602484766", "").isnumeric() and int(deal.get("UF_CRM_1602484766")) >= 4:  # and deal.get("UF_CRM_1602484766") == "5":
-    elif deal["deal_won"] and deal.get("UF_CRM_1602484766") == "5":
+    elif deal["deal_won"] and deal.get("UF_CRM_1602484766", "").isnumeric() and int(deal.get("UF_CRM_1602484766")) > 4:
+        # elif deal["deal_won"] and deal.get("UF_CRM_1602484766") == "5":
         # добавление новой сделки
         api.append_row(sheet_name, len(ids_deals) + 1, data)
         api.append_row("log", len(api.get_data_column("log", COL_NAME_WITH_IDS)) + 1, [data[0], "APPEND", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
