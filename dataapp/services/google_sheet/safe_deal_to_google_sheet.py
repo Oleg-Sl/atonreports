@@ -209,7 +209,8 @@ def add_deal_to_google(deal):
         # удаление сделки, если она проиграна
         api.remove_row(SHEET_NUMBER, row)
         api.append_row("log", len(api.get_data_column("log", COL_NAME_WITH_IDS)) + 1, [data[0], "REMOVE", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
-    elif deal["deal_won"]:  # and deal.get("UF_CRM_1602484766") == "5":
+    # elif deal["deal_won"] and deal.get("UF_CRM_1602484766", "").isnumeric() and int(deal.get("UF_CRM_1602484766")) >= 4:  # and deal.get("UF_CRM_1602484766") == "5":
+    elif deal["deal_won"] and deal.get("UF_CRM_1602484766") == "5":
         # добавление новой сделки
         api.append_row(sheet_name, len(ids_deals) + 1, data)
         api.append_row("log", len(api.get_data_column("log", COL_NAME_WITH_IDS)) + 1, [data[0], "APPEND", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
