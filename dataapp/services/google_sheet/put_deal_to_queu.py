@@ -13,7 +13,7 @@ def put(deal, fields, redis_conn, bx24):
     if company:
         deal["company"] = company['TITLE']
     else:
-        response = bx24.call("crm.deal.list", {"filter": {"ID": deal["COMPANY_ID"]}, "select": ["TITLE"]})
+        response = bx24.call("crm.company.list", {"filter": {"ID": deal["COMPANY_ID"]}, "select": ["TITLE"]})
         companies_ = response.get("result", [])
         if companies_:
             deal["company"] = companies_[0].get("TITLE", "-")
