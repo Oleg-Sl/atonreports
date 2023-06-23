@@ -24,10 +24,7 @@ def save_to_db(bx24):
 
 def save_deals_to_db(bx24, total=0, count=0, id_start=0):
     params = {
-        "select": [
-            "CATEGORY_ID", "UF_CRM_1610523951", "TITLE", "ID", "DATE_CREATE", "DATE_MODIFY", "CLOSEDATE",
-            "CLOSED", "OPPORTUNITY", "UF_CRM_1575629957086", "UF_CRM_1575375338", "COMPANY_ID", "STAGE_ID"
-        ],
+        "select": ["*", "UF_*"],
         "filter": {
             ">ID": id_start,
             ">DATE_CREATE": "2023-06-22",
