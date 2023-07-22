@@ -30,10 +30,11 @@ class Command(BaseCommand):
         active = False if event_name == "ONCRMCOMPANYDELETE" else True
         events_ = utils.get_events(self.bx24, event_name, LIMIT_EVENTS)
         companies_ids = [event_.get("FIELDS", {}).get("ID", {}) for event_ in events_]
-        print("Количество = ", len(companies_ids))
-        print(companies_ids)
+
         if not companies_ids:
             return
+        print("Количество = ", len(companies_ids))
+        print(companies_ids)
         if active:
             # Получение данных компаний
             companies_data = get_companies.get_data(self.bx24, companies_ids)
