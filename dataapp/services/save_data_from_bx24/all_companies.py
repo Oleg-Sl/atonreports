@@ -4,11 +4,10 @@ import datetime
 
 from .. import save_company
 
-
-def save_to_db(bx24, date_from=datetime.datetime.now() - datetime.timedelta(365), date_to=datetime.datetime.now() + datetime.timedelta(1)):
+def save_to_db(bx24, date_from, date_to):
     filter_data = {
-        ">DATE_CREATE": date_from.strftime("%Y-%m-%d"),
-        "<DATE_CREATE": date_to.strftime("%Y-%m-%d")
+        ">DATE_CREATE": date_from,
+        "<DATE_CREATE": date_to
     }
     total_companies = get_total(bx24, "crm.company.list", filter_data)
     save_companies_to_db(bx24, filter_data, total_companies)
@@ -19,6 +18,22 @@ def save_to_db(bx24, date_from=datetime.datetime.now() - datetime.timedelta(365)
 
     total_addresses = get_total(bx24, "crm.address.list", filter_data)
     save_addresses_to_db(bx24, filter_data, total_addresses)
+
+
+# def save_to_db(bx24, date_from=datetime.datetime.now() - datetime.timedelta(365), date_to=datetime.datetime.now() + datetime.timedelta(1)):
+#     filter_data = {
+#         ">DATE_CREATE": date_from.strftime("%Y-%m-%d"),
+#         "<DATE_CREATE": date_to.strftime("%Y-%m-%d")
+#     }
+#     total_companies = get_total(bx24, "crm.company.list", filter_data)
+#     save_companies_to_db(bx24, filter_data, total_companies)
+#
+#     filter_data["ENTITY_TYPE_ID"] = 4
+#     total_requisites = get_total(bx24, "crm.requisite.list", filter_data)
+#     save_requisites_to_db(bx24, filter_data, total_requisites)
+#
+#     total_addresses = get_total(bx24, "crm.address.list", filter_data)
+#     save_addresses_to_db(bx24, filter_data, total_addresses)
 
 
 def save_companies_to_db(bx24, filter_data, total=0, count=0, id_start=0):
