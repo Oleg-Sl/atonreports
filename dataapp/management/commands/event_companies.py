@@ -1,4 +1,6 @@
 import pprint
+import datetime
+
 from django.core.management.base import BaseCommand
 
 
@@ -14,6 +16,7 @@ class Command(BaseCommand):
     bx24 = Bitrix24()
 
     def handle(self, *args, **kwargs):
+        print(datetime.datetime.now().isoformat())
         print("ONCRMCOMPANYADD")
         self.get_and_save_companies("ONCRMCOMPANYADD")
         print("ONCRMCOMPANYUPDATE")
