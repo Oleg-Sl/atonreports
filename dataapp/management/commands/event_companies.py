@@ -16,6 +16,7 @@ class Command(BaseCommand):
     bx24 = Bitrix24()
 
     def handle(self, *args, **kwargs):
+        print("*" * 100)
         print(datetime.datetime.now().isoformat())
         print("ONCRMCOMPANYADD")
         self.get_and_save_companies("ONCRMCOMPANYADD")
