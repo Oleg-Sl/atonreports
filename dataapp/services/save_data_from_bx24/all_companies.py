@@ -4,6 +4,7 @@ import datetime
 
 from .. import save_company
 
+
 def save_to_db(bx24, date_from, date_to):
     filter_data = {
         ">DATE_CREATE": date_from,
@@ -85,10 +86,10 @@ def save_requisites_to_db(bx24, filter_data, total=0, count=0, id_start=0):
         count += 50
         id_start = requisites_list[-1].get("ID")
         for requisite in requisites_list:
-            print("INPUT: ", requisite.get("ID"))
+            # print("INPUT: ", requisite.get("ID"))
             requisite["ID"] = requisite.get("ENTITY_ID")
             res = save_company.update_company_drf(requisite)
-            print("OUTPUT: ", res)
+            # print("OUTPUT: ", res)
 
         print(f"Получено реквизитов {count} из {total}")
         save_requisites_to_db(bx24, filter_data, total, count, id_start)
@@ -108,10 +109,10 @@ def save_addresses_to_db(bx24, filter_data, total=0, count=0, id_start=0):
         count += 50
         id_start = addresses_list[-1].get("LOC_ADDR_ID")
         for address in addresses_list:
-            print("INPUT: ", address.get("LOC_ADDR_ID"))
+            # print("INPUT: ", address.get("LOC_ADDR_ID"))
             address["ID"] = address.get("ENTITY_ID")
             res = save_company.update_company_drf(address)
-            print("OUTPUT: ", res)
+            # print("OUTPUT: ", res)
         print(f"Получено адресов {count} из {total}")
         save_addresses_to_db(bx24, filter_data, total, count, id_start)
 

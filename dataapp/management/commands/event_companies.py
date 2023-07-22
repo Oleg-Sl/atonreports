@@ -45,9 +45,9 @@ class Command(BaseCommand):
                 print("company_data = ", company_data)
                 res = save_company.update_company_drf(company_data)
                 print("res = ", res)
-                if res:
-                    print("INPUT: ", company_data)
-                    print("OUTPUT: ", res)
+                # if res:
+                #     print("INPUT: ", company_data)
+                #     print("OUTPUT: ", res)
         else:
             for company_id_ in companies_ids:
                 res = save_company.update_company_drf({

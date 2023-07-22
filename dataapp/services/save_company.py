@@ -46,6 +46,7 @@ def update_company_drf(company):
     if "ASSIGNED_BY_ID" in company:
         assigned_by_id = User.objects.filter(ID=company.get("ASSIGNED_BY_ID")).first()
         company["ASSIGNED_BY_ID"] = assigned_by_id.pk if assigned_by_id else None
+    company["inn"] = company["inn"] if company["inn"] else ""
     company["sector"] = company.get("UF_CRM_1640828035") or None
     company["region"] = company.get("UF_CRM_1639121988") or None
     company["source"] = company.get("UF_CRM_1639121612") or None
@@ -63,11 +64,16 @@ def update_company_drf(company):
         serializer = CompanySerializer(exist_obj, data=company)
         if serializer.is_valid():
             serializer.save()
-            # return serializer.data
-            return
-
+            return serializer.data
+            # return
         return serializer.errors
-
+    else:
+        serializer = CompanySerializer(data=company)
+        if serializer.is_valid():
+            serializer.save()
+            return serializer.data
+            # return
+        return serializer.errors
 
 
 # def create_or_update_company(company_data, inn=None, address={}, active=True):
