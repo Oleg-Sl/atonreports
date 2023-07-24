@@ -32,36 +32,49 @@ def add_company_drf(company):
 
 
 def update_company_drf(company):
-    if company.get("REGION"):
+    # if company.get("REGION"):
+    if "REGION" in company:
         company["requisite_region"] = company.get("REGION")
-    if company.get("CITY"):
+    # if company.get("CITY"):
+    if "CITY" in company:
         company["requisites_city"] = company.get("CITY")
-    if company.get("PROVINCE"):
+    # if company.get("PROVINCE"):
+    if "PROVINCE" in company:
         company["requisites_province"] = company.get("PROVINCE")
-    if company.get("RQ_INN"):
+    # if company.get("RQ_INN"):
+    if "RQ_INN" in company:
         company["inn"] = company.get("RQ_INN") or ""
     if company.get("active") is not None:
         company["active"] = company.get("active")
     if "ASSIGNED_BY_ID" in company:
         assigned_by_id = User.objects.filter(ID=company.get("ASSIGNED_BY_ID")).first()
         company["ASSIGNED_BY_ID"] = assigned_by_id.pk if assigned_by_id else None
-    if company.get("inn") is not None:
+    # if company.get("inn") is not None:
+    if "inn" in company:
         company["inn"] = company["inn"] if company["inn"] else ""
-    if company.get("UF_CRM_1640828035") is not None:
+    # if company.get("UF_CRM_1640828035") is not None:
+    if "UF_CRM_1640828035" in company:
         company["sector"] = company.get("UF_CRM_1640828035") or None
-    if company.get("UF_CRM_1639121988") is not None:
+    # if company.get("UF_CRM_1639121988") is not None:
+    if "UF_CRM_1639121988" in company:
         company["region"] = company.get("UF_CRM_1639121988") or None
-    if company.get("UF_CRM_1639121612") is not None:
+    # if company.get("UF_CRM_1639121612") is not None:
+    if "UF_CRM_1639121612" in company:
         company["source"] = company.get("UF_CRM_1639121612") or None
-    if company.get("UF_CRM_1639121303") is not None:
+    # if company.get("UF_CRM_1639121303") is not None:
+    if "UF_CRM_1639121303" in company:
         company["number_employees"] = company.get("UF_CRM_1639121303") or None
-    if company.get("UF_CRM_1639121341") is not None:
+    # if company.get("UF_CRM_1639121341") is not None:
+    if "UF_CRM_1639121341" in company:
         company["district"] = company.get("UF_CRM_1639121341") or None
-    if company.get("UF_CRM_1617767435") is not None:
+    # if company.get("UF_CRM_1617767435") is not None:
+    if "UF_CRM_1617767435" in company:
         company["main_activity"] = company.get("UF_CRM_1617767435") or None
-    if company.get("UF_CRM_1639121225") is not None:
+    # if company.get("UF_CRM_1639121225") is not None:
+    if "UF_CRM_1639121225" in company:
         company["other_activities"] = company.get("UF_CRM_1639121225") or None
-    if company.get("UF_CRM_1639121262") is not None:
+    # if company.get("UF_CRM_1639121262") is not None:
+    if "UF_CRM_1639121262" in company:
         company["profit"] = company.get("UF_CRM_1639121262") or None
 
     exist_obj = Company.objects.filter(ID=company.get("ID", None)).first()
