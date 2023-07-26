@@ -50,8 +50,9 @@ def update_company_drf(company):
         assigned_by_id = User.objects.filter(ID=company.get("ASSIGNED_BY_ID")).first()
         company["ASSIGNED_BY_ID"] = assigned_by_id.pk if assigned_by_id else None
     # if company.get("inn") is not None:
-    if "inn" in company:
-        company["inn"] = company["inn"] if company["inn"] else ""
+    # if "inn" in company:
+    #     company["inn"] = company["inn"] if company["inn"] else ""
+    company["inn"] = company["inn"] if company["inn"] else ""
     # if company.get("UF_CRM_1640828035") is not None:
     if "UF_CRM_1640828035" in company:
         company["sector"] = company.get("UF_CRM_1640828035") or None
