@@ -5,11 +5,14 @@ import datetime
 from .. import save_company
 
 
-def save_to_db(bx24, date_from, date_to):
-    filter_data = {
-        ">DATE_CREATE": date_from,
-        "<DATE_CREATE": date_to
-    }
+def save_to_db(bx24, date_from, date_to, filter_data={}):
+    # filter_data = {
+    #     ">DATE_CREATE": date_from,
+    #     "<DATE_CREATE": date_to
+    # }
+    filter_data[">DATE_CREATE"] = date_from
+    filter_data["<DATE_CREATE"] = date_to
+
     total_companies = get_total(bx24, "crm.company.list", filter_data)
     save_companies_to_db(bx24, filter_data, total_companies)
 
@@ -88,7 +91,7 @@ def save_requisites_to_db(bx24, filter_data, total=0, count=0, id_start=0):
         for requisite in requisites_list:
             # print("INPUT: ", requisite.get("ID"))
             requisite["ID"] = requisite.get("ENTITY_ID")
-            res = save_company.update_company_drf(requisite)
+            res = save_company.save_to_db(requisite)
             # print("OUTPUT: ", res)
 
         print(f"Получено реквизитов {count} из {total}")

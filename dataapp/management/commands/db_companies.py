@@ -11,12 +11,18 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('-s', '--datecreatefrom', type=str, help='Стартовая дата для фильтрации по дате добаления, формат: ГГГГ-мм-дд')
         parser.add_argument('-e', '--datecreateto', type=str, help='Конечная дата для фильтрации по дате добаления, формат: ГГГГ-мм-дд')
+        parser.add_argument('-r', '--region', type=str, help='Регион')
 
     def handle(self, *args, **kwargs):
         date_create_from = kwargs['datecreatefrom']
         date_create_to = kwargs['datecreateto']
+        region = kwargs['region']
         if not date_create_from or not date_create_to:
             return "Отсутствуют данные для фильтрации!!!"
+
+        data = {}
+        if region:
+            data["UF_CRM_1639121988"] = region
 
         print(f"{date_create_from=}")
         print(f"{date_create_to=}")
