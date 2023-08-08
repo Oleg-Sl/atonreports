@@ -94,7 +94,7 @@ def save_requisites_to_db(bx24, filter_data, total=0, count=0, id_start=0):
         for requisite in requisites_list:
             # print("INPUT: ", requisite.get("ID"))
             requisite["ID"] = requisite.get("ENTITY_ID")
-            res = save_company.save_to_db(requisite)
+            res = save_company.update_company_drf(requisite)
             # print("OUTPUT: ", res)
 
         print(f"Получено реквизитов {count} из {total}")
