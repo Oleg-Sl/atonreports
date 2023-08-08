@@ -20,8 +20,8 @@ def save_to_db(bx24, date_from, date_to, filter_data={}):
     print("total_companies = ", total_companies)
 
     filter_data["ENTITY_TYPE_ID"] = 4
-    total_requisites = get_total(bx24, "crm.requisite.list", filter_data)
-    save_requisites_to_db(bx24, filter_data, total_requisites)
+    # total_requisites = get_total(bx24, "crm.requisite.list", filter_data)
+    # save_requisites_to_db(bx24, filter_data, total_requisites)
 
     total_addresses = get_total(bx24, "crm.address.list", filter_data)
     save_addresses_to_db(bx24, filter_data, total_addresses)
