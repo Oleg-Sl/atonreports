@@ -28,5 +28,5 @@ class Command(BaseCommand):
         print(f"{date_create_to=}")
 
         bx24 = Bitrix24()
-        all_companies.save_to_db(bx24, date_create_from, date_create_to)
+        all_companies.save_to_db(bx24, date_create_from, date_create_to, data)
 
