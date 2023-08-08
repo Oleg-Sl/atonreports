@@ -28,6 +28,7 @@ def add_company_drf(company):
         serializer.save()
         return serializer.data
 
+    print(serializer.errors)
     return serializer.errors
 
 

@@ -67,9 +67,9 @@ def save_companies_to_db(bx24, filter_data, total=0, count=0, id_start=0):
         count += 50
         id_start = companies_list[-1].get("ID")
         for company in companies_list:
-            print("INPUT: ", company.get("ID"))
+            # print("INPUT: ", company.get("ID"))
             res = save_company.add_company_drf(company)
-            print("OUTPUT: ", res)
+            # print("OUTPUT: ", res)
 
         print(f"Получено {count} из {total}")
         save_companies_to_db(bx24, filter_data, total, count, id_start)
