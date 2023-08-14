@@ -53,7 +53,7 @@ def update_company_drf(company):
     # if company.get("inn") is not None:
     # if "inn" in company:
     #     company["inn"] = company["inn"] if company["inn"] else ""
-    company["inn"] = company.get("inn") if company["inn"] else ""
+    company["inn"] = company.get("inn") if company.get("inn") else ""
     # if company.get("UF_CRM_1640828035") is not None:
     if "UF_CRM_1640828035" in company:
         company["sector"] = company.get("UF_CRM_1640828035") or None
