@@ -4,22 +4,25 @@ sys.setrecursionlimit(3000)
 from .. import save_deal
 
 
-def save_to_db(bx24):
-    total_deals = get_total(bx24, "crm.deal.list", {">DATE_CREATE": "2023-04-15"})
-    save_deals_to_db(bx24, total_deals)
+def save_to_db(bx24, data):
+    # total_deals = get_total(bx24, "crm.deal.list", {">DATE_CREATE": "2023-04-15"})
+    total_deals = get_total(bx24, "crm.deal.list", data)
+    save_deals_to_db(bx24, data, total_deals)
 
 
-def save_deals_to_db(bx24, total=0, count=0, id_start=0):
+def save_deals_to_db(bx24, filter_data, total=0, count=0, id_start=0):
+    filter_data[">ID"] = id_start
     params = {
         "select": [
             "CATEGORY_ID", "UF_CRM_1610523951", "TITLE", "ID", "DATE_CREATE", "DATE_MODIFY", "CLOSEDATE",
             "CLOSED", "OPPORTUNITY", "UF_CRM_1575629957086", "UF_CRM_1575375338", "COMPANY_ID", "STAGE_ID"
         ],
-        "filter": {
-            ">ID": id_start,
-            ">DATE_CREATE": "2023-04-15",
-            # "<DATE_CREATE": None
-        },
+        "filter": filter_data,
+        # "filter": {
+        #     ">ID": id_start,
+        #     ">DATE_CREATE": "2023-04-15",
+        #     # "<DATE_CREATE": None
+        # },
         "order": {"ID": "ASC"},
         "start": -1
     }
@@ -31,13 +34,13 @@ def save_deals_to_db(bx24, total=0, count=0, id_start=0):
         id_start = deals_list[-1].get("ID")
         for deal in deals_list:
             res = save_deal.add_deal_drf(deal)
-            if res:
-                print("INPUT: ", deal)
-                # print("INPUT: ", deal.get("ID"))
-                print("OUTPUT: ", res)
+            # if res:
+            #     print("INPUT: ", deal)
+            #     # print("INPUT: ", deal.get("ID"))
+            #     print("OUTPUT: ", res)
 
         print(f"Получено {count} из {total}")
-        save_deals_to_db(bx24, total, count, id_start)
+        save_deals_to_db(bx24, filter_data, total, count, id_start)
 
 
 # def create_or_update_deals(begin_date=None, end_date=None):

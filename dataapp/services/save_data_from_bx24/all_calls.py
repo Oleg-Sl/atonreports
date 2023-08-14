@@ -4,22 +4,25 @@ sys.setrecursionlimit(11000)
 from .. import save_call
 
 
-def save_to_db(bx24):
-    total_calls = get_total(bx24, "voximplant.statistic.get", {">CALL_START_DATE": "2023-02-08"})
-    save_calls_to_db(bx24, total_calls)
+def save_to_db(bx24, data):
+    # total_calls = get_total(bx24, "voximplant.statistic.get", {">CALL_START_DATE": "2023-02-08"})
+    total_calls = get_total(bx24, "voximplant.statistic.get", data)
+    save_calls_to_db(bx24, data, total_calls)
 
 
-def save_calls_to_db(bx24, total=0, count=0, id_start=0):
+def save_calls_to_db(bx24, filter_data, total=0, count=0, id_start=0):
+    filter_data[">ID"] = id_start
     params = {
         "select": [
             "ID", "CALL_ID", "CALL_TYPE", "PHONE_NUMBER", "CALL_DURATION",
             "CALL_START_DATE", "CRM_ACTIVITY_ID", "PORTAL_USER_ID"
         ],
-        "FILTER": {
-            ">ID": id_start,
-            ">CALL_START_DATE": "2023-02-08",
-            # "<CALL_START_DAeTE": "2022-01-01",
-        },
+        "filter": filter_data,
+        # "FILTER": {
+        #     ">ID": id_start,
+        #     ">CALL_START_DATE": "2023-02-08",
+        #     # "<CALL_START_DAeTE": "2022-01-01",
+        # },
         "SORT": "ID",
         "ORDER": "ASC",
         "start": -1
@@ -31,12 +34,12 @@ def save_calls_to_db(bx24, total=0, count=0, id_start=0):
         id_start = calls_list[-1].get("ID")
         for call in calls_list:
             res = save_call.add_call_drf(call)
-            if res:
-                print("INPUT: ", call)
-                print("OUTPUT: ", res)
+            # if res:
+            #     print("INPUT: ", call)
+            #     print("OUTPUT: ", res)
 
         print(f"Получено {count} из {total}")
-        save_calls_to_db(bx24, total, count, id_start)
+        save_calls_to_db(bx24, filter_data, total, count, id_start)
 
 
 def get_total(bx24, method, filter_field={}):
