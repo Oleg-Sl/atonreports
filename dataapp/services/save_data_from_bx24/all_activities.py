@@ -5,24 +5,28 @@ sys.setrecursionlimit(8000)
 from .. import save_activity
 
 
-def save_to_db(bx24):
-    total_activities = get_total(bx24, "crm.activity.list", {"TYPE_ID": "2", ">CREATED": "2023-02-08"})
-    save_activities_to_db(bx24, total_activities)
+def save_to_db(bx24, data):
+    data["TYPE_ID"] = "2"
+    # total_activities = get_total(bx24, "crm.activity.list", {"TYPE_ID": "2", ">CREATED": "2023-02-08"})
+    total_activities = get_total(bx24, "crm.activity.list", data)
+    save_activities_to_db(bx24, data, total_activities)
 
 
-def save_activities_to_db(bx24, total=0, count=0, id_start=0):
+def save_activities_to_db(bx24, filter_data, total=0, count=0, id_start=0):
+    filter_data[">ID"] = id_start
     params = {
         "select": [
             "ID", "COMPLETED", "DIRECTION", "TYPE_ID", "STATUS", "OWNER_TYPE_ID",
             "OWNER_ID", "CREATED", "END_TIME", "RESPONSIBLE_ID"
         ],
-        "filter": {
-            # "TYPE_ID": "1",
-            # "TYPE_ID": "2",
-            ">ID": id_start,
-            ">CREATED": "2023-01-01",
-            "<CREATED": "2023-02-15"
-        },
+        "filter": filter_data,
+        # "filter": {
+        #     # "TYPE_ID": "1",
+        #     # "TYPE_ID": "2",
+        #     ">ID": id_start,
+        #     ">CREATED": "2023-01-01",
+        #     "<CREATED": "2023-02-15"
+        # },
         "order": {"ID": "ASC"},
         "start": -1
     }
@@ -34,12 +38,12 @@ def save_activities_to_db(bx24, total=0, count=0, id_start=0):
         for activity in activities_list:
             activity.update(activities_company_.get(activity.get("ID")))
             res = save_activity.add_activity_drf(activity)
-            if res:
-                print("INPUT: ", activity)
-                print("OUTPUT: ", res)
+            # if res:
+            #     print("INPUT: ", activity)
+            #     print("OUTPUT: ", res)
 
         print(f"Получено {count} из {total}")
-        save_activities_to_db(bx24, total, count, id_start)
+        save_activities_to_db(bx24, filter_data, total, count, id_start)
 
 
 def get_companies_for_activities(bx24, activities_data):
