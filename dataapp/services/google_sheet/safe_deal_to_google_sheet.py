@@ -166,7 +166,7 @@ def get_row_for_insert_to_google(deal):
         deal.get("company") or "",
         deal.get("assigned") or "",
         deal.get("rop") or "",
-        f"https://atonlab.bitrix24.ru/crm/deal/details/{deal.get('ID')}/",
+        f"https://b24.atonlab.ru/crm/deal/details/{deal.get('ID')}/",
         float(deal.get("UF_CRM_1619591604401")) if deal.get("UF_CRM_1619591604401") else 0,
         get_payment(deal.get("UF_CRM_1575375338"))  or 0,
         date_obj_payment.strftime("%d.%m.%Y") if date_obj_payment else "",
