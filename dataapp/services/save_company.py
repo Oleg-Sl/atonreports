@@ -99,6 +99,15 @@ def update_company_drf(company):
         return serializer.errors
 
 
+def update_companies(companies_ids_bx24):
+    companies_ids = Company.objects.values_list("ID", flat=True)
+    print(companies_ids)
+    print(len(companies_ids))
+    # return companies_ids
+
+
+
+
 # def create_or_update_company(company_data, inn=None, address={}, active=True):
 #     """ Сохранение компании из BX24 """
 #     data = {}
