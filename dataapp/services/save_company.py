@@ -103,8 +103,13 @@ def update_companies(companies_ids_bx24):
     companies_ids = Company.objects.values_list("ID", flat=True)
     print(companies_ids)
     print(len(companies_ids))
-    # return companies_ids
-
+    count = 0
+    for company_id in companies_ids:
+        count += 1
+        print(count)
+        if str(company_id) in companies_ids_bx24:
+            continue
+        Company.objects.filter(ID=company_id).update(active=False)
 
 
 
