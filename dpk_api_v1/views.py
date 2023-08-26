@@ -187,7 +187,7 @@ class RequisitesCityCompanyViewSet(viewsets.ModelViewSet):
 
 
 class StatisticCompanyViewSet(viewsets.GenericViewSet):
-    queryset = Company.objects.all()
+    queryset = Company.objects.filter(active=True)
     serializer_class = StatisticCompanySerializer
     pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
