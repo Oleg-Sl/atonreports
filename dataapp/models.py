@@ -109,7 +109,7 @@ class Company(models.Model):
     profit = models.DecimalField(verbose_name='Чистая прибыль', max_digits=15, decimal_places=2, default=0, blank=True, null=True)
     active = models.BooleanField(verbose_name='Компания активна (не удалена)', default=True, db_index=True)
 
-    inn = models.CharField(verbose_name='ИНН компании', max_length=15, db_index=True, default="")
+    inn = models.CharField(verbose_name='ИНН компании', max_length=15, db_index=True)
     requisite_region = models.CharField(verbose_name='Реквизит - район', max_length=150, blank=True, null=True, db_index=True)
     requisites_city = models.CharField(verbose_name='Реквизит - город', max_length=750, blank=True, null=True, db_index=True)
     requisites_province = models.CharField(verbose_name='Реквизит - область', max_length=150, blank=True, null=True, db_index=True)
