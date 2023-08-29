@@ -55,10 +55,11 @@ class Command(BaseCommand):
                 #     print("OUTPUT: ", res)
         else:
             for company_id_ in companies_ids:
-                res = save_company.update_company_drf({
-                    "ID": company_id_,
-                    "active": active
-                })
+                res = save_company.change_active_companies(company_id_, active)
+                # res = save_company.update_company_drf({
+                #     "ID": company_id_,
+                #     "active": active
+                # })
                 print("OUTPUT: ", res)
 
         # если извлекли не все данные из очереди событий

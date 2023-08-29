@@ -99,6 +99,10 @@ def update_company_drf(company):
         return serializer.errors
 
 
+def change_active_companies(company_id, active):
+    return Company.objects.filter(ID=company_id).update(active=active)
+
+
 def update_companies(companies_ids_bx24):
     companies_ids = Company.objects.values_list("ID", flat=True)
     print(companies_ids)
