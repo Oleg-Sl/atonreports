@@ -82,9 +82,9 @@ def update_company_drf(company):
 
     exist_obj = Company.objects.filter(ID=company.get("ID", None)).first()
     if exist_obj:
-        company["date_last_communication"] = "2000-02-06T04:55:58+03:00"
-        company["summa_by_company_success"] = 0
-        company["summa_by_company_work"] = 0
+        # company["date_last_communication"] = "2000-02-06T04:55:58+03:00"
+        # company["summa_by_company_success"] = 0
+        # company["summa_by_company_work"] = 0
         serializer = CompanySerializer(exist_obj, data=company)
         if serializer.is_valid():
             serializer.save()
@@ -92,6 +92,9 @@ def update_company_drf(company):
             # return
         return serializer.errors
     else:
+        company["date_last_communication"] = "2000-02-06T04:55:58+03:00"
+        company["summa_by_company_success"] = 0
+        company["summa_by_company_work"] = 0
         serializer = CompanySerializer(data=company)
         if serializer.is_valid():
             serializer.save()
@@ -124,6 +127,12 @@ def update_companies_dpk():
         if max_call_start_date:
             Company.objects.filter(pk=company_pk).update(date_last_communication=max_call_start_date.isoformat())
             print(company_pk)
+
+# def update_companies_dpk():
+#     companies_ids = Company.objects.values_list("pk", flat=True)
+#
+# 2000-02-06T04:55:58+03:00
+
 
 # def create_or_update_company(company_data, inn=None, address={}, active=True):
 #     """ Сохранение компании из BX24 """
