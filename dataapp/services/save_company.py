@@ -121,7 +121,7 @@ def update_companies_dpk():
     companies_ids = Company.objects.values_list("pk", flat=True)
     for company_pk in companies_ids:
         max_call_start_date = Activity.objects.filter(COMPANY_ID=company_pk).aggregate(max_call_date=models.Max('CALL_START_DATE'))["max_call_date"]
-        Company.objects.get(pk=company_pk).update(date_last_communication=max_call_start_date.isoformat())
+        Company.objects.filter(pk=company_pk).update(date_last_communication=max_call_start_date.isoformat())
         print(company_pk)
 
 # def create_or_update_company(company_data, inn=None, address={}, active=True):
