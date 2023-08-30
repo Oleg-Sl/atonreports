@@ -329,10 +329,25 @@ def post_save_activity(instance, **kwargs):
     # Добавление даты последней коммуникации с компанией
     if instance.COMPANY_ID:
         company_obj_ = Company.objects.filter(pk=instance.COMPANY_ID.pk).first()
-        if company_obj_ and instance.CALL_START_DATE:
-            if not company_obj_.date_last_communication or company_obj_.date_last_communication < instance.CALL_START_DATE:
-                company_obj_.date_last_communication = instance.CALL_START_DATE
-                company_obj_.save()
+        # if company_obj_ and instance.CALL_START_DATE:
+        #     if not company_obj_.date_last_communication or company_obj_.date_last_communication < instance.CALL_START_DATE:
+        #         company_obj_.date_last_communication = instance.CALL_START_DATE
+        #         company_obj_.save()
+        if company_obj_:
+            # company_obj_ = Company.objects.filter(ID=25349).first()
+            max_call_start_date = Activity.objects.filter(COMPANY_ID=company_obj_.pk).aggregate(max_call_date=models.Max('CALL_START_DATE'))["max_call_date"]
+            company_obj_.date_last_communication = max_call_start_date
+            company_obj_.save()
+
+            # company_obj_.date_last_communication = instance.CALL_START_DATE
+            # Activity.objects.filter(COMPANY_ID__ID=25349).aggregate(max_call_date=models.Max('CALL_START_DATE')).values()
+            # max_call_start_date = company_obj_.activity.aggregate(max_call_date=models.Max('CALL_START_DATE'))
+            # company_obj_.date_last_communication = max_call_start_date
+            # company_obj_.save()
+            # Company.objects.filter(pk=25349).first()
+# company_obj_ = Company.objects.filter(pk=25349).aggregate(max_call_date=models.Max('activity__CALL_START_DATE'))
+
+
     # phone_obj_ = Phone.objects.filter(CRM_ACTIVITY_ID=instance.ID).first()
     # if not phone_obj_ or not phone_obj_.CRM_ACTIVITY_ID:
     #     phone_obj_.CRM_ACTIVITY_ID
