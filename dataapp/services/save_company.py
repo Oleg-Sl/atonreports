@@ -1,5 +1,6 @@
 from dataapp.models import Activity, Stage, Deal, Direction, User, Company
 from ..serializers import CompanySerializer
+from django.db import models
 
 
 def add_company_drf(company):
@@ -116,6 +117,12 @@ def update_companies(companies_ids_bx24):
         Company.objects.filter(ID=company_id).update(active=False)
 
 
+def update_companies_dpk():
+    companies_ids = Company.objects.values_list("pk", flat=True)
+    for company_pk in companies_ids:
+        max_call_start_date = Activity.objects.filter(COMPANY_ID=company_pk).aggregate(max_call_date=models.Max('CALL_START_DATE'))["max_call_date"]
+        Company.objects.get(ID=company_pk).update(date_last_communication=max_call_start_date.isoformat())
+        print(company_pk)
 
 # def create_or_update_company(company_data, inn=None, address={}, active=True):
 #     """ Сохранение компании из BX24 """
