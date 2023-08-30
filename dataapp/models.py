@@ -336,7 +336,7 @@ def post_save_activity(instance, **kwargs):
         if company_obj_:
             # company_obj_ = Company.objects.filter(ID=25349).first()
             max_call_start_date = Activity.objects.filter(COMPANY_ID=company_obj_.pk).aggregate(max_call_date=models.Max('CALL_START_DATE'))["max_call_date"]
-            company_obj_.date_last_communication = max_call_start_date
+            company_obj_.date_last_communication = max_call_start_date.isoformat()
             company_obj_.save()
 
             # company_obj_.date_last_communication = instance.CALL_START_DATE
