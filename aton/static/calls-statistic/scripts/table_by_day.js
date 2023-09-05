@@ -122,15 +122,15 @@ export default class TableByDay {
 
         // обработчик вертикального скролла страницы - залипание первой строки таблицы
         document.addEventListener("scroll", (e) => requestAnimationFrame(() => {
-            let offsetTop = $(document).scrollTop();
-            if (this.container.offsetTop < offsetTop) {
-                $('#tableStatisticDay th').css({
-                    "top": offsetTop - this.container.offsetTop
-                })
-            }
-            else {
-                $('#tableStatisticDay th').css({"top": 0})
-            }
+            // let offsetTop = $(document).scrollTop();
+            // if (this.container.offsetTop < offsetTop) {
+            //     $('#tableStatisticDay th').css({
+            //         "top": offsetTop - this.container.offsetTop
+            //     })
+            // }
+            // else {
+            //     $('#tableStatisticDay th').css({"top": 0})
+            // }
         }))
 
     }
@@ -406,22 +406,22 @@ export default class TableByDay {
     }
 
     stickyFirstLine() {
-        requestAnimationFrame(tick);
-        let table = this.container;
-        function tick(timestamp) {
-            // let elem = document.getElementsByTagName("table")[0];
-            let offsetTop = $(document).scrollTop();
-            if (table.offsetTop < offsetTop) {
-                $('#tableStatisticDay th').css({
-                    "top": offsetTop - table.offsetTop
-                })
-            }
-            else {
-                $('#tableStatisticDay th').css({"top": 0})
-            }
+        // requestAnimationFrame(tick);
+        // let table = this.container;
+        // function tick(timestamp) {
+        //     // let elem = document.getElementsByTagName("table")[0];
+        //     let offsetTop = $(document).scrollTop();
+        //     if (table.offsetTop < offsetTop) {
+        //         $('#tableStatisticDay th').css({
+        //             "top": offsetTop - table.offsetTop
+        //         })
+        //     }
+        //     else {
+        //         $('#tableStatisticDay th').css({"top": 0})
+        //     }
 
-            requestAnimationFrame(tick);
-        }
+        //     requestAnimationFrame(tick);
+        // }
     }
 
     // преобразование объекта даты в строку формата: гггг-мм-дд

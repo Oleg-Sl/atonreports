@@ -43,15 +43,15 @@ export default class TableByMonth {
         });
         // обработчик вертикального скролла страницы - залипание первой строки таблицы
         document.addEventListener("scroll", (e) => requestAnimationFrame(() => {
-            let offsetTop = $(document).scrollTop();
-            if (this.container.offsetTop < offsetTop) {
-                $('#tableStatisticCompaniesCalls th').css({
-                    "top": offsetTop - this.container.offsetTop
-                })
-            }
-            else {
-                $('#tableStatisticCompaniesCalls th').css({"top": 0})
-            }
+            // let offsetTop = $(document).scrollTop();
+            // if (this.container.offsetTop < offsetTop) {
+            //     $('#tableStatisticCompaniesCalls th').css({
+            //         "top": offsetTop - this.container.offsetTop
+            //     })
+            // }
+            // else {
+            //     $('#tableStatisticCompaniesCalls th').css({"top": 0})
+            // }
         }))
     }
 
@@ -270,22 +270,22 @@ export default class TableByMonth {
 
     // фиксирование заголовка таблицы при вертикальной прокрутке
     stickyFirstLine() {
-        requestAnimationFrame(tick);
-        let table = this.container;
-        function tick(timestamp) {
-            // let elem = document.getElementsByTagName("table")[0];
-            let offsetTop = $(document).scrollTop();
-            if (table.offsetTop < offsetTop) {
-                $('#tableStatisticMonth th').css({
-                    "top": offsetTop - table.offsetTop
-                })
-            }
-            else {
-                $('#tableStatisticMonth th').css({"top": 0})
-            }
+        // requestAnimationFrame(tick);
+        // let table = this.container;
+        // function tick(timestamp) {
+        //     // let elem = document.getElementsByTagName("table")[0];
+        //     let offsetTop = $(document).scrollTop();
+        //     if (table.offsetTop < offsetTop) {
+        //         $('#tableStatisticMonth th').css({
+        //             "top": offsetTop - table.offsetTop
+        //         })
+        //     }
+        //     else {
+        //         $('#tableStatisticMonth th').css({"top": 0})
+        //     }
 
-            requestAnimationFrame(tick);
-        }
+        //     requestAnimationFrame(tick);
+        // }
     }
 
     // преобразование объекта даты в строку формата: гггг-мм-дд
