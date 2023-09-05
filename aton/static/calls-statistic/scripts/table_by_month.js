@@ -1,14 +1,17 @@
 import {
+    templateThead,
     templateColMonthRowOne, 
     templateColMonthRowTwo, 
     templateColMonthRowTree, 
-    templateColMonthRowFour, 
-    templateThead,
+    templateColMonthRowFour,
+
     templateColMonthRowDepart,
     templateRowDepart,
     templateColMonthRowEmploye,
     templateRowEmploye,
 } from './templates/template_table_by_month.js';
+
+
 
 
 export default class TableByMonth {
@@ -77,15 +80,15 @@ export default class TableByMonth {
             let offsetTop = $(document).scrollTop();
             console.log("offsetTop = ", offsetTop);
             console.log("this.container.offsetTop = ", this.container.offsetTop);
-            if (this.container.offsetTop < offsetTop) {
-                console.log("top = ",  offsetTop - this.container.offsetTop);
-                $('#tableStatisticMonth th').css({
-                    "top": offsetTop - this.container.offsetTop
-                })
-            }
-            else {
-                $('#tableStatisticMonth th').css({"top": 0})
-            }
+            // if (this.container.offsetTop < offsetTop) {
+            //     console.log("top = ",  offsetTop - this.container.offsetTop);
+            //     $('#tableStatisticMonth th').css({
+            //         "top": offsetTop - this.container.offsetTop
+            //     })
+            // }
+            // else {
+            //     $('#tableStatisticMonth th').css({"top": 0})
+            // }
         }))
     }
 
