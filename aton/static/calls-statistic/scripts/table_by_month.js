@@ -82,15 +82,15 @@ export default class TableByMonth {
             console.log("this.container.offsetTop = ", this.container.offsetTop);
             console.log("RETURN!!!");
 
-            // if (this.container.offsetTop < offsetTop) {
-            //     console.log("top = ",  offsetTop - this.container.offsetTop);
-            //     $('#tableStatisticMonth th').css({
-            //         "top": offsetTop - this.container.offsetTop
-            //     })
-            // }
-            // else {
-            //     $('#tableStatisticMonth th').css({"top": 0})
-            // }
+            if (this.container.offsetTop < offsetTop) {
+                console.log("top = ",  offsetTop - this.container.offsetTop);
+                $('#tableStatisticMonth th').css({
+                    "top": offsetTop - this.container.offsetTop
+                })
+            }
+            else {
+                $('#tableStatisticMonth th').css({"top": 0})
+            }
         }))
     }
 
