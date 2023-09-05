@@ -75,6 +75,8 @@ export default class TableByMonth {
         // обработчик вертикального скролла страницы - залипание первой строки таблицы
         document.addEventListener("scroll", (e) => requestAnimationFrame(() => {
             let offsetTop = $(document).scrollTop();
+            console.log("offsetTop = ", offsetTop);
+            console.log("this.container.offsetTop = ", this.container.offsetTop);
             if (this.container.offsetTop < offsetTop) {
                 $('#tableStatisticMonth th').css({
                     "top": offsetTop - this.container.offsetTop
