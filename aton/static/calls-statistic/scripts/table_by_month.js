@@ -80,6 +80,8 @@ export default class TableByMonth {
             let offsetTop = $(document).scrollTop();
             console.log("offsetTop = ", offsetTop);
             console.log("this.container.offsetTop = ", this.container.offsetTop);
+            console.log("RETURN!!!");
+
             // if (this.container.offsetTop < offsetTop) {
             //     console.log("top = ",  offsetTop - this.container.offsetTop);
             //     $('#tableStatisticMonth th').css({
