@@ -78,6 +78,7 @@ export default class TableByMonth {
             console.log("offsetTop = ", offsetTop);
             console.log("this.container.offsetTop = ", this.container.offsetTop);
             if (this.container.offsetTop < offsetTop) {
+                console.log("top = ",  offsetTop - this.container.offsetTop);
                 $('#tableStatisticMonth th').css({
                     "top": offsetTop - this.container.offsetTop
                 })
@@ -409,22 +410,22 @@ export default class TableByMonth {
 
     // фиксирование заголовка таблицы при вертикальной прокрутке
     stickyFirstLine() {
-        requestAnimationFrame(tick);
-        let table = this.container;
-        function tick(timestamp) {
-            // let elem = document.getElementsByTagName("table")[0];
-            let offsetTop = $(document).scrollTop();
-            if (table.offsetTop < offsetTop) {
-                $('#tableStatisticMonth th').css({
-                    "top": offsetTop - table.offsetTop
-                })
-            }
-            else {
-                $('#tableStatisticMonth th').css({"top": 0})
-            }
+        // requestAnimationFrame(tick);
+        // let table = this.container;
+        // function tick(timestamp) {
+        //     // let elem = document.getElementsByTagName("table")[0];
+        //     let offsetTop = $(document).scrollTop();
+        //     if (table.offsetTop < offsetTop) {
+        //         $('#tableStatisticMonth th').css({
+        //             "top": offsetTop - table.offsetTop
+        //         })
+        //     }
+        //     else {
+        //         $('#tableStatisticMonth th').css({"top": 0})
+        //     }
 
-            requestAnimationFrame(tick);
-        }
+        //     requestAnimationFrame(tick);
+        // }
     }
 
     // преобразование объекта даты в строку формата: гггг-мм-дд
