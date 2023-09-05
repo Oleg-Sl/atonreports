@@ -51,8 +51,8 @@ export default class TableByDay {
         this.initHandler();
         // инициализация события перетаскивания таблицы по левой кнопке мыши
         this.handlerDragnDrop();
-        // фиксирование первой строки таблицы
-        this.stickyFirstLine();
+        // // фиксирование первой строки таблицы
+        // this.stickyFirstLine();
 
     }
 
@@ -119,6 +119,19 @@ export default class TableByDay {
                 this.infoData.render(coordinates, userId, date, date, this.duration, cellMetData);  
             }
         })
+
+        // обработчик вертикального скролла страницы - залипание первой строки таблицы
+        document.addEventListener("scroll", (e) => requestAnimationFrame(() => {
+            let offsetTop = $(document).scrollTop();
+            if (this.container.offsetTop < offsetTop) {
+                $('#tableStatisticDay th').css({
+                    "top": offsetTop - this.container.offsetTop
+                })
+            }
+            else {
+                $('#tableStatisticDay th').css({"top": 0})
+            }
+        }))
 
     }
 

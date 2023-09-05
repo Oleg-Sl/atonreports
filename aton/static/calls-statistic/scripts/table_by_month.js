@@ -28,9 +28,8 @@ export default class TableByMonth {
         this.initHandler();
         // инициализация события перетаскивания таблицы по левой кнопке мыши
         this.handlerDragnDrop();
-        // фиксирование первой строки таблицы
-        this.stickyFirstLine();
-        
+        // // фиксирование первой строки таблицы
+        // this.stickyFirstLine();
     }
 
     initHandler() {
@@ -73,6 +72,18 @@ export default class TableByMonth {
                 this.infoData.render(coordinates, userId, dateStart, dateEnd, this.duration, cellMetData);         // вывод окна с комментариями и звонками
             }
         })
+        // обработчик вертикального скролла страницы - залипание первой строки таблицы
+        document.addEventListener("scroll", (e) => requestAnimationFrame(() => {
+            let offsetTop = $(document).scrollTop();
+            if (this.container.offsetTop < offsetTop) {
+                $('#tableStatisticMonth th').css({
+                    "top": offsetTop - this.container.offsetTop
+                })
+            }
+            else {
+                $('#tableStatisticMonth th').css({"top": 0})
+            }
+        }))
     }
 
     // проверка допуска на редактирование данных таблицы
