@@ -49,7 +49,7 @@ export default class TableByMonth {
             let offsetTop = $(document).scrollTop();
             if (this.container.offsetTop < offsetTop) {
                 $('#tableStatisticCompaniesCalls th').css({
-                    "top": offsetTop - elem.offsetTop
+                    "top": offsetTop - this.container.offsetTop
                 })
             }
             else {
