@@ -41,6 +41,19 @@ export default class TableByMonth {
                 "left": offsetLeft
             })
         });
+        // обработчик вертикального скролла страницы - залипание первой строки таблицы
+        document.addEventListener("scroll", (e) => requestAnimationFrame(() => {
+            let elem = this.container.getElementsByTagName("table")[0];
+            let offsetTop = $(document).scrollTop();
+            if (elem.offsetTop < offsetTop) {
+                $('#tableStatisticCompaniesCalls th').css({
+                    "top": offsetTop - elem.offsetTop
+                })
+            }
+            else {
+                $('#tableStatisticCompaniesCalls th').css({"top": 0})
+            }
+        }))
     }
 
     // обновление данных таблицы
