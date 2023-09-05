@@ -122,15 +122,15 @@ export default class TableByDay {
 
         // обработчик вертикального скролла страницы - залипание первой строки таблицы
         document.addEventListener("scroll", (e) => requestAnimationFrame(() => {
-            // let offsetTop = $(document).scrollTop();
-            // if (this.container.offsetTop < offsetTop) {
-            //     $('#tableStatisticDay th').css({
-            //         "top": offsetTop - this.container.offsetTop
-            //     })
-            // }
-            // else {
-            //     $('#tableStatisticDay th').css({"top": 0})
-            // }
+            let offsetTop = $(document).scrollTop();
+            if (this.container.offsetTop < offsetTop) {
+                $('#tableStatisticDay th').css({
+                    "top": offsetTop - this.container.offsetTop
+                })
+            }
+            else {
+                $('#tableStatisticDay th').css({"top": 0})
+            }
         }))
 
     }
