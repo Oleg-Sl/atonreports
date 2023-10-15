@@ -21,7 +21,11 @@ class Auth {
             let username = await this.storageGetUsername();
             let password = await this.storageGetPassword();
             // регистрация пользователя
-            let userRegistration = await this.serverRegistrationUser(username, password);
+            try {
+                let userRegistration = await this.serverRegistrationUser(username, password);
+            } catch (err) {
+                console.error(err);
+            }
             // создание токенов доступа и обновления
             let tokens = await this.serverCreateToken(username, password);
             // сохранениние созданных токенов в хранилище
