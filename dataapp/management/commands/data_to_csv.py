@@ -21,7 +21,7 @@ class Command(BaseCommand):
     help = 'Save data to csv file'
 
     def handle(self, *args, **kwargs):
-        queriset = Company.objects.filter(active=True, ID=146).prefetch_related('deal__direction').values(
+        queriset = Company.objects.filter(active=True).prefetch_related('deal__direction').values(
         'ID', 'TITLE', 'sector', 'region', 'requisite_region', 'number_employees', 'REVENUE', 'inn', 'deal__direction__VALUE'
         ).annotate(
             date_last_modify=models.Max("deal__DATE_MODIFY"),
