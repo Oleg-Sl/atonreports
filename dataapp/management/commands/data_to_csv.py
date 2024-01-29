@@ -54,7 +54,10 @@ class Command(BaseCommand):
                 'deal__direction__VALUE', 'date_last_modify', 'count_deals_in_work', 'count_deals_success',
                 'opportunity_success', 'opportunity_work'
             ]
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+            # writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=';')
+
 
             writer.writeheader()
 
