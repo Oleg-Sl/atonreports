@@ -34,6 +34,10 @@ def add_deal_drf(deal):
         try:
             serializer.save()
         except Exception as err:
+            if exist_obj:
+                print("+")
+            else:
+                print("-")
             return err
         # return serializer.data
         return
@@ -77,10 +81,7 @@ def update_deal_drf(deal):
         try:
             serializer.save()
         except Exception as err:
-            if exist_obj:
-                print("+")
-            else:
-                print("-")
+
             return err
         # return serializer.data
         return
