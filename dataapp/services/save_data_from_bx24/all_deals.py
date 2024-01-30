@@ -87,5 +87,6 @@ def get_total(bx24, method, filter_field={}):
         "FILTER": filter_field,
     }
     response = bx24.call(method, params)
+    print(response)
     return response.get("total")
 
