@@ -3,6 +3,7 @@ import csv
 import datetime
 from django.db import models
 from django.db.models import Sum, Count, F
+from django.db.models.functions import Concat
 from dataapp.models import (
     User,
     Direction,
@@ -21,28 +22,31 @@ class Command(BaseCommand):
     help = 'Save data to csv file'
 
     def handle(self, *args, **kwargs):
-        queriset = Company.objects.filter(active=True).prefetch_related('deal__direction').values(
-        'ID', 'TITLE', 'sector', 'region', 'requisite_region', 'number_employees', 'REVENUE', 'inn', 'deal__direction__VALUE'
+        queryset = Company.objects.filter(active=True).prefetch_related('deal__direction').values(
+            'ID', 'TITLE', 'sector', 'region', 'requisite_region', 'number_employees', 'REVENUE', 'inn', 'date_last_communication', 'ASSIGNED_BY_ID__ID', 'deal__direction__VALUE'
         ).annotate(
+            manager=Concat(
+                models.F('ASSIGNED_BY_ID__LAST_NAME'), models.Value(' '), models.F('ASSIGNED_BY_ID__NAME'), output_field=models.CharField()
+            ),
             date_last_modify=models.Max("deal__DATE_MODIFY"),
             count_deals_in_work=models.Count("pk", filter=models.Q(deal__CLOSED=False)),
             count_deals_success=models.Count("pk", filter=models.Q(deal__CLOSED=True)),
             opportunity_success=models.Subquery(
-                            Company.statistic.filter(
-                                ID=models.OuterRef('ID'),
-                                deal__direction__ID=models.OuterRef('deal__direction__ID'),
-                                deal__stage__status="WON"
-                            ).annotate(
-                                s=models.Sum('deal__opportunity')
-                            ).values('s')[:1]
-                        ),
+                Company.statistic.filter(
+                    ID=models.OuterRef('ID'),
+                    deal__direction__ID=models.OuterRef('deal__direction__ID'),
+                    deal__stage__status="WON"
+                ).annotate(
+                    s=models.Sum('deal__opportunity')
+                ).values('s')[:1]
+            ),
             opportunity_work=models.Subquery(
                 Company.statistic.filter(
-                ID=models.OuterRef('ID'),
-                deal__direction__ID=models.OuterRef('deal__direction__ID'),
-                deal__stage__status="WORK"
+                    ID=models.OuterRef('ID'),
+                    deal__direction__ID=models.OuterRef('deal__direction__ID'),
+                    deal__stage__status="WORK"
                 ).annotate(
-                s=models.Sum('deal__opportunity')
+                    s=models.Sum('deal__opportunity')
                 ).values('s')[:1]
             ),
         )
@@ -61,7 +65,7 @@ class Command(BaseCommand):
 
             writer.writeheader()
 
-            for row in queriset:
+            for row in queryset:
                 writer.writerow(row)
 
     def generate_filename(self):
