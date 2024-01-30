@@ -34,7 +34,8 @@ def add_deal_drf(deal):
         try:
             serializer.save()
         except Exception as err:
-            print(deal.get("ID", None))
+            print("ID = ", deal.get("ID", None))
+            print("id = ", deal.get("id", None))
             return err
         # return serializer.data
         return
