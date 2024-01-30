@@ -29,6 +29,7 @@ def save_deals_to_db(bx24, filter_data, total=0, count=0, id_start=0):
     }
 
     deals_list = bx24.call("crm.deal.list", params).get("result")
+    print(deals_list)
 
     if deals_list and isinstance(deals_list, list):
         count += 50
