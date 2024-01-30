@@ -7,6 +7,7 @@ from .. import save_deal
 def save_to_db(bx24, data):
     # total_deals = get_total(bx24, "crm.deal.list", {">DATE_CREATE": "2023-04-15"})
     total_deals = get_total(bx24, "crm.deal.list", data)
+    print(total_deals)
     save_deals_to_db(bx24, data, total_deals)
 
 
