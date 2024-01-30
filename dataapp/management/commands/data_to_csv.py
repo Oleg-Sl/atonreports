@@ -55,7 +55,8 @@ class Command(BaseCommand):
         with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
             fieldnames = [
                 'ID', 'TITLE', 'sector', 'region', 'requisite_region', 'number_employees', 'REVENUE', 'inn',
-                'deal__direction__VALUE', 'date_last_modify', 'count_deals_in_work', 'count_deals_success',
+                'date_last_communication', 'ASSIGNED_BY_ID__ID',
+                'deal__direction__VALUE', 'manager', 'date_last_modify', 'count_deals_in_work', 'count_deals_success',
                 'opportunity_success', 'opportunity_work'
             ]
 
