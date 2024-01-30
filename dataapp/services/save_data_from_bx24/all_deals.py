@@ -33,6 +33,7 @@ def save_deals_to_db(bx24, filter_data, total=0, count=0, id_start=0):
         count += 50
         id_start = deals_list[-1].get("ID")
         for deal in deals_list:
+            deal['active'] = True
             res = save_deal.add_deal_drf(deal)
             # if res:
             #     print("INPUT: ", deal)
