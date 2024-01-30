@@ -35,12 +35,12 @@ def save_deals_to_db(bx24, filter_data, total=0, count=0, id_start=0):
         for deal in deals_list:
             deal['active'] = True
             res = save_deal.add_deal_drf(deal)
-            if res:
+            # if res:
                 # print("INPUT: ", deal)
                 # print("INPUT: ", deal.get("ID"))
-                print("OUTPUT=> ", res)
+                # print("OUTPUT=> ", res)
 
-        # print(f"Получено {count} из {total}")
+        print(f"Получено {count} из {total}")
         save_deals_to_db(bx24, filter_data, total, count, id_start)
 
 
