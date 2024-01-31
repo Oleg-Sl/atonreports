@@ -22,7 +22,7 @@ class Command(BaseCommand):
     help = 'Save data to csv file'
 
     def handle(self, *args, **kwargs):
-        queryset = Company.objects.filter(active=True).prefetch_related('deal__direction').values(
+        queryset = Company.objects.filter(active=True, deal__direction__ID=43).prefetch_related('deal__direction').values(
             'ID', 'TITLE', 'sector', 'region', 'requisite_region', 'number_employees', 'REVENUE', 'inn', 'date_last_communication', 'ASSIGNED_BY_ID__ID', 'deal__direction__VALUE'
         ).annotate(
             manager=Concat(
