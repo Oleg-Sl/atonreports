@@ -55,7 +55,7 @@ class Bitrix24:
             }
             r = post(url, data=json.dumps(params), headers=headers, timeout=self.timeout)
             result = json.loads(r.text)
-            print(result)
+            # print(result)
         except ValueError:
             pass
             result = dict(error='Error on decode api response [%s]' % r.text)

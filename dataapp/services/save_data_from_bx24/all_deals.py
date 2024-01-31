@@ -1,4 +1,5 @@
 import sys
+import time
 sys.setrecursionlimit(3000)
 
 from .. import save_deal
@@ -45,6 +46,7 @@ def save_deals_to_db(bx24, filter_data, total=0, count=0, id_start=0):
                 # print("OUTPUT=> ", res)
 
         print(f"Получено {count} из {total}")
+        time.sleep(0.4)
         save_deals_to_db(bx24, filter_data, total, count, id_start)
 
 
