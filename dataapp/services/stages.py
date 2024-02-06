@@ -9,7 +9,7 @@ def get_data_stages(bx24):
     for directions_obj in directions_list:
         cmd[directions_obj.ID] = f"crm.status.list?filter[CATEGORY_ID]={directions_obj.ID}"
 
-    cmd["0"] = f"crm.status.list?qwfilter[ENTITY_ID]=DEAL_STAGE"
+    cmd["0"] = f"crm.status.list?filter[ENTITY_ID]=DEAL_STAGE"
 
     response = bx24.call("batch", {
         "halt": 0,

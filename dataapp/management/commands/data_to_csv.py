@@ -29,8 +29,8 @@ class Command(BaseCommand):
                 models.F('ASSIGNED_BY_ID__LAST_NAME'), models.Value(' '), models.F('ASSIGNED_BY_ID__NAME'), output_field=models.CharField()
             ),
             date_last_modify=models.Max("deal__DATE_MODIFY"),
-            count_deals_in_work=models.Count("pk", filter=models.Q(deal__CLOSED=False)),
-            count_deals_success=models.Count("pk", filter=models.Q(deal__CLOSED=True)),
+            count_deals_in_work=models.Count("pk", filter=models.Q(deal__stage__status="WORK")),
+            count_deals_success=models.Count("pk", filter=models.Q(deal__stage__status="WON")),
             opportunity_success=models.Subquery(
                 Company.statistic.filter(
                     ID=models.OuterRef('ID'),

@@ -52,7 +52,7 @@ def update_deal_drf(deal):
         deal["direction"] = direction_obj.pk if direction_obj else None
     if "COMPANY_ID" in deal:
         company_obj = Company.objects.filter(ID=deal.get("COMPANY_ID")).first()
-        deal["company"] =  company_obj.pk if company_obj else None
+        deal["company"] = company_obj.pk if company_obj else None
     if "STAGE_ID" in deal:
         stage_obj = Stage.objects.filter(STATUS_ID=deal.get("STAGE_ID")).first()
         deal["stage"] = stage_obj.pk if stage_obj else None
