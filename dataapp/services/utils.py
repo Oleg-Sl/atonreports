@@ -1,5 +1,3 @@
-import pprint
-
 from bitrix24 import tokens
 
 
@@ -36,4 +34,3 @@ def editing_money_in_number(numb):
 def get_url_user(id_user):
     domain = tokens.get_secret("domain")
     return f"https://{domain}/company/personal/user/{id_user}/"
-

@@ -45,14 +45,11 @@ from dataapp.models import (
 )
 
 from .serializers import (
-#     ActivityFullSerializer,
-#     CallsSerializer,
     UsersUpdateSerializer,
     ActivitySerializer,
     CommentSerializer,
     ProductionCalendarSerializer,
     CallsPlanSerializer,
-#     UsersSerializer,
 )
 
 
@@ -74,7 +71,6 @@ class InstallApiView(views.APIView):
             "application_token": request.query_params.get("APP_SID", ""),
             'client_endpoint': f'https://{request.query_params.get("DOMAIN", "bits24.bitrix24.ru")}/rest/',
         }
-        # print("data = ", data)
         tokens.save_secrets(data)
         return render(request, 'calls-statistic/install.html')
 
@@ -88,15 +84,6 @@ class IndexApiView(views.APIView):
         return render(request, 'calls-statistic/index.html', context={
             "DOMAIN": "https://otchet.atonlab.ru/reports/"
         })
-
-
-# # Обработчик удаления приложения
-# class AppUnistallApiView(views.APIView):
-#     permission_classes = [AllowAny]
-#
-#     @xframe_options_exempt
-#     def post(self, request):
-#         return Response(status.HTTP_200_OK)
 
 
 class UsersDataFilter(filters_drf.FilterSet):
@@ -123,7 +110,6 @@ class UsersViewSet(viewsets.ModelViewSet):
 # Получение звоков за выбранный период
 class CallsViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.filter(
-        # COMPANY_ID__isnull=False,
         TYPE_ID=2,      # только звонки
         DIRECTION=2,    # только исходящие
         active=True
@@ -172,15 +158,12 @@ class CommentViewSet(viewsets.ModelViewSet):
         commentator = User.objects.filter(ID=request.data.get("commentator")).first()
         verified_by_user = User.objects.filter(ID=request.data.get("verified_by_user")).first()
         data = {
-            # "recipient": request.data.get("recipient", instance.recipient.pk),
             "recipient": recipient.pk if recipient else instance.recipient.pk,
-            # "commentator": request.data.get("commentator", instance.commentator.pk),
             "commentator": commentator.pk if commentator else instance.commentator.pk,
             "date_comment": request.data.get("date_comment", instance.date_comment),
             "date_comment_add": request.data.get("date_comment_add", instance.date_comment_add),
             "comment": request.data.get("comment", instance.comment),
             "verified": request.data.get("verified", instance.verified),
-            # "verified_by_user": request.data.get("verified_by_user", instance.verified_by_user),
             "verified_by_user": verified_by_user.pk if verified_by_user else instance.verified_by_user.pk,
             "date_verified": request.data.get("date_verified", instance.date_verified)
         }
@@ -280,10 +263,10 @@ class CallsPlanViewSet(views.APIView):
         return Response(data, status=status.HTTP_200_OK)
 
     def post(self, requests):
-        calendar_date = requests.data.get("calendar", None)  # дата: гггг-мм-дд
-        employee = requests.data.get("employee", None)  # ID работника
-        count_calls = requests.data.get("count_calls", None)  # количество звонков - план
-        all_month = requests.data.get("all_month", True)  # обновить план на весь месяц или один день
+        calendar_date = requests.data.get("calendar", None)     # дата: гггг-мм-дд
+        employee = requests.data.get("employee", None)          # ID работника
+        count_calls = requests.data.get("count_calls", None)    # количество звонков - план
+        all_month = requests.data.get("all_month", True)        # обновить план на весь месяц или один день
 
         if not calendar_date:
             return Response('"calendar": обязательное поле', status=status.HTTP_400_BAD_REQUEST)
@@ -353,8 +336,8 @@ class CallsPlanCompletedViewSet(views.APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        calendar_date = request.data.get("calendar", None)  # дата: гггг-мм-дд
-        employee = request.data.get("employee", None)  # ID работника
+        calendar_date = request.data.get("calendar", None)      # дата: гггг-мм-дд
+        employee = request.data.get("employee", None)           # ID работника
         plan_completed = request.data.get("plan_completed", None)  # план выполнен
 
         if not calendar_date:
@@ -581,7 +564,6 @@ class RationActiveByDayApiView(views.APIView):
 
 class CountsCompanyToCallsByMonthApiView(views.APIView):
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
     def post(self, request):
         departs = request.data.get("depart", "1")
@@ -589,7 +571,6 @@ class CountsCompanyToCallsByMonthApiView(views.APIView):
         duration = request.data.get("duration", 20)
         departments = departs.split(",")
 
-        # получение списка пользователей
         users = common.get_users_by_depeartments(departments)
 
         queryset_count_companies = Activity.objects.select_related("RESPONSIBLE_ID", "COMPANY_ID").filter(
@@ -631,16 +612,12 @@ class CountsCompanyToCallsByMonthApiView(views.APIView):
 
 class CountsCompanyToCallsSummaryApiView(views.APIView):
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
     def post(self, request):
         departs = request.data.get("depart", "1")
         year = request.data.get("year", 2021)
         duration = request.data.get("duration", 20)
         departments = departs.split(",")
-
-        # # получение списка пользователей
-        # users = common.get_users_by_depeartments(departments)
 
         queryset_count_companies = Activity.objects.select_related("RESPONSIBLE_ID", "COMPANY_ID").filter(
             CALL_START_DATE__year=year,
@@ -655,7 +632,6 @@ class CountsCompanyToCallsSummaryApiView(views.APIView):
         ).values_list(
             "RESPONSIBLE_ID__ID", flat=True
         )
-            # .annotate(models.Count("RESPONSIBLE_ID__ID"))
         count_companies_ = Counter(queryset_count_companies)
 
         return Response(count_companies_, status=status.HTTP_200_OK)
@@ -664,7 +640,6 @@ class CountsCompanyToCallsSummaryApiView(views.APIView):
 THREAD_USER_UPDATE = None
 class UserUpdateApiView(views.APIView):
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
     def post(self, request):
         global THREAD_USER_UPDATE

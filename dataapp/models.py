@@ -5,12 +5,9 @@ from django.dispatch import receiver
 
 from .managers import (
     CompanyManager,
-    CompanyQuerySet,
     DealManager,
     CompanyStatisticManager,
     DirectionActualManager,
-    # CompanyNewManager,
-    # CompanyNewQuerySet
 )
 
 
@@ -124,7 +121,6 @@ class Company(models.Model):
                                        related_name='company', blank=True, null=True, db_index=True)
 
     objects = CompanyManager()
-    # objects = CompanyManager.from_queryset(CompanyQuerySet)()
     statistic = CompanyStatisticManager()
 
     def __str__(self):
@@ -242,8 +238,6 @@ class Phone(models.Model):
                                         related_name='phone', blank=True, null=True, db_index=True)
     PORTAL_USER_ID = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.SET_NULL,
                                        related_name='phone', blank=True, null=True, db_index=True)
-    # company = models.ForeignKey(Company, verbose_name='Компания', on_delete=models.CASCADE, related_name='phone',
-    #                             blank=True, null=True)
 
     def __str__(self):
         return self.CALL_ID or "-"
@@ -318,7 +312,6 @@ def post_save_deal(instance, **kwargs):
             summa_success=models.Sum("opportunity", filter=models.Q(stage__status="WON")),
             summa_work=models.Sum("opportunity", filter=models.Q(stage__status="WORK"))
         )
-        # print("deal_aggregate_obj_ = ", deal_aggregate_obj_)
         company_obj_.summa_by_company_success = deal_aggregate_obj_["summa_success"] or 0
         company_obj_.summa_by_company_work = deal_aggregate_obj_["summa_work"] or 0
         company_obj_.save()
@@ -329,29 +322,10 @@ def post_save_activity(instance, **kwargs):
     # Добавление даты последней коммуникации с компанией
     if instance.COMPANY_ID:
         company_obj_ = Company.objects.filter(pk=instance.COMPANY_ID.pk).first()
-        # if company_obj_ and instance.CALL_START_DATE:
-        #     if not company_obj_.date_last_communication or company_obj_.date_last_communication < instance.CALL_START_DATE:
-        #         company_obj_.date_last_communication = instance.CALL_START_DATE
-        #         company_obj_.save()
         if company_obj_:
-            # company_obj_ = Company.objects.filter(ID=25349).first()
             max_call_start_date = Activity.objects.filter(COMPANY_ID=company_obj_.pk).aggregate(max_call_date=models.Max('CALL_START_DATE'))["max_call_date"]
             company_obj_.date_last_communication = max_call_start_date.isoformat()
             company_obj_.save()
-
-            # company_obj_.date_last_communication = instance.CALL_START_DATE
-            # Activity.objects.filter(COMPANY_ID__ID=25349).aggregate(max_call_date=models.Max('CALL_START_DATE')).values()
-            # max_call_start_date = company_obj_.activity.aggregate(max_call_date=models.Max('CALL_START_DATE'))
-            # company_obj_.date_last_communication = max_call_start_date
-            # company_obj_.save()
-            # Company.objects.filter(pk=25349).first()
-# company_obj_ = Company.objects.filter(pk=25349).aggregate(max_call_date=models.Max('activity__CALL_START_DATE'))
-
-
-    # phone_obj_ = Phone.objects.filter(CRM_ACTIVITY_ID=instance.ID).first()
-    # if not phone_obj_ or not phone_obj_.CRM_ACTIVITY_ID:
-    #     phone_obj_.CRM_ACTIVITY_ID
-    #     phone_obj_.save()
 
 
 @receiver(post_save, sender=Phone)

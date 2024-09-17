@@ -49,7 +49,3 @@ class Command(BaseCommand):
                 if res:
                     print("INPUT: ", activity_data)
                     print("OUTPUT: ", res)
-
-    # def get_and_save_company(self, company_id_):
-    #     companies_data_ = get_companies.get_data(self.bx24, [company_id_])
-    #     # companies_data_.

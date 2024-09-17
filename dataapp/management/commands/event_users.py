@@ -3,7 +3,6 @@ from django.core.management.base import BaseCommand
 
 from bitrix24.request import Bitrix24
 from dataapp.services import utils, save_user
-# from dataapp.services.users import add_user_drf
 
 
 LIMIT_EVENTS = 25
@@ -20,5 +19,3 @@ class Command(BaseCommand):
             print("INPUT: ", user)
             res_ = save_user.add_user_drf(user)
             print("OUTPUT: ", res_)
-
-

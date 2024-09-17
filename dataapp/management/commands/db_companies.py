@@ -1,4 +1,3 @@
-import datetime
 from django.core.management.base import BaseCommand
 
 from dataapp.services.save_data_from_bx24 import all_companies
@@ -29,4 +28,3 @@ class Command(BaseCommand):
 
         bx24 = Bitrix24()
         all_companies.save_to_db(bx24, date_create_from, date_create_to, data)
-

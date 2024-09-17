@@ -33,24 +33,6 @@ class Command(BaseCommand):
             count_deals_success=models.Count("pk", filter=models.Q(deal__stage__status="WON")),
             opportunity_success=models.Sum("deal__opportunity", filter=models.Q(deal__stage__status="WON")),
             opportunity_work=models.Sum("deal__opportunity", filter=models.Q(deal__stage__status="WORK")),
-            # opportunity_success=models.Subquery(
-            #     Company.statistic.filter(
-            #         ID=models.OuterRef('ID'),
-            #         deal__direction__ID=models.OuterRef('deal__direction__ID'),
-            #         deal__stage__status="WON"
-            #     ).annotate(
-            #         s=models.Sum('deal__opportunity')
-            #     ).values('s')[:1]
-            # ),
-            # opportunity_work=models.Subquery(
-            #     Company.statistic.filter(
-            #         ID=models.OuterRef('ID'),
-            #         deal__direction__ID=models.OuterRef('deal__direction__ID'),
-            #         deal__stage__status="WORK"
-            #     ).annotate(
-            #         s=models.Sum('deal__opportunity')
-            #     ).values('s')[:1]
-            # ),
         )
 
         csv_file_path = self.generate_filename()
@@ -62,7 +44,6 @@ class Command(BaseCommand):
                 'opportunity_success', 'opportunity_work'
             ]
 
-            # writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=';')
 
 

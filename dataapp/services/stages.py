@@ -1,5 +1,3 @@
-import pprint
-
 from dataapp.models import Activity, Stage, Deal, Direction, User, Company
 
 
@@ -28,8 +26,6 @@ def create_or_update_stage(stage_data):
         "STATUS_ID": stage_data.get("STATUS_ID"),
         "NAME": stage_data.get("NAME"),
         "direction": Direction.objects.filter(ID=stage_data.get("CATEGORY_ID")).first(),
-        # won = True,
-        # status = "WORK",
     }
     stage_obj, created = Stage.objects.update_or_create(
         ID=stage_data.get("ID"),

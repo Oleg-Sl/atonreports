@@ -27,8 +27,6 @@ class DirectionActualManager(models.Manager):
                 filter=models.Q(deal__CLOSED=False)
             )
         ).values('count_active_deal', 'ID', 'VALUE')
-            # .values('count_active_deal', 'id_bx')
-            # annotate(direction=models.F("id_bx"))
 
 
 class DealManager(models.Manager):
@@ -95,15 +93,6 @@ class DealManager(models.Manager):
             "company__ID"
         ).annotate(
             summa_by_company_success=models.Sum("opportunity", filter=models.Q(direction__new=True, stage__status="WON")),
-            # summa_by_company_success=models.Subquery(
-            #     Deal.objects.filter(
-            #         company=models.OuterRef('company__pk'),
-            #         direction__new=True,
-            #         stage__status="SUCCESSFUL"
-            #     ).annotate(
-            #         s=models.Sum('opportunity')
-            #     ).values('s')[:1]
-            # ),
             summa_by_company_work=models.Subquery(
                 Deal.objects.filter(
                     company__ID=models.OuterRef('company__ID'),
@@ -151,7 +140,6 @@ class CompanyStatisticManager(models.Manager):
             # сумма стоимостей успешных сделок
             opportunity_success=models.Sum("deal__opportunity", filter=models.Q(deal__stage__status="WON")),
             # сумма стоимостей сделок в работе
-            # opportunity_work=models.Sum("opportunity", filter=models.Q(stage__status="WORK")),
             opportunity_work=models.Subquery(
                     Deal.objects.filter(
                         company=models.OuterRef('pk'),
@@ -207,4 +195,3 @@ class CompanyStatisticManager(models.Manager):
         ).values(
             "pk", "summa_by_company_success1", "summa_by_company_work1"
         )
-

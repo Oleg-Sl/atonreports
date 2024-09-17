@@ -34,7 +34,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('install/', InstallApiView.as_view()),                         # вызывается при установке приложения
     path('index/', IndexApiView.as_view()),                             # вызывается при открытии приложения
-    # path('app-uninstall/', AppUnistallApiView.as_view()),               # вызывается при удалении приложения
 
     # Добавление и изменение производственного календаря
     # Метод: GET. Параметры: year - год, status - (week/work) тип дня

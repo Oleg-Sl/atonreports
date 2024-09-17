@@ -2,6 +2,7 @@ from dataapp.models import User
 from ..serializers import UserSerializer
 from .utils import get_url_user
 
+
 def add_user_orm(user):
     departments = user.get("UF_DEPARTMENT", [])
     User.objects.update_or_create(

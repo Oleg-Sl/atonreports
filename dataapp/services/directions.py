@@ -1,6 +1,3 @@
-import pprint
-
-
 from dataapp.models import Direction
 
 
@@ -51,4 +48,3 @@ def get_directions_new(bx24):
         })
 
     return results
-

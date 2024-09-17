@@ -28,7 +28,6 @@ def save_deals_to_db(bx24, total=0, count=0, id_start=0):
         "filter": {
             ">ID": id_start,
             ">DATE_CREATE": "2023-06-22",
-            # "<DATE_CREATE": None
         },
         "order": {"ID": "ASC"},
         "start": -1

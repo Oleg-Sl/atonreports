@@ -29,14 +29,12 @@ class Bitrix24:
         """
         r = {}
         try:
-            # Make call to oauth server
             r = post(
                 self.oauth_url,
                 params={'grant_type': 'refresh_token', 'client_id': self.client_id, 'client_secret': self.client_secret,
                         'refresh_token': self.refresh_token})
             print("refresh_token: ", r.text)
             result = json.loads(r.text)
-            # Renew access tokens
             self.auth_token = result['access_token']
             self.refresh_token = result['refresh_token']
             self.expires_in = result['expires_in']
@@ -55,7 +53,6 @@ class Bitrix24:
             }
             r = post(url, data=json.dumps(params), headers=headers, timeout=self.timeout)
             result = json.loads(r.text)
-            # print(result)
         except ValueError:
             pass
             result = dict(error='Error on decode api response [%s]' % r.text)
@@ -80,20 +77,3 @@ class Bitrix24:
             return dict(error='Invalid batch structure')
 
         return self.call("batch", params)
-
-    # def request_list(self, method, fields=None, filter={}, id_start=0):
-    #     filter[">ID"] = id_start
-    #     params = {
-    #         "order": {"ID": "ASC"},
-    #         "filter": filter,
-    #         "select": fields,
-    #         "start": -1
-    #     }
-    #     data = self.request(method, params).get("result")
-    #     if data and isinstance(data, dict) and "save_data_from_bx24" in data:
-    #         data = data.get("save_data_from_bx24")
-    #     if data and isinstance(data, list):
-    #         id_start = data[-1].get("ID") or data[-1].get("id")
-    #         data.extend(self.request_list(method, fields, filter, id_start))
-    #
-    #     return data

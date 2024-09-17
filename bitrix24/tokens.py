@@ -6,10 +6,6 @@ from django.conf import settings
 path_secret_file = os.path.join(settings.BASE_DIR, 'bitrix24', 'secrets_bx24.json')
 
 
-# with open(os.path.join(settings.BASE_DIR, 'settings_app_bx24.json')) as settings_file:
-#     settings = json.load(settings_file)
-
-
 def save_secrets(data):
     print("FILE: ", path_secret_file)
     """ Запись токенов доступа к BX24 в файл """

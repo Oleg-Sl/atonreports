@@ -1,4 +1,3 @@
-import pprint
 from django.core.management.base import BaseCommand
 
 from dataapp.services.tasks import creat_directions

@@ -12,7 +12,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 MONTH_NAME_LIST = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
 
 CREDENTIALS_FILE = "creds.json"
-# SPREADSHEET_ID = '1eweIL3uEzJAcNK5K1QYkKpUoOPfFhbY-4bP38jaicp0'
 SPREADSHEET_ID = "1sM2AweePLayksP2f_dwabT9-ZNO6CovfCTrwlV31rP4"
 
 SHEET_NUMBER = 0            # Порядковый номер листа (нумерация начинается с 0)
@@ -53,12 +52,6 @@ class GoogleAPI:
         return response.get("values", [None,])[0]
 
     def append_row(self, sheet_name, row_index, data):
-        # request = self.client.spreadsheets().values().update(
-        #     spreadsheetId=self.spreadsheet_id,
-        #     range=f'{sheet_name}!A{row_index}',
-        #     valueInputOption='RAW',
-        #     body={'values': [data,]}
-        # )
         request = self.client.spreadsheets().values().append(
             spreadsheetId=self.spreadsheet_id,
             range=sheet_name,
@@ -133,9 +126,6 @@ def getDirection(direction, service):
 
     elif service == "Оценка проф. рисков":
         new_dir = "Оценка проф. рисков"
-
-    # elif service == "Программа ПК":
-    #     new_dir = "ПК"
 
     return new_dir
 
@@ -213,7 +203,6 @@ def add_deal_to_google(deal):
         api.remove_row(SHEET_NUMBER, row)
         api.append_row("log", len(api.get_data_column("log", COL_NAME_WITH_IDS)) + 1, [data[0], "REMOVE", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
     elif deal["deal_won"] and deal.get("UF_CRM_1602484766", "").isnumeric() and int(deal.get("UF_CRM_1602484766")) > 4:
-        # elif deal["deal_won"] and deal.get("UF_CRM_1602484766") == "5":
         # добавление новой сделки
         api.append_row(sheet_name, len(ids_deals) + 1, data)
         api.append_row("log", len(api.get_data_column("log", COL_NAME_WITH_IDS)) + 1, [data[0], "APPEND", deal.get("UF_CRM_1602484766"), json.dumps(deal, ensure_ascii=False), json.dumps(data, ensure_ascii=False)])
@@ -229,7 +218,6 @@ def run():
         try:
             if redis_client.ping():
                 pass
-                # print('Соединение с Redis восстановлено')
             else:
                 print('Нет связи с Redis')
         except redis.exceptions.ConnectionError:

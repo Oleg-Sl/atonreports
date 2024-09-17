@@ -78,10 +78,6 @@ class StatisticCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = ("ID", "TITLE", "ASSIGNED_BY_ID", "responsible", "date_last_communication", "summa_by_company_success", "summa_by_company_work")
-        # fields = '__all__'
-
-
-
 
 
 def converting_list_to_dict(queryset, key_depth_first=None, key_depth_second=None):
@@ -96,9 +92,3 @@ def converting_list_to_dict(queryset, key_depth_first=None, key_depth_second=Non
             response[element[key_depth_first]] = element
 
     return response
-
-
-
-
-
-

@@ -11,9 +11,6 @@ from django.conf import settings
 from datetime import datetime, timedelta, timezone, date
 import logging
 
-# from .services.bitrix24 import verification_app, tokens
-# from .services.converter import converting_list_to_dict
-# from .services.filter_queryset import statistic_company
 from . import filter_queryset
 
 
@@ -40,7 +37,6 @@ from .serializers import (
     RequisitesRegionCompanySerializer,
     RequisitesCityCompanySerializer,
     StatisticCompanySerializer,
-    # CompanyOpportunitySerializer,
     converting_list_to_dict,
 )
 
@@ -116,7 +112,6 @@ class DirectionViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'options']
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
 
 class StageViewSet(viewsets.ModelViewSet):
@@ -124,7 +119,6 @@ class StageViewSet(viewsets.ModelViewSet):
     serializer_class = StageSerializer
     http_method_names = ['get', 'options']
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
@@ -134,7 +128,6 @@ class CompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^ID", "TITLE", "^inn"]
     http_method_names = ['get', 'options']
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
 
 class SectorCompanyViewSet(viewsets.ModelViewSet):
@@ -153,7 +146,6 @@ class RegionCompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^region", ]
     http_method_names = ['get', 'options']
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
 
 class SourceCompanyViewSet(viewsets.ModelViewSet):
@@ -163,7 +155,6 @@ class SourceCompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^source", ]
     http_method_names = ['get', 'options']
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
 
 class RequisitesRegionCompanyViewSet(viewsets.ModelViewSet):
@@ -173,7 +164,6 @@ class RequisitesRegionCompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^requisite_region", ]
     http_method_names = ['get', 'options']
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
 
 class RequisitesCityCompanyViewSet(viewsets.ModelViewSet):
@@ -183,7 +173,6 @@ class RequisitesCityCompanyViewSet(viewsets.ModelViewSet):
     search_fields = ["^requisites_city", ]
     http_method_names = ['get', 'options']
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
 
 class StatisticCompanyViewSet(viewsets.GenericViewSet):
@@ -194,11 +183,6 @@ class StatisticCompanyViewSet(viewsets.GenericViewSet):
     filterset_class = filter_queryset.StatisticCompany
     ordering_fields = ["ID", "TITLE", "ASSIGNED_BY_ID", "date_last_communication", "summa_by_company_success", "summa_by_company_work"]
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
-
-    # def get_queryset(self):
-    #     duration = self.request.query_params.get("duration", "0")
-    #     return super().get_queryset().statistic_company(duration)
 
     def list(self, request, *args, **kwargs):
         duration = request.query_params.get("duration", "0")
@@ -221,7 +205,6 @@ class StatisticCompanyViewSet(viewsets.GenericViewSet):
 
 class StatisticCompanyDirectionViewSet(viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
     def get_queryset(self, companies_ids, directions_ids, limit_date_suspended_deals, limit_date_failed_deals):
         return Deal.objects.statistic_company_by_directions(
@@ -236,9 +219,7 @@ class StatisticCompanyDirectionViewSet(viewsets.GenericViewSet):
         directions_str = request.query_params.get("directions", "")
         days_for_suspended_deals_str = request.query_params.get("days_for_suspended_deals", settings.DEFAULT_DELTA_DEYS_SUSPENDED_DEALS)
         days_for_failed_deals_str = request.query_params.get("days_for_failed_deals", settings.DEFAULT_DELTA_DEYS_FAILED_DEALS)
-        # ID компаний
         companies_ids = [int(el) for el in companies_str.split(",") if isinstance(el, str) and el.isdigit()]
-        # ID направлений
         directions_ids = [int(el) for el in directions_str.split(",") if isinstance(el, str) and el.isdigit()]
 
         if not days_for_suspended_deals_str.isdigit() or not days_for_failed_deals_str.isdigit():
@@ -254,7 +235,6 @@ class StatisticCompanyDirectionViewSet(viewsets.GenericViewSet):
             self.get_queryset(companies_ids, directions_ids, limit_date_suspended_deals, limit_date_failed_deals)
         )
 
-        # response = queryset
         response = converting_list_to_dict(queryset, "company__ID", "direction__ID")
         return Response(response, status=status.HTTP_200_OK)
 
@@ -264,7 +244,6 @@ class StatisticDirectionViewSet(viewsets.GenericViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = filter_queryset.StatisticByDirection
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -274,7 +253,6 @@ class StatisticDirectionViewSet(viewsets.GenericViewSet):
 
 class StatisticCompanyOpportunityViewSet(viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
-    # permission_classes = [AllowAny]
 
     def get_queryset(self, companies_ids):
         return Company.statistic.statistic_company_summary(companies_ids)
@@ -283,6 +261,4 @@ class StatisticCompanyOpportunityViewSet(viewsets.GenericViewSet):
         companies_str = request.query_params.get("companies", "")
         companies_ids = [int(el) for el in companies_str.split(",") if isinstance(el, str) and el.isdigit()]
         queryset = self.filter_queryset(self.get_queryset(companies_ids))
-        # response = converting_list_to_dict(queryset, "company__ID")
-        # return Response(response, status=status.HTTP_200_OK)
         return Response(queryset, status=status.HTTP_200_OK)

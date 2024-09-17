@@ -1,7 +1,5 @@
-import pprint
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-
 
 from bitrix24.request import Bitrix24
 from dataapp.services import utils, directions

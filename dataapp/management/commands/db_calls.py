@@ -25,4 +25,3 @@ class Command(BaseCommand):
             data["<CALL_START_DATE"] = date_create_to
 
         all_calls.save_to_db(bx24, data)
-

@@ -1,5 +1,3 @@
-import redis
-
 from django.core.management.base import BaseCommand
 
 from dataapp.services.save_data_from_bx24 import all_deals
@@ -27,5 +25,3 @@ class Command(BaseCommand):
             data["<DATE_CREATE"] = date_create_to
 
         all_deals.save_to_db(bx24, data)
-
-
